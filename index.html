@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>BasePoint</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; }
+
+    /* Header */
+    .header { background: #fff; border-bottom: 1px solid #e5e5e0; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+    .logo span { color: #1D9E75; }
+    .mode-toggle { display: flex; background: #f0f0ea; border-radius: 10px; padding: 3px; gap: 2px; }
+    .mode-btn { padding: 6px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; transition: all 0.15s; }
+    .mode-btn.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+    /* Search */
+    .search-section { padding: 20px; }
+    .search-bar { display: flex; gap: 10px; }
+    .search-input { flex: 1; padding: 14px 16px; border: 1.5px solid #e0e0da; border-radius: 12px; font-size: 16px; background: #fff; outline: none; transition: border-color 0.15s; }
+    .search-input:focus { border-color: #1D9E75; }
+    .search-btn { padding: 14px 20px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.15s; }
+    .search-btn:active { background: #0F6E56; }
+    .search-btn:disabled { background: #9FE1CB; cursor: not-allowed; }
+
+    /* Results */
+    .results { padding: 0 20px 100px; }
+    .result-card { background: #fff; border-radius: 16px; padding: 18px; margin-bottom: 14px; border: 1px solid #e5e5e0; }
+    .result-name { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .result-type { font-size: 13px; color: #1D9E75; font-weight: 500; margin-bottom: 10px; }
+    .result-meta { display: flex; flex-direction: column; gap: 5px; }
+    .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: #555; }
+    .meta-icon { width: 16px; flex-shrink: 0; margin-top: 1px; }
+    .result-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .action-btn { flex: 1; padding: 10px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; transition: all 0.15s; color: #333; }
+    .action-btn:active { background: #f5f5f0; }
+    .action-btn.primary { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+    .action-btn.primary:active { background: #0F6E56; }
+
+    /* Lead card detail */
+    .lead-card { background: #fff; border-radius: 16px; margin: 0 20px 14px; border: 1px solid #e5e5e0; overflow: hidden; }
+    .lead-card-header { background: #1D9E75; padding: 16px 18px; color: #fff; }
+    .lead-card-header h2 { font-size: 18px; font-weight: 700; }
+    .lead-card-header p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
+    .lead-card-body { padding: 16px 18px; }
+    .lead-section { margin-bottom: 14px; }
+    .lead-section-title { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .lead-field { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #f0f0ea; font-size: 14px; }
+    .lead-field:last-child { border-bottom: none; }
+    .lead-field-label { color: #888; }
+    .lead-field-value { color: #1a1a1a; font-weight: 500; text-align: right; max-width: 60%; }
+    .ai-summary { background: #f0faf6; border-radius: 10px; padding: 12px; font-size: 14px; color: #333; line-height: 1.5; border-left: 3px solid #1D9E75; }
+
+    /* Save modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: flex; align-items: flex-end; }
+    .modal { background: #fff; border-radius: 20px 20px 0 0; padding: 24px 20px 40px; width: 100%; }
+    .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 13px; font-weight: 500; color: #666; margin-bottom: 6px; }
+    .modal-field input, .modal-field textarea, .modal-field select { width: 100%; padding: 12px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 15px; background: #fff; outline: none; }
+    .modal-field textarea { height: 80px; resize: none; font-family: inherit; }
+    .modal-btns { display: flex; gap: 10px; margin-top: 16px; }
+    .modal-cancel { flex: 1; padding: 14px; border: 1.5px solid #e0e0da; border-radius: 12px; background: #fff; font-size: 15px; font-weight: 500; cursor: pointer; }
+    .modal-save { flex: 2; padding: 14px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+
+    /* State messages */
+    .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+    .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state-title { font-size: 17px; font-weight: 600; color: #555; margin-bottom: 6px; }
+    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 10px; color: #666; }
+    .spinner { width: 22px; height: 22px; border: 2.5px solid #e0e0da; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg { background: #fff0ee; border: 1px solid #ffc5bc; border-radius: 12px; padding: 14px 16px; margin: 0 20px 14px; color: #c0392b; font-size: 14px; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 12px 20px; border-radius: 99px; font-size: 14px; font-weight: 500; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
+    .toast.show { opacity: 1; }
+
+    /* Saved tab bottom bar */
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e0; display: flex; padding: 8px 20px 20px; gap: 8px; z-index: 100; }
+    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 10px; font-size: 12px; font-weight: 500; color: #999; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.15s; }
+    .tab-btn svg { width: 22px; height: 22px; }
+    .tab-btn.active { color: #1D9E75; }
+
+    /* Saved leads list */
+    .saved-list { padding: 16px 20px 100px; }
+    .saved-item { background: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #e5e5e0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .saved-item-info { flex: 1; }
+    .saved-item-name { font-size: 15px; font-weight: 600; }
+    .saved-item-sub { font-size: 13px; color: #888; margin-top: 2px; }
+    .status-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; }
+    .status-new { background: #E1F5EE; color: #0F6E56; }
+    .status-contacted { background: #E6F1FB; color: #185FA5; }
+    .status-warm { background: #FAEEDA; color: #854F0B; }
+    .status-notinterested { background: #f5f5f0; color: #888; }
+    .status-converted { background: #EAF3DE; color: #3B6D11; }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Base<span>Point</span></div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-business" onclick="setMode('business')">Business</button>
+    <button class="mode-btn" id="btn-consumer" onclick="setMode('consumer')">Consumer</button>
+  </div>
+</div>
+
+<!-- SEARCH TAB -->
+<div id="tab-search">
+  <div class="search-section">
+    <div class="search-bar">
+      <input class="search-input" id="search-input" type="text" placeholder="Business name or address..." autocomplete="off" autocorrect="off" spellcheck="false" />
+      <button class="search-btn" id="search-btn" onclick="doSearch()">Search</button>
+    </div>
+  </div>
+  <div class="results" id="results-container">
+    <div class="empty-state">
+      <div class="empty-state-icon">🎯</div>
+      <div class="empty-state-title">Find your next prospect</div>
+      <p>Search a business name or address to get started</p>
+    </div>
+  </div>
+</div>
+
+<!-- SAVED TAB -->
+<div id="tab-saved" class="hidden">
+  <div class="saved-list" id="saved-list"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-bar">
+  <button class="tab-btn active" id="nav-search" onclick="switchTab('search')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Search
+  </button>
+  <button class="tab-btn" id="nav-saved" onclick="switchTab('saved')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+    Saved
+  </button>
+</div>
+
+<!-- SAVE MODAL -->
+<div class="modal-overlay hidden" id="save-modal">
+  <div class="modal">
+    <h3>Save Lead</h3>
+    <div class="modal-field">
+      <label>Follow-up date</label>
+      <input type="date" id="followup-date" />
+    </div>
+    <div class="modal-field">
+      <label>Status</label>
+      <select id="lead-status">
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="warm">Warm</option>
+        <option value="notinterested">Not Interested</option>
+        <option value="converted">Converted</option>
+      </select>
+    </div>
+    <div class="modal-field">
+      <label>Notes</label>
+      <textarea id="lead-notes" placeholder="Add notes about this prospect..."></textarea>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveLead()">Save to List</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GOOGLE_API_KEY = 'AIzaSyALEoImvYG41QwL1nTpWG7uog6Vyfk2jB8';
+let currentMode = 'business';
+let currentResults = [];
+let pendingSave = null;
+let leads = JSON.parse(localStorage.getItem('bp_leads') || '[]');
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-business').classList.toggle('active', mode === 'business');
+  document.getElementById('btn-consumer').classList.toggle('active', mode === 'consumer');
+  document.getElementById('search-input').placeholder = mode === 'business'
+    ? 'Business name or address...'
+    : 'Street address...';
+  document.getElementById('results-container').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-state-icon">${mode === 'business' ? '🏢' : '🏠'}</div>
+      <div class="empty-state-title">${mode === 'business' ? 'Find businesses' : 'Look up residents'}</div>
+      <p>${mode === 'business' ? 'Search by name or address' : 'Enter a street address'}</p>
+    </div>`;
+}
+
+function switchTab(tab) {
+  document.getElementById('tab-search').classList.toggle('hidden', tab !== 'search');
+  document.getElementById('tab-saved').classList.toggle('hidden', tab !== 'saved');
+  document.getElementById('nav-search').classList.toggle('active', tab === 'search');
+  document.getElementById('nav-saved').classList.toggle('active', tab !== 'search');
+  if (tab === 'saved') renderSaved();
+}
+
+function showLoading() {
+  document.getElementById('results-container').innerHTML = `
+    <div class="loading"><div class="spinner"></div> Searching...</div>`;
+}
+
+function showError(msg) {
+  document.getElementById('results-container').innerHTML = `<div class="error-msg">⚠️ ${msg}</div>`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+async function doSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (!q) return;
+  document.getElementById('search-btn').disabled = true;
+  showLoading();
+
+  try {
+    if (currentMode === 'business') {
+      await searchBusiness(q);
+    } else {
+      await searchConsumer(q);
+    }
+  } catch (e) {
+    showError('Search failed. Check your connection and try again.');
+  }
+  document.getElementById('search-btn').disabled = false;
+}
+
+document.getElementById('search-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
+async function searchBusiness(query) {
+  const url = `https://places.googleapis.com/v1/places:searchText`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': GOOGLE_API_KEY,
+      'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.regularOpeningHours,places.id'
+    },
+    body: JSON.stringify({ textQuery: query, languageCode: 'en' })
+  });
+
+  if (!res.ok) throw new Error('API error');
+  const data = await res.json();
+  const places = data.places || [];
+
+  if (!places.length) {
+    document.getElementById('results-container').innerHTML = `
+      <div class="empty-state"><div class="empty-state-icon">🔍</div>
+      <div class="empty-state-title">No results found</div>
+      <p>Try a different search term</p></div>`;
+    return;
+  }
+
+  currentResults = places;
+  renderBusinessResults(places);
+}
+
+function renderBusinessResults(places) {
+  const container = document.getElementById('results-container');
+  container.innerHTML = `<p style="font-size:13px;color:#999;margin-bottom:12px;">${places.length} result${places.length>1?'s':''} found</p>`;
+  places.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'result-card';
+    div.innerHTML = `
+      <div class="result-name">${p.displayName?.text || 'Unknown'}</div>
+      <div class="result-type">${p.primaryTypeDisplayName?.text || 'Business'}</div>
+      <div class="result-meta">
+        ${p.formattedAddress ? `<div class="meta-row"><span class="meta-icon">📍</span><span>${p.formattedAddress}</span></div>` : ''}
+        ${p.nationalPhoneNumber ? `<div class="meta-row"><span class="meta-icon">📞</span><span>${p.nationalPhoneNumber}</span></div>` : ''}
+        ${p.websiteUri ? `<div class="meta-row"><span class="meta-icon">🌐</span><span>${p.websiteUri.replace(/^https?:\/\//, '').split('/')[0]}</span></div>` : ''}
+        ${p.rating ? `<div class="meta-row"><span class="meta-icon">⭐</span><span>${p.rating} (${p.userRatingCount || 0} reviews)</span></div>` : ''}
+      </div>
+      <div class="result-actions">
+        <button class="action-btn" onclick="viewLeadCard(${i})">Lead Card</button>
+        <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save</button>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+async function searchConsumer(address) {
+  // Geocode first
+  const geoRes = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_API_KEY}`);
+  const geoData = await geoRes.json();
+  if (!geoData.results?.length) {
+    document.getElementById('results-container').innerHTML = `
+      <div class="empty-state"><div class="empty-state-icon">🏠</div>
+      <div class="empty-state-title">Address not found</div><p>Try a full street address</p></div>`;
+    return;
+  }
+
+  const geo = geoData.results[0];
+  const formatted = geo.formatted_address;
+  const components = {};
+  geo.address_components.forEach(c => { c.types.forEach(t => components[t] = c.short_name); });
+
+  const container = document.getElementById('results-container');
+  container.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'lead-card';
+  card.innerHTML = `
+    <div class="lead-card-header">
+      <h2>🏠 Consumer Lookup</h2>
+      <p>${formatted}</p>
+    </div>
+    <div class="lead-card-body">
+      <div class="lead-section">
+        <div class="lead-section-title">Address Details</div>
+        <div class="lead-field"><span class="lead-field-label">Street</span><span class="lead-field-value">${components.street_number || ''} ${components.route || ''}</span></div>
+        <div class="lead-field"><span class="lead-field-label">City</span><span class="lead-field-value">${components.locality || components.sublocality || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">County</span><span class="lead-field-value">${components.administrative_area_level_2 || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">State</span><span class="lead-field-value">${components.administrative_area_level_1 || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">ZIP</span><span class="lead-field-value">${components.postal_code || '—'}</span></div>
+      </div>
+      <div class="lead-section">
+        <div class="lead-section-title">Property Intel</div>
+        <div class="lead-field"><span class="lead-field-label">Type</span><span class="lead-field-value">Residential</span></div>
+        <div class="lead-field"><span class="lead-field-label">Homeowner</span><span class="lead-field-value">—</span></div>
+        <div class="lead-field"><span class="lead-field-label">Est. Value</span><span class="lead-field-value">—</span></div>
+      </div>
+      <div class="ai-summary">💡 Consumer data enrichment (age, household, homeowner status) requires BeenVerified API — plug in when ready for Phase 1.9.</div>
+      <div class="result-actions" style="margin-top:14px;">
+        <button class="action-btn primary" onclick="openConsumerSave('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button>
+      </div>
+    </div>`;
+  container.appendChild(card);
+}
+
+function openConsumerSave(address) {
+  pendingSave = { name: address, type: 'Consumer/Resident', address, mode: 'consumer', raw: {} };
+  openModalUI();
+}
+
+function viewLeadCard(i) {
+  const p = currentResults[i];
+  const container = document.getElementById('results-container');
+  container.innerHTML = '';
+
+  const back = document.createElement('button');
+  back.style.cssText = 'display:flex;align-items:center;gap:6px;background:none;border:none;font-size:15px;color:#1D9E75;font-weight:500;cursor:pointer;margin:0 0 12px 0;';
+  back.innerHTML = '← Back to results';
+  back.onclick = () => renderBusinessResults(currentResults);
+  container.appendChild(back);
+
+  const card = document.createElement('div');
+  card.className = 'lead-card';
+  card.innerHTML = `
+    <div class="lead-card-header">
+      <h2>${p.displayName?.text || 'Business'}</h2>
+      <p>${p.primaryTypeDisplayName?.text || 'Business'}</p>
+    </div>
+    <div class="lead-card-body">
+      <div class="lead-section">
+        <div class="lead-section-title">Contact Info</div>
+        <div class="lead-field"><span class="lead-field-label">Address</span><span class="lead-field-value">${p.formattedAddress || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Phone</span><span class="lead-field-value">${p.nationalPhoneNumber || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value">${p.websiteUri ? p.websiteUri.replace(/^https?:\/\//, '').split('/')[0] : '—'}</span></div>
+      </div>
+      <div class="lead-section">
+        <div class="lead-section-title">Business Intelligence</div>
+        <div class="lead-field"><span class="lead-field-label">Type</span><span class="lead-field-value">${p.primaryTypeDisplayName?.text || '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating ? p.rating + ' ★ (' + p.userRatingCount + ' reviews)' : '—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${p.businessStatus || '—'}</span></div>
+      </div>
+      <div class="lead-section">
+        <div class="lead-section-title">AI Summary</div>
+        <div class="ai-summary" id="ai-summary-${i}">⏳ Generating insight...</div>
+      </div>
+      <div class="result-actions" style="margin-top:14px;">
+        <button class="action-btn" onclick="renderBusinessResults(currentResults)">Back</button>
+        <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save Lead</button>
+      </div>
+    </div>`;
+  container.appendChild(card);
+  generateAISummary(p, i);
+}
+
+async function generateAISummary(place, i) {
+  const el = document.getElementById(`ai-summary-${i}`);
+  if (!el) return;
+  try {
+    const prompt = `You are a prospecting assistant for a licensed insurance/financial advisor. Given this business, write a 2-sentence prospect note: why this business might need insurance or financial services, and the best approach angle. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Be specific and actionable. No fluff.`;
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 150, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    el.textContent = '💡 ' + (data.content?.[0]?.text || 'No summary available.');
+  } catch {
+    el.textContent = '💡 AI summary unavailable — Claude API key needed.';
+  }
+}
+
+function openSaveModal(i) {
+  const p = currentResults[i];
+  pendingSave = {
+    name: p.displayName?.text || 'Unknown',
+    type: p.primaryTypeDisplayName?.text || 'Business',
+    address: p.formattedAddress || '',
+    phone: p.nationalPhoneNumber || '',
+    website: p.websiteUri || '',
+    rating: p.rating || '',
+    mode: 'business',
+    raw: p
+  };
+  openModalUI();
+}
+
+function openModalUI() {
+  const today = new Date();
+  today.setDate(today.getDate() + 7);
+  document.getElementById('followup-date').value = today.toISOString().split('T')[0];
+  document.getElementById('lead-notes').value = '';
+  document.getElementById('lead-status').value = 'new';
+  document.getElementById('save-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('save-modal').classList.add('hidden');
+  pendingSave = null;
+}
+
+function saveLead() {
+  if (!pendingSave) return;
+  const lead = {
+    ...pendingSave,
+    id: Date.now(),
+    savedAt: new Date().toISOString(),
+    followup: document.getElementById('followup-date').value,
+    status: document.getElementById('lead-status').value,
+    notes: document.getElementById('lead-notes').value
+  };
+  leads.unshift(lead);
+  localStorage.setItem('bp_leads', JSON.stringify(leads));
+  closeModal();
+  showToast('Lead saved ✓');
+}
+
+function renderSaved() {
+  const container = document.getElementById('saved-list');
+  if (!leads.length) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">No saved leads yet</div><p>Search for businesses and save them here</p></div>`;
+    return;
+  }
+  container.innerHTML = leads.map((l, i) => `
+    <div class="saved-item" onclick="viewSavedLead(${i})">
+      <div class="saved-item-info">
+        <div class="saved-item-name">${l.name}</div>
+        <div class="saved-item-sub">${l.type} ${l.followup ? '· Follow up: ' + l.followup : ''}</div>
+      </div>
+      <span class="status-badge status-${l.status}">${l.status.charAt(0).toUpperCase() + l.status.slice(1)}</span>
+    </div>`).join('');
+}
+
+function viewSavedLead(i) {
+  const l = leads[i];
+  alert(`${l.name}\n${l.address}\n${l.phone}\nStatus: ${l.status}\nFollow-up: ${l.followup}\nNotes: ${l.notes}`);
+}
+</script>
+</body>
+</html>
