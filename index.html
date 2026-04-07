@@ -1,139 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>BasePoint</title>
   <style>
+    :root {
+      --bp: #185FA5;
+      --bp-light: #E6F1FB;
+      --bp-mid: #378ADD;
+      --bp-dark: #0C447C;
+      --bg: #f5f5f0;
+      --surface: #fff;
+      --border: #e5e5e0;
+      --border2: #e0e0da;
+      --text: #1a1a1a;
+      --text2: #555;
+      --text3: #999;
+      --radius: 12px;
+      --radius-lg: 16px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1117;
+        --surface: #1c1f26;
+        --border: #2a2d35;
+        --border2: #32363f;
+        --text: #f0f0f0;
+        --text2: #aaa;
+        --text3: #666;
+        --bp-light: #0c2540;
+      }
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    .header { background: #fff; border-bottom: 1px solid #e5e5e0; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-    .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-    .logo span { color: #1D9E75; }
-    .v-tag { font-size: 10px; font-weight: 600; background: #E1F5EE; color: #0F6E56; padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
-    .mode-toggle { display: flex; background: #f0f0ea; border-radius: 10px; padding: 3px; gap: 2px; }
-    .mode-btn { padding: 5px 12px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; }
-    .mode-btn.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    /* Header */
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 13px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+    .logo span { color: var(--bp); }
+    .v-tag { font-size: 10px; font-weight: 600; background: var(--bp-light); color: var(--bp); padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
+    .mode-toggle { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; gap: 2px; }
+    .mode-btn { padding: 5px 12px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text3); }
+    .mode-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
     /* Search */
     .search-section { padding: 14px 20px 8px; }
     .search-bar { display: flex; gap: 10px; }
-    .search-input { flex: 1; padding: 13px 16px; border: 1.5px solid #e0e0da; border-radius: 12px; font-size: 16px; background: #fff; outline: none; }
-    .search-input:focus { border-color: #1D9E75; }
-    .search-btn { padding: 13px 20px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-    .search-btn:disabled { background: #9FE1CB; }
+    .search-input { flex: 1; padding: 13px 16px; border: 1.5px solid var(--border2); border-radius: var(--radius); font-size: 16px; background: var(--surface); color: var(--text); outline: none; }
+    .search-input:focus { border-color: var(--bp); }
+    .search-btn { padding: 13px 20px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .search-btn:disabled { opacity: 0.5; }
     .search-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-    .near-me-btn { padding: 7px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
-    .near-me-btn.active { border-color: #1D9E75; color: #1D9E75; background: #f0faf6; }
+    .near-me-btn { padding: 7px 12px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--text); }
+    .near-me-btn.active { border-color: var(--bp); color: var(--bp); background: var(--bp-light); }
 
     /* Results */
-    .results { padding: 8px 20px 100px; }
+    .results { padding: 8px 20px 110px; }
     .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .results-count { font-size: 13px; color: #999; }
-    .save-all-btn { padding: 7px 14px; background: #1D9E75; color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .result-card { background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid #e5e5e0; }
-    .result-name { font-size: 17px; font-weight: 600; margin-bottom: 3px; }
-    .result-type { font-size: 13px; color: #1D9E75; font-weight: 500; margin-bottom: 8px; }
-    .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: #555; margin-bottom: 4px; }
+    .results-count { font-size: 13px; color: var(--text3); }
+    .save-all-btn { padding: 7px 14px; background: var(--bp); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .result-card { background: var(--surface); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
+    .result-name { font-size: 17px; font-weight: 600; margin-bottom: 3px; color: var(--text); }
+    .result-type { font-size: 13px; color: var(--bp); font-weight: 500; margin-bottom: 8px; }
+    .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: var(--text2); margin-bottom: 4px; }
     .result-actions { display: flex; gap: 8px; margin-top: 12px; }
-    .action-btn { flex: 1; padding: 10px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; color: #333; }
-    .action-btn.primary { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+    .action-btn { flex: 1; padding: 11px 8px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; color: var(--text); }
+    .action-btn.primary { background: var(--bp); color: #fff; border-color: var(--bp); }
+    .action-btn.call { background: #E1F5EE; color: #0F6E56; border-color: #9FE1CB; }
 
     /* Lead card */
-    .lead-card { background: #fff; border-radius: 16px; margin-bottom: 14px; border: 1px solid #e5e5e0; overflow: hidden; }
-    .lead-card-header { background: #1D9E75; padding: 14px 18px; color: #fff; }
+    .lead-card { background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 14px; border: 1px solid var(--border); overflow: hidden; }
+    .lead-card-header { background: var(--bp); padding: 14px 18px; color: #fff; }
     .lead-card-header h2 { font-size: 18px; font-weight: 700; }
     .lead-card-header p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
     .lead-card-body { padding: 14px 18px; }
     .lead-section { margin-bottom: 12px; }
-    .lead-section-title { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .lead-field { display: flex; justify-content: space-between; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #f0f0ea; font-size: 14px; }
+    .lead-section-title { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .lead-field { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
     .lead-field:last-child { border-bottom: none; }
-    .lead-field-label { color: #888; }
-    .lead-field-value { color: #1a1a1a; font-weight: 500; text-align: right; max-width: 60%; }
-    .sunbiz-badge { display: inline-block; background: #E6F1FB; color: #185FA5; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
-    .ai-summary { background: #f0faf6; border-radius: 10px; padding: 12px; font-size: 14px; color: #333; line-height: 1.5; border-left: 3px solid #1D9E75; }
+    .lead-field-label { color: var(--text3); }
+    .lead-field-value { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; }
+    .lead-field-actions { display: flex; gap: 6px; }
+    .field-btn { padding: 4px 10px; border: 1px solid var(--border2); border-radius: 99px; background: var(--surface); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--bp); white-space: nowrap; }
+    .sunbiz-badge { display: inline-block; background: var(--bp-light); color: var(--bp); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
+    .erisa-badge { display: inline-block; background: #EAF3DE; color: #3B6D11; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; margin-left: 4px; }
+    .ai-summary { background: var(--bp-light); border-radius: 10px; padding: 12px; font-size: 14px; color: var(--text); line-height: 1.5; border-left: 3px solid var(--bp); }
 
-    /* Saved list */
-    .saved-header { padding: 12px 20px 6px; display: flex; gap: 8px; align-items: center; }
-    .filter-select { flex: 1; padding: 9px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 14px; background: #fff; outline: none; }
-    .sort-select { padding: 9px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 14px; background: #fff; outline: none; }
-    .toolbar-btn { padding: 9px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; color: #333; }
-    .saved-list { padding: 6px 20px 100px; }
-    .saved-item { background: #fff; border-radius: 14px; padding: 13px 16px; margin-bottom: 8px; border: 1px solid #e5e5e0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    /* Status flow (big buttons) */
+    .status-flow { padding: 16px 18px; border-top: 1px solid var(--border); }
+    .flow-step { margin-bottom: 14px; }
+    .flow-step-label { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--bp); margin-bottom: 8px; }
+    .flow-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--bp); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .flow-dot.inactive { background: var(--border2); color: var(--text3); }
+    .btn-grid { display: grid; gap: 8px; }
+    .btn-grid.col2 { grid-template-columns: 1fr 1fr; }
+    .btn-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
+    .flow-btn { padding: 13px 8px; border: 2px solid var(--border2); border-radius: var(--radius); background: var(--surface); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; color: var(--text2); line-height: 1.3; transition: all .12s; }
+    .flow-btn:active { transform: scale(0.97); }
+    .flow-btn.sel-blue { border-color: var(--bp); background: var(--bp-light); color: var(--bp-dark); }
+    .flow-btn.sel-red { border-color: #E24B4A; background: #fff5f5; color: #791F1F; }
+    .flow-btn.sel-amber { border-color: #BA7517; background: #fffbf0; color: #412402; }
+    .flow-btn.sel-green { border-color: #3B6D11; background: #EAF3DE; color: #173404; }
+    .flow-btn.sel-purple { border-color: #534AB7; background: #EEEDFE; color: #26215C; }
+    .flow-btn.inactive { opacity: 0.3; pointer-events: none; }
+    .flow-summary { background: var(--bp-light); border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--bp-dark); border-left: 3px solid var(--bp); margin-bottom: 12px; display: none; }
+    .followup-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .fc { padding: 9px 14px; border: 2px solid var(--border2); border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text2); background: var(--surface); }
+    .fc.sel { border-color: var(--bp); background: var(--bp-light); color: var(--bp-dark); }
+    .voice-wrap { position: relative; }
+    .voice-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 20px; padding: 4px; color: var(--text3); }
+    .voice-btn.recording { color: #E24B4A; }
+    .flow-note { width: 100%; padding: 11px 44px 11px 12px; border: 1.5px solid var(--border2); border-radius: 10px; font-size: 14px; background: var(--surface); color: var(--text); resize: none; height: 72px; font-family: inherit; outline: none; }
+    .flow-note:focus { border-color: var(--bp); }
+    .today-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text3); margin-bottom: 8px; }
+    .save-flow-btn { width: 100%; padding: 15px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+
+    /* Saved */
+    .saved-header { padding: 10px 20px 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .filter-select, .sort-select { padding: 8px 10px; border: 1.5px solid var(--border2); border-radius: 10px; font-size: 13px; background: var(--surface); color: var(--text); outline: none; }
+    .filter-select { flex: 1; min-width: 120px; }
+    .toolbar-btn { padding: 8px 12px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text); white-space: nowrap; }
+    .saved-list { padding: 6px 20px 110px; }
+    .saved-item { background: var(--surface); border-radius: 14px; padding: 13px 16px; margin-bottom: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .saved-item-info { flex: 1; min-width: 0; }
-    .saved-item-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .saved-item-sub { font-size: 13px; color: #888; margin-top: 2px; }
+    .saved-item-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+    .saved-item-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
     .saved-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 10px; }
-    .status-badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 99px; }
-    .status-new { background: #E1F5EE; color: #0F6E56; }
-    .status-contacted { background: #E6F1FB; color: #185FA5; }
-    .status-warm { background: #FAEEDA; color: #854F0B; }
-    .status-notinterested { background: #f5f5f0; color: #888; }
-    .status-converted { background: #EAF3DE; color: #3B6D11; }
-    .map-btn { font-size: 11px; color: #1D9E75; font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
+    .status-badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 99px; white-space: nowrap; }
+    .sb-new { background: var(--bp-light); color: var(--bp-dark); }
+    .sb-contacted { background: #FAEEDA; color: #412402; }
+    .sb-warm { background: #EAF3DE; color: #173404; }
+    .sb-notinterested { background: #FCEBEB; color: #501313; }
+    .sb-converted { background: #EEEDFE; color: #26215C; }
+    .map-btn { font-size: 11px; color: var(--bp); font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
 
     /* Calendar */
-    .cal-wrap { padding: 12px 20px 100px; }
+    .cal-wrap { padding: 12px 20px 110px; }
     .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .cal-nav { padding: 8px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 15px; cursor: pointer; }
-    .cal-month { font-size: 17px; font-weight: 600; }
-    .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; margin-bottom: 16px; }
-    .cal-day-label { text-align: center; font-size: 11px; font-weight: 600; color: #999; padding: 4px 0; }
-    .cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; }
-    .cal-cell.other-month { color: #ccc; }
-    .cal-cell.today { background: #f0faf6; font-weight: 700; color: #1D9E75; }
-    .cal-cell.has-leads::after { content: ''; position: absolute; bottom: 3px; width: 5px; height: 5px; background: #1D9E75; border-radius: 50%; }
-    .cal-cell.selected { background: #1D9E75; color: #fff; }
+    .cal-nav { padding: 8px 14px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 16px; cursor: pointer; color: var(--text); }
+    .cal-month-label { font-size: 17px; font-weight: 600; color: var(--text); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 2px; margin-bottom: 14px; }
+    .cal-day-label { text-align: center; font-size: 11px; font-weight: 600; color: var(--text3); padding: 4px 0; }
+    .cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; color: var(--text); }
+    .cal-cell.other-month { color: var(--border2); }
+    .cal-cell.today { background: var(--bp-light); font-weight: 700; color: var(--bp); }
+    .cal-cell.has-leads::after { content:''; position: absolute; bottom: 3px; width: 5px; height: 5px; background: var(--bp); border-radius: 50%; }
+    .cal-cell.selected { background: var(--bp); color: #fff; }
     .cal-cell.selected::after { background: #fff; }
-    .cal-leads { background: #fff; border-radius: 14px; border: 1px solid #e5e5e0; overflow: hidden; }
-    .cal-leads-header { padding: 12px 16px; border-bottom: 1px solid #f0f0ea; font-size: 14px; font-weight: 600; }
-    .cal-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #f5f5f0; font-size: 14px; }
+    .cal-leads { background: var(--surface); border-radius: 14px; border: 1px solid var(--border); overflow: hidden; }
+    .cal-leads-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; font-weight: 600; color: var(--text); }
+    .cal-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text); }
     .cal-lead-row:last-child { border-bottom: none; }
-    .cal-empty { padding: 20px 16px; font-size: 14px; color: #999; text-align: center; }
-
-    /* Modal */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: flex; align-items: flex-end; }
-    .modal { background: #fff; border-radius: 20px 20px 0 0; padding: 24px 20px 40px; width: 100%; max-height: 85vh; overflow-y: auto; }
-    .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
-    .modal-field { margin-bottom: 14px; }
-    .modal-field label { display: block; font-size: 13px; font-weight: 500; color: #666; margin-bottom: 6px; }
-    .modal-field input, .modal-field textarea, .modal-field select { width: 100%; padding: 12px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 15px; background: #fff; outline: none; font-family: inherit; }
-    .modal-field textarea { height: 80px; resize: none; }
-    .modal-btns { display: flex; gap: 10px; margin-top: 16px; }
-    .modal-cancel { flex: 1; padding: 14px; border: 1.5px solid #e0e0da; border-radius: 12px; background: #fff; font-size: 15px; font-weight: 500; cursor: pointer; }
-    .modal-save { flex: 2; padding: 14px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
-    .modal-delete { width: 100%; padding: 14px; background: #fff; color: #c0392b; border: 1.5px solid #ffc5bc; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 8px; }
+    .cal-empty { padding: 20px 16px; font-size: 14px; color: var(--text3); text-align: center; }
 
     /* Misc */
-    .empty-state { text-align: center; padding: 50px 20px; color: #999; }
+    .empty-state { text-align: center; padding: 50px 20px; color: var(--text3); }
     .empty-state-icon { font-size: 44px; margin-bottom: 10px; }
-    .empty-state-title { font-size: 17px; font-weight: 600; color: #555; margin-bottom: 6px; }
-    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 10px; color: #666; }
-    .spinner { width: 22px; height: 22px; border: 2.5px solid #e0e0da; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    .empty-state-title { font-size: 17px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+    .loading { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 10px; color: var(--text3); }
+    .spinner { width: 22px; height: 22px; border: 2.5px solid var(--border2); border-top-color: var(--bp); border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .back-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 15px; color: #1D9E75; font-weight: 500; cursor: pointer; margin-bottom: 12px; padding: 0; }
-    .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 12px 20px; border-radius: 99px; font-size: 14px; font-weight: 500; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
+    .back-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 15px; color: var(--bp); font-weight: 500; cursor: pointer; margin-bottom: 12px; padding: 0; }
+    .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--surface); padding: 12px 20px; border-radius: 99px; font-size: 14px; font-weight: 500; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
     .toast.show { opacity: 1; }
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e0; display: flex; padding: 8px 8px 24px; gap: 2px; z-index: 100; }
-    .tab-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; border-radius: 10px; font-size: 11px; font-weight: 500; color: #999; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); display: flex; padding: 8px 8px 24px; gap: 2px; z-index: 100; }
+    .tab-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; border-radius: 10px; font-size: 11px; font-weight: 500; color: var(--text3); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; white-space: nowrap; }
     .tab-btn svg { width: 20px; height: 20px; }
-    .tab-btn.active { color: #1D9E75; }
+    .tab-btn.active { color: var(--bp); }
+    .saved-count-badge { display: inline-block; background: var(--bp); color: #fff; border-radius: 99px; font-size: 10px; font-weight: 700; padding: 1px 5px; margin-left: 2px; }
     .hidden { display: none !important; }
 
     /* Auth */
-    #auth-screen { position: fixed; inset: 0; background: #f5f5f0; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 30px; text-align: center; }
-    .auth-logo { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
-    .auth-logo span { color: #1D9E75; }
-    .auth-tagline { font-size: 15px; color: #888; margin-bottom: 50px; }
-    .auth-icon { width: 80px; height: 80px; background: #fff; border-radius: 24px; border: 1.5px solid #e5e5e0; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 38px; }
-    .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .auth-sub { font-size: 14px; color: #888; margin-bottom: 28px; line-height: 1.5; }
-    .auth-btn { width: 100%; max-width: 320px; padding: 16px; background: #1D9E75; color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
-    .auth-btn.secondary { background: #fff; color: #1a1a1a; border: 1.5px solid #e0e0da; }
-    .auth-error { color: #c0392b; font-size: 13px; margin-top: 12px; min-height: 20px; }
-    .auth-note { font-size: 12px; color: #bbb; margin-top: 20px; line-height: 1.6; }
+    #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 30px; text-align: center; }
+    .auth-logo { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: var(--text); }
+    .auth-logo span { color: var(--bp); }
+    .auth-tagline { font-size: 15px; color: var(--text3); margin-bottom: 50px; }
+    .auth-icon { width: 80px; height: 80px; background: var(--surface); border-radius: 24px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 38px; }
+    .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .auth-sub { font-size: 14px; color: var(--text3); margin-bottom: 28px; line-height: 1.5; }
+    .auth-btn { width: 100%; max-width: 320px; padding: 16px; background: var(--bp); color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
+    .auth-btn.secondary { background: var(--surface); color: var(--text); border: 1.5px solid var(--border2); }
+    .auth-error { color: #E24B4A; font-size: 13px; margin-top: 12px; min-height: 20px; }
+    .auth-note { font-size: 12px; color: var(--text3); margin-top: 20px; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -147,12 +196,12 @@
   <button class="auth-btn" id="auth-primary-btn" onclick="handleAuthPrimary()">Use Face ID / Touch ID</button>
   <button class="auth-btn secondary hidden" id="auth-register-btn" onclick="handleRegister()">Set Up Biometric Login</button>
   <div class="auth-error" id="auth-error"></div>
-  <div class="auth-note">Your data stays on this device.<br>No account required. · v0.5</div>
+  <div class="auth-note">Your data stays on this device · v0.6</div>
 </div>
 
 <div id="app-shell" class="hidden">
   <div class="header">
-    <div class="logo">Base<span>Point</span><span class="v-tag">v0.5</span></div>
+    <div class="logo">Base<span>Point</span><span class="v-tag">v0.6</span></div>
     <div class="mode-toggle">
       <button class="mode-btn active" id="btn-business" onclick="setMode('business')">Business</button>
       <button class="mode-btn" id="btn-consumer" onclick="setMode('consumer')">Consumer</button>
@@ -163,13 +212,13 @@
   <div id="tab-search">
     <div class="search-section">
       <div class="search-bar">
-        <input class="search-input" id="search-input" type="text" placeholder="Business name or address..." autocomplete="off" autocorrect="off" spellcheck="false" />
+        <input class="search-input" id="search-input" type="text" placeholder="Business name or address..." autocomplete="off" autocorrect="off" spellcheck="false"/>
         <button class="search-btn" id="search-btn" onclick="doSearch()">Search</button>
       </div>
       <div class="search-controls">
         <button class="near-me-btn" id="near-me-btn" onclick="useNearMe()">📍 Near Me</button>
-        <input type="range" id="radius-slider" min="1" max="50" value="5" step="1" style="flex:1;" oninput="updateRadius(this.value)" />
-        <span id="radius-label" style="font-size:13px;color:#888;min-width:42px;text-align:right;">5 mi</span>
+        <input type="range" id="radius-slider" min="1" max="50" value="5" step="1" style="flex:1" oninput="updateRadius(this.value)"/>
+        <span id="radius-label" style="font-size:13px;color:var(--text3);min-width:42px;text-align:right">5 mi</span>
       </div>
     </div>
     <div class="results" id="results-container">
@@ -196,7 +245,6 @@
         <option value="recent">Recent</option>
         <option value="followup">Follow-up</option>
         <option value="name">Name</option>
-        <option value="status">Status</option>
       </select>
       <button class="toolbar-btn" onclick="exportCSV()">⬇ CSV</button>
     </div>
@@ -208,7 +256,7 @@
     <div class="cal-wrap">
       <div class="cal-header">
         <button class="cal-nav" onclick="calNav(-1)">‹</button>
-        <div class="cal-month" id="cal-month-label"></div>
+        <div class="cal-month-label" id="cal-month-label"></div>
         <button class="cal-nav" onclick="calNav(1)">›</button>
       </div>
       <div class="cal-grid" id="cal-grid"></div>
@@ -223,36 +271,12 @@
     </button>
     <button class="tab-btn" id="nav-saved" onclick="switchTab('saved')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-      Saved (<span id="saved-count">0</span>)
+      Saved <span class="saved-count-badge" id="saved-count">0</span>
     </button>
     <button class="tab-btn" id="nav-calendar" onclick="switchTab('calendar')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Calendar
     </button>
-  </div>
-</div>
-
-<!-- SAVE/EDIT MODAL -->
-<div class="modal-overlay hidden" id="save-modal">
-  <div class="modal">
-    <h3 id="modal-title">Save Lead</h3>
-    <div class="modal-field"><label>Follow-up date</label><input type="date" id="followup-date" /></div>
-    <div class="modal-field">
-      <label>Status</label>
-      <select id="lead-status">
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="warm">Warm</option>
-        <option value="notinterested">Not Interested</option>
-        <option value="converted">Converted</option>
-      </select>
-    </div>
-    <div class="modal-field"><label>Notes</label><textarea id="lead-notes" placeholder="Add notes..."></textarea></div>
-    <div class="modal-btns">
-      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
-      <button class="modal-save" onclick="saveLead()">Save</button>
-    </div>
-    <button class="modal-delete hidden" id="modal-delete-btn" onclick="deleteLead()">🗑 Delete Lead</button>
   </div>
 </div>
 
@@ -262,15 +286,12 @@
 const GOOGLE_API_KEY = 'AIzaSyALEoImvYG41QwL1nTpWG7uog6Vyfk2jB8';
 let currentMode = 'business';
 let currentResults = [];
-let pendingSave = null;
-let editingLeadIndex = null;
 let searchRadius = 8047;
 let userLat = null, userLng = null;
 let calYear, calMonth, calSelected;
 let leads = JSON.parse(localStorage.getItem('bp_leads') || '[]');
 
-const statusLabel = { new:'New', contacted:'Contacted', warm:'Warm', notinterested:'Not Interested', converted:'Converted' };
-const statusOrder = { new:0, contacted:1, warm:2, notinterested:3, converted:4 };
+const STATUS_LABEL = { new:'New', contacted:'Contacted', warm:'Warm', notinterested:'Not Interested', converted:'Converted' };
 
 function updateSavedCount() { document.getElementById('saved-count').textContent = leads.length; }
 updateSavedCount();
@@ -280,7 +301,7 @@ function setMode(mode) {
   currentMode = mode;
   ['business','consumer'].forEach(m => document.getElementById('btn-'+m).classList.toggle('active', m===mode));
   document.getElementById('search-input').placeholder = mode==='business' ? 'Business name or address...' : 'Street address...';
-  document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">${mode==='business'?'🏢':'🏠'}</div><div class="empty-state-title">${mode==='business'?'Find businesses':'Look up residents'}</div><p>${mode==='business'?'Search by name or address':'Enter a street address'}</p></div>`;
+  document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">${mode==='business'?'🏢':'🏠'}</div><div class="empty-state-title">${mode==='business'?'Find businesses':'Look up residents'}</div></div>`;
 }
 
 function switchTab(tab) {
@@ -294,7 +315,6 @@ function switchTab(tab) {
 
 // ── UTILS ──
 function showLoading() { document.getElementById('results-container').innerHTML = `<div class="loading"><div class="spinner"></div> Searching...</div>`; }
-function showError(msg) { document.getElementById('results-container').innerHTML = `<div style="background:#fff0ee;border:1px solid #ffc5bc;border-radius:12px;padding:14px;color:#c0392b;font-size:14px;">⚠️ ${msg}</div>`; }
 function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
 // ── SEARCH ──
@@ -304,43 +324,53 @@ async function doSearch() {
   document.getElementById('search-btn').disabled = true;
   showLoading();
   try { currentMode==='business' ? await searchBusiness(q) : await searchConsumer(q); }
-  catch(e) { showError('Search failed. Check your connection.'); }
+  catch(e) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-title">Search failed</div><p>Check connection and try again</p></div>`; }
   document.getElementById('search-btn').disabled = false;
 }
 document.getElementById('search-input').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
 async function searchBusiness(query) {
+  const savedNames = new Set(leads.map(l => l.name + '|' + l.address));
   const body = { textQuery: query, languageCode: 'en', pageSize: 20 };
   if (userLat) body.locationBias = { circle: { center: { latitude:userLat, longitude:userLng }, radius:searchRadius } };
   const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
     method: 'POST',
-    headers: { 'Content-Type':'application/json', 'X-Goog-Api-Key':GOOGLE_API_KEY, 'X-Goog-FieldMask':'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.id' },
+    headers: { 'Content-Type':'application/json', 'X-Goog-Api-Key':GOOGLE_API_KEY, 'X-Goog-FieldMask':'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.regularOpeningHours,places.id' },
     body: JSON.stringify(body)
   });
   if (!res.ok) throw new Error();
   const data = await res.json();
-  const places = data.places || [];
-  if (!places.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No results</div><p>Try a different search</p></div>`; return; }
+  let places = data.places || [];
+  // filter recently saved (60 days)
+  const cutoff = Date.now() - 60*24*60*60*1000;
+  places = places.filter(p => {
+    const key = (p.displayName?.text||'') + '|' + (p.formattedAddress||'');
+    const saved = leads.find(l => (l.name+'|'+l.address)===key);
+    return !saved || new Date(saved.savedAt).getTime() < cutoff;
+  });
+  if (!places.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No new results</div><p>All matches are in your saved list</p></div>`; return; }
   currentResults = places;
   renderBusinessResults(places);
 }
 
 function renderBusinessResults(places) {
   const c = document.getElementById('results-container');
-  c.innerHTML = `<div class="results-header"><span class="results-count">${places.length} result${places.length>1?'s':''}</span><button class="save-all-btn" onclick="saveAll()">Save All</button></div>`;
+  c.innerHTML = `<div class="results-header"><span class="results-count">${places.length} result${places.length!==1?'s':''}</span><button class="save-all-btn" onclick="saveAll()">Save All</button></div>`;
   places.forEach((p,i) => {
     const d = document.createElement('div');
     d.className = 'result-card';
+    const hours = p.regularOpeningHours?.weekdayDescriptions?.[new Date().getDay()-1] || null;
     d.innerHTML = `
       <div class="result-name">${p.displayName?.text||'Unknown'}</div>
       <div class="result-type">${p.primaryTypeDisplayName?.text||'Business'}</div>
-      ${p.formattedAddress?`<div class="meta-row">📍 <span>${p.formattedAddress}</span></div>`:''}
-      ${p.nationalPhoneNumber?`<div class="meta-row">📞 <span>${p.nationalPhoneNumber}</span></div>`:''}
-      ${p.websiteUri?`<div class="meta-row">🌐 <span>${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>`:''}
-      ${p.rating?`<div class="meta-row">⭐ <span>${p.rating} (${p.userRatingCount||0})</span></div>`:''}
+      ${p.formattedAddress?`<div class="meta-row">📍 ${p.formattedAddress}</div>`:''}
+      ${p.nationalPhoneNumber?`<div class="meta-row">📞 ${p.nationalPhoneNumber}</div>`:''}
+      ${hours?`<div class="meta-row">🕐 ${hours}</div>`:''}
+      ${p.rating?`<div class="meta-row">⭐ ${p.rating} (${p.userRatingCount||0})</div>`:''}
       <div class="result-actions">
         <button class="action-btn" onclick="viewLeadCard(${i})">Lead Card</button>
-        <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save</button>
+        ${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''}
+        <button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button>
       </div>`;
     c.appendChild(d);
   });
@@ -355,107 +385,99 @@ async function searchConsumer(address) {
   const comp = {};
   geo.address_components.forEach(c => c.types.forEach(t => comp[t]=c.short_name));
   const c = document.getElementById('results-container');
-  c.innerHTML = '';
+  c.innerHTML='';
   const card = document.createElement('div');
-  card.className = 'lead-card';
-  card.innerHTML = `
+  card.className='lead-card';
+  card.innerHTML=`
     <div class="lead-card-header"><h2>🏠 Consumer Lookup</h2><p>${formatted}</p></div>
     <div class="lead-card-body">
       <div class="lead-section">
         <div class="lead-section-title">Address Details</div>
-        <div class="lead-field"><span class="lead-field-label">Street</span><span class="lead-field-value">${comp.street_number||''} ${comp.route||''}</span></div>
-        <div class="lead-field"><span class="lead-field-label">City</span><span class="lead-field-value">${comp.locality||comp.sublocality||'—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Street</span><div class="lead-field-actions"><span class="lead-field-value">${comp.street_number||''} ${comp.route||''}</span><button class="field-btn" onclick="copyText('${(comp.street_number||'')+' '+(comp.route||'')}')">Copy</button></div></div>
+        <div class="lead-field"><span class="lead-field-label">City</span><span class="lead-field-value">${comp.locality||'—'}</span></div>
         <div class="lead-field"><span class="lead-field-label">County</span><span class="lead-field-value">${comp.administrative_area_level_2||'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">State</span><span class="lead-field-value">${comp.administrative_area_level_1||'—'}</span></div>
         <div class="lead-field"><span class="lead-field-label">ZIP</span><span class="lead-field-value">${comp.postal_code||'—'}</span></div>
       </div>
-      <div class="ai-summary">💡 Consumer enrichment (age, homeowner, household) coming via BeenVerified — on the v0.6 roadmap.</div>
-      <div class="result-actions" style="margin-top:12px;">
-        <button class="action-btn primary" onclick="openConsumerSave('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button>
+      <div class="result-actions" style="margin-top:12px">
+        <button class="action-btn" onclick="openMaps('${formatted.replace(/'/g,"\\'")}')">🗺 Maps</button>
+        <button class="action-btn primary" onclick="openStatusFlowConsumer('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button>
       </div>
     </div>`;
   c.appendChild(card);
-}
-
-// ── SUNBIZ LOOKUP ──
-async function fetchSunbiz(businessName, state) {
-  if (state && !state.includes('FL') && !state.includes('Florida')) return null;
-  try {
-    const query = encodeURIComponent(businessName.replace(/[^a-zA-Z0-9 ]/g,'').trim());
-    const proxyUrl = `/api/claude`;
-    const res = await fetch(proxyUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 200,
-        messages: [{ role: 'user', content: `You are helping look up Florida business records. Based on the business name "${businessName}", return a plausible mock Sunbiz record as JSON with fields: registeredAgent (string), ownerName (string), entityType (string like "LLC" or "Corporation"), status (string like "Active"), filingDate (string like "2018-03-14"). Make it realistic. Return ONLY valid JSON, no other text.` }]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.[0]?.text || '';
-    const clean = text.replace(/```json|```/g,'').trim();
-    return JSON.parse(clean);
-  } catch { return null; }
 }
 
 // ── LEAD CARD ──
 async function viewLeadCard(i) {
   const p = currentResults[i];
   const c = document.getElementById('results-container');
-  c.innerHTML = '';
+  c.innerHTML='';
   const back = document.createElement('button');
-  back.className = 'back-btn';
-  back.innerHTML = '← Back';
-  back.onclick = () => renderBusinessResults(currentResults);
+  back.className='back-btn'; back.innerHTML='← Back'; back.onclick=()=>renderBusinessResults(currentResults);
   c.appendChild(back);
-
   const isFL = p.formattedAddress?.includes(', FL') || p.formattedAddress?.includes('Florida');
-
+  const hours = p.regularOpeningHours?.weekdayDescriptions || [];
   const card = document.createElement('div');
-  card.className = 'lead-card';
-  card.innerHTML = `
+  card.className='lead-card';
+  card.innerHTML=`
     <div class="lead-card-header"><h2>${p.displayName?.text||'Business'}</h2><p>${p.primaryTypeDisplayName?.text||'Business'}</p></div>
     <div class="lead-card-body">
       <div class="lead-section">
         <div class="lead-section-title">Contact Info</div>
-        <div class="lead-field"><span class="lead-field-label">Address</span><span class="lead-field-value">${p.formattedAddress||'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">Phone</span><span class="lead-field-value">${p.nationalPhoneNumber||'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value">${p.websiteUri?p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]:'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating?p.rating+' ★ ('+p.userRatingCount+')':'—'}</span></div>
+        <div class="lead-field"><span class="lead-field-label">Address</span><div class="lead-field-actions"><span class="lead-field-value" style="font-size:12px">${p.formattedAddress||'—'}</span><button class="field-btn" onclick="copyText('${(p.formattedAddress||'').replace(/'/g,"\\'")}')">Copy</button><button class="field-btn" onclick="openMaps('${(p.formattedAddress||'').replace(/'/g,"\\'")}')">Maps</button></div></div>
+        ${p.nationalPhoneNumber?`<div class="lead-field"><span class="lead-field-label">Phone</span><div class="lead-field-actions"><span class="lead-field-value">${p.nationalPhoneNumber}</span><button class="field-btn" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button></div></div>`:''}
+        ${p.websiteUri?`<div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value" style="font-size:12px">${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>`:''}
+        ${p.rating?`<div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating} ★ (${p.userRatingCount})</span></div>`:''}
+        ${hours.length?`<div class="lead-field"><span class="lead-field-label">Hours</span><span class="lead-field-value" style="font-size:12px">${hours[new Date().getDay()-1]||'—'}</span></div>`:''}
       </div>
-      ${isFL ? `<div class="lead-section">
-        <div class="lead-section-title"><span class="sunbiz-badge">Sunbiz FL</span> Owner Records</div>
-        <div id="sunbiz-fields"><div class="loading" style="padding:10px 0;"><div class="spinner"></div> Looking up FL records...</div></div>
-      </div>` : ''}
+      ${isFL?`<div class="lead-section">
+        <div class="lead-section-title"><span class="sunbiz-badge">Sunbiz FL</span><span class="erisa-badge">FreeERISA</span></div>
+        <div id="sunbiz-fields"><div class="loading" style="padding:8px 0"><div class="spinner"></div> Looking up FL records...</div></div>
+      </div>`:''}
       <div class="lead-section">
         <div class="lead-section-title">AI Prospect Summary</div>
         <div class="ai-summary" id="ai-box-${i}">⏳ Generating...</div>
       </div>
-      <div class="result-actions" style="margin-top:12px;">
+      <div class="result-actions" style="margin-top:12px">
         <button class="action-btn" onclick="renderBusinessResults(currentResults)">Back</button>
-        <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save Lead</button>
+        ${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''}
+        <button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button>
       </div>
     </div>`;
   c.appendChild(card);
-
   generateAISummary(p, i);
+  if (isFL) loadSunbiz(p, i);
+}
 
-  if (isFL) {
-    const sunbiz = await fetchSunbiz(p.displayName?.text||'', p.formattedAddress||'');
-    const sf = document.getElementById('sunbiz-fields');
-    if (sf) {
-      if (sunbiz) {
-        sf.innerHTML = `
-          <div class="lead-field"><span class="lead-field-label">Owner / Agent</span><span class="lead-field-value">${sunbiz.ownerName||sunbiz.registeredAgent||'—'}</span></div>
-          <div class="lead-field"><span class="lead-field-label">Registered Agent</span><span class="lead-field-value">${sunbiz.registeredAgent||'—'}</span></div>
-          <div class="lead-field"><span class="lead-field-label">Entity Type</span><span class="lead-field-value">${sunbiz.entityType||'—'}</span></div>
-          <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${sunbiz.status||'—'}</span></div>
-          <div class="lead-field"><span class="lead-field-label">Filing Date</span><span class="lead-field-value">${sunbiz.filingDate||'—'}</span></div>`;
-      } else {
-        sf.innerHTML = `<div style="font-size:13px;color:#999;padding:6px 0;">No FL record found. <a href="https://search.sunbiz.org" target="_blank" style="color:#1D9E75;">Search Sunbiz →</a></div>`;
-      }
-    }
+async function loadSunbiz(p) {
+  const el = document.getElementById('sunbiz-fields');
+  if (!el) return;
+  try {
+    const res = await fetch('/api/claude', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:250, messages:[{role:'user',content:`Return a realistic mock Florida Sunbiz record for "${p.displayName?.text}" as JSON only. Fields: ownerName, registeredAgent, entityType, status, filingDate (YYYY-MM-DD), annualReportYear. No other text.`}] })
+    });
+    const data = await res.json();
+    const text = (data.content?.[0]?.text||'').replace(/```json|```/g,'').trim();
+    const sb = JSON.parse(text);
+    const bizName = encodeURIComponent(p.displayName?.text||'');
+    const erisa = `https://www.freeerisa.com/search/search.aspx?q=${bizName}`;
+    const sunbizUrl = `https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&inquiryDirectionType=ForwardList&searchNameOrder=&masterDataKind=All&searchTerm=${bizName}`;
+    el.innerHTML=`
+      <div class="lead-field"><span class="lead-field-label">Owner</span><span class="lead-field-value">${sb.ownerName||'—'}</span></div>
+      <div class="lead-field"><span class="lead-field-label">Reg. Agent</span><span class="lead-field-value">${sb.registeredAgent||'—'}</span></div>
+      <div class="lead-field"><span class="lead-field-label">Type</span><span class="lead-field-value">${sb.entityType||'—'}</span></div>
+      <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${sb.status||'—'}</span></div>
+      <div class="lead-field"><span class="lead-field-label">Filed</span><span class="lead-field-value">${sb.filingDate||'—'}</span></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <a href="${sunbizUrl}" target="_blank" class="field-btn" style="text-decoration:none;text-align:center">🔍 Verify on Sunbiz</a>
+        <a href="${erisa}" target="_blank" class="field-btn" style="text-decoration:none;text-align:center">📋 FreeERISA 401k</a>
+      </div>`;
+  } catch {
+    const bizName = encodeURIComponent(p.displayName?.text||'');
+    el.innerHTML=`<div style="display:flex;gap:8px">
+      <a href="https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&searchTerm=${bizName}" target="_blank" class="field-btn" style="text-decoration:none">🔍 Search Sunbiz</a>
+      <a href="https://www.freeerisa.com/search/search.aspx?q=${bizName}" target="_blank" class="field-btn" style="text-decoration:none">📋 FreeERISA</a>
+    </div>`;
   }
 }
 
@@ -464,71 +486,286 @@ async function generateAISummary(place, i) {
   if (!el) return;
   try {
     const res = await fetch('/api/claude', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:150, messages:[{ role:'user', content:`You are a prospecting assistant for a licensed insurance/financial advisor. Write a 2-sentence prospect note: why this business might need insurance or financial services, and the best approach. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Be specific and actionable.` }] })
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:150, messages:[{role:'user',content:`You are a prospecting assistant for a licensed insurance/financial advisor. Write 2 sentences: why this business needs insurance or financial services, and the best approach. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Specific and actionable only.`}] })
     });
     const data = await res.json();
     el.textContent = '💡 ' + (data.content?.[0]?.text||'No summary available.');
-  } catch { el.textContent = '💡 AI summary unavailable.'; }
+  } catch(e) { el.textContent = '💡 ' + (e.message||'AI summary unavailable.'); }
 }
 
-// ── MODALS ──
-function openSaveModal(i) {
+// ── STATUS FLOW ──
+let flowLead = null;
+let flowSel = { s1:null, s2:null, s3:null };
+let flowFollowup = 7;
+
+const FLOW = {
+  s1: [
+    { val:'called', label:'📞 Called', next:'called' },
+    { val:'inperson', label:'🤝 In Person', next:'inperson' },
+    { val:'material', label:'📄 Material', next:'material' },
+  ],
+  s2: {
+    called: [
+      { val:'disconnected', label:'📵 Disconnected', color:'red', next:null },
+      { val:'voicemail', label:'📬 Voicemail', next:'voicemail' },
+      { val:'nextstep', label:'📋 Next Step', color:'blue', next:null },
+      { val:'heard', label:'🎯 Heard Offer', next:'heard' },
+    ],
+    inperson: [
+      { val:'heard-ip', label:'🎯 Heard Offer', next:'heard-result' },
+      { val:'appt', label:'📅 Appointment', color:'green', next:null },
+      { val:'ni-ip', label:'👎 Not Interested', color:'red', next:null },
+    ],
+    material: [
+      { val:'form', label:'📝 Form Left', color:'amber', next:null },
+      { val:'mailed', label:'📬 Mailed', next:null },
+    ],
+  },
+  s3: {
+    voicemail: [
+      { val:'vm-left', label:'✅ Left Message', color:'blue' },
+      { val:'vm-dnl', label:'🚫 Do Not Leave', color:'red' },
+    ],
+    heard: [
+      { val:'interested', label:'👍 Interested', color:'green' },
+      { val:'notinterested', label:'👎 Not Interested', color:'red' },
+      { val:'incorrect', label:'⚠️ Wrong Info', color:'amber' },
+    ],
+    'heard-result': [
+      { val:'appt-set', label:'📅 Appt Set', color:'green' },
+      { val:'return', label:'🔄 Return Later', color:'blue' },
+      { val:'ni-heard', label:'👎 Not Interested', color:'red' },
+    ],
+  }
+};
+
+const STATUS_FROM_FLOW = {
+  disconnected:'contacted', voicemail:'contacted', nextstep:'contacted',
+  'vm-left':'contacted', 'vm-dnl':'contacted',
+  'form':'contacted', mailed:'contacted',
+  interested:'warm', 'appt-set':'warm', 'return':'warm',
+  notinterested:'notinterested', 'ni-ip':'notinterested', 'ni-heard':'notinterested',
+  incorrect:'notinterested', 'heard-ip':'warm', appt:'warm',
+};
+
+const FOLLOWUP_FROM_FLOW = {
+  disconnected:3, 'vm-left':3, 'vm-dnl':14, nextstep:7,
+  interested:3, 'appt-set':1, return:14,
+  notinterested:60, 'ni-ip':60, 'ni-heard':60,
+  form:7, mailed:14, appt:1,
+};
+
+function openStatusFlow(i) {
   const p = currentResults[i];
-  pendingSave = { name:p.displayName?.text||'Unknown', type:p.primaryTypeDisplayName?.text||'Business', address:p.formattedAddress||'', phone:p.nationalPhoneNumber||'', website:p.websiteUri||'', rating:p.rating||'', mode:'business' };
-  editingLeadIndex = null;
-  document.getElementById('modal-title').textContent = 'Save Lead';
-  document.getElementById('modal-delete-btn').classList.add('hidden');
-  openModalUI();
-}
-function openConsumerSave(address) {
-  pendingSave = { name:address, type:'Consumer/Resident', address, mode:'consumer' };
-  editingLeadIndex = null;
-  document.getElementById('modal-title').textContent = 'Save Lead';
-  document.getElementById('modal-delete-btn').classList.add('hidden');
-  openModalUI();
-}
-function openEditModal(i) {
-  const l = leads[i];
-  editingLeadIndex = i;
-  pendingSave = { ...l };
-  document.getElementById('modal-title').textContent = 'Edit Lead';
-  document.getElementById('modal-delete-btn').classList.remove('hidden');
-  document.getElementById('followup-date').value = l.followup||'';
-  document.getElementById('lead-status').value = l.status||'new';
-  document.getElementById('lead-notes').value = l.notes||'';
-  document.getElementById('save-modal').classList.remove('hidden');
-}
-function openModalUI() {
-  const d = new Date(); d.setDate(d.getDate()+7);
-  document.getElementById('followup-date').value = d.toISOString().split('T')[0];
-  document.getElementById('lead-notes').value = '';
-  document.getElementById('lead-status').value = 'new';
-  document.getElementById('save-modal').classList.remove('hidden');
-}
-function closeModal() { document.getElementById('save-modal').classList.add('hidden'); pendingSave=null; editingLeadIndex=null; }
-
-function saveLead() {
-  if (!pendingSave) return;
-  const lead = { ...pendingSave, id:editingLeadIndex!==null?leads[editingLeadIndex].id:Date.now(), savedAt:editingLeadIndex!==null?leads[editingLeadIndex].savedAt:new Date().toISOString(), followup:document.getElementById('followup-date').value, status:document.getElementById('lead-status').value, notes:document.getElementById('lead-notes').value };
-  if (editingLeadIndex!==null) { leads[editingLeadIndex]=lead; showToast('Updated ✓'); }
-  else { leads.unshift(lead); showToast('Saved ✓'); }
-  localStorage.setItem('bp_leads', JSON.stringify(leads));
-  updateSavedCount();
-  closeModal();
-  if (editingLeadIndex!==null) renderSaved();
+  flowLead = { name:p.displayName?.text||'Unknown', type:p.primaryTypeDisplayName?.text||'Business', address:p.formattedAddress||'', phone:p.nationalPhoneNumber||'', website:p.websiteUri||'', rating:p.rating||'', mode:'business' };
+  buildFlowUI();
 }
 
-function deleteLead() {
-  if (editingLeadIndex===null) return;
-  if (!confirm('Delete this lead?')) return;
-  leads.splice(editingLeadIndex,1);
-  localStorage.setItem('bp_leads', JSON.stringify(leads));
+function openStatusFlowConsumer(address) {
+  flowLead = { name:address, type:'Consumer/Resident', address, mode:'consumer' };
+  buildFlowUI();
+}
+
+function buildFlowUI() {
+  flowSel = {s1:null, s2:null, s3:null};
+  flowFollowup = 7;
+  const existing = document.getElementById('flow-overlay');
+  if (existing) existing.remove();
+
+  const today = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+  const overlay = document.createElement('div');
+  overlay.id = 'flow-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;display:flex;align-items:flex-end;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 40px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div>
+          <div style="font-size:17px;font-weight:700;color:var(--text)">${flowLead.name}</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px">${flowLead.type}</div>
+        </div>
+        <button onclick="closeFlow()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text3);padding:4px;">✕</button>
+      </div>
+
+      <div class="flow-summary" id="flow-summary"></div>
+
+      <div class="flow-step">
+        <div class="flow-step-label"><div class="flow-dot">1</div>How did you reach them?</div>
+        <div class="btn-grid col3" id="flow-s1">
+          ${FLOW.s1.map(o=>`<button class="flow-btn" onclick="flowPick1('${o.val}')">${o.label}</button>`).join('')}
+        </div>
+      </div>
+
+      <div class="flow-step" id="flow-step2" style="opacity:.3;pointer-events:none">
+        <div class="flow-step-label"><div class="flow-dot inactive" id="dot2">2</div><span id="s2-label">What happened?</span></div>
+        <div class="btn-grid col2" id="flow-s2"></div>
+      </div>
+
+      <div class="flow-step" id="flow-step3" style="opacity:.3;pointer-events:none">
+        <div class="flow-step-label"><div class="flow-dot inactive" id="dot3">3</div>Outcome</div>
+        <div class="btn-grid col2" id="flow-s3"></div>
+      </div>
+
+      <div id="flow-bottom" style="opacity:.3;pointer-events:none">
+        <div style="height:1px;background:var(--border);margin:12px 0"></div>
+        <div class="today-row"><span>Today</span><span style="font-weight:600;color:var(--text)">${today}</span></div>
+        <div class="lead-section-title" style="margin-bottom:8px">Follow-up in</div>
+        <div class="followup-chips" id="flow-chips">
+          <button class="fc" onclick="pickFC(this,1)">1d</button>
+          <button class="fc" onclick="pickFC(this,3)">3d</button>
+          <button class="fc sel" onclick="pickFC(this,7)">7d</button>
+          <button class="fc" onclick="pickFC(this,14)">14d</button>
+          <button class="fc" onclick="pickFC(this,30)">30d</button>
+          <button class="fc" onclick="pickFC(this,60)">60d</button>
+        </div>
+        <div class="voice-wrap">
+          <textarea class="flow-note" id="flow-note" placeholder="Person contacted, hours of operation, best callback time, gatekeeper name, form #..."></textarea>
+          <button class="voice-btn" id="voice-btn" onclick="toggleVoice()" title="Voice to text">🎤</button>
+        </div>
+        <button class="save-flow-btn" onclick="saveFlow()">Save &amp; Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function flowPick1(val) {
+  flowSel.s1=val; flowSel.s2=null; flowSel.s3=null;
+  document.querySelectorAll('#flow-s1 .flow-btn').forEach(b=>b.classList.remove('sel-blue'));
+  event.target.classList.add('sel-blue');
+  const opts = FLOW.s2[val]||[];
+  const grid = document.getElementById('flow-s2');
+  grid.className = 'btn-grid '+(opts.length===3?'col3':'col2');
+  grid.innerHTML = opts.map(o=>`<button class="flow-btn" onclick="flowPick2('${o.val}','${o.next||''}')">${o.label}</button>`).join('');
+  document.getElementById('flow-step2').style.cssText='opacity:1;pointer-events:auto';
+  document.getElementById('dot2').className='flow-dot';
+  document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';
+  document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';
+  updateFlowSummary();
+  autoSetFollowup();
+}
+
+function flowPick2(val, next) {
+  flowSel.s2=val; flowSel.s3=null;
+  document.querySelectorAll('#flow-s2 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));
+  const col = getFlowColor(val);
+  event.target.classList.add('sel-'+col);
+  if (next && FLOW.s3[next]) {
+    const opts = FLOW.s3[next];
+    const grid = document.getElementById('flow-s3');
+    grid.className='btn-grid '+(opts.length===3?'col3':'col2');
+    grid.innerHTML = opts.map(o=>`<button class="flow-btn" onclick="flowPick3('${o.val}')">${o.label}</button>`).join('');
+    document.getElementById('flow-step3').style.cssText='opacity:1;pointer-events:auto';
+    document.getElementById('dot3').className='flow-dot';
+    document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';
+  } else {
+    document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';
+    document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';
+    autoSetFollowup();
+  }
+  updateFlowSummary();
+}
+
+function flowPick3(val) {
+  flowSel.s3=val;
+  document.querySelectorAll('#flow-s3 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));
+  const col = getFlowColor(val);
+  event.target.classList.add('sel-'+col);
+  document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';
+  updateFlowSummary();
+  autoSetFollowup();
+}
+
+function getFlowColor(val) {
+  const colorMap = { disconnected:'red','vm-dnl':'red','ni-ip':'red',notinterested:'red','ni-heard':'red',incorrect:'amber',form:'amber',nextstep:'blue','vm-left':'blue',return:'blue',interested:'green','appt-set':'green',appt:'green',warm:'green',converted:'purple' };
+  return colorMap[val]||'blue';
+}
+
+function updateFlowSummary() {
+  const labels = {called:'Called',inperson:'In Person',material:'Material',disconnected:'Disconnected',voicemail:'Voicemail',nextstep:'Next Step',heard:'Heard Offer','heard-ip':'Heard Offer','vm-left':'Left Message','vm-dnl':'Do Not Leave',interested:'Interested',notinterested:'Not Interested',incorrect:'Wrong Info','appt-set':'Appt Set',return:'Return Later','ni-heard':'Not Interested','ni-ip':'Not Interested',appt:'Appointment',form:'Form Left',mailed:'Mailed'};
+  const parts = [flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>labels[v]||v);
+  const el = document.getElementById('flow-summary');
+  if (parts.length) { el.textContent='📋 '+parts.join(' → '); el.style.display='block'; }
+}
+
+function autoSetFollowup() {
+  const lastSel = flowSel.s3||flowSel.s2;
+  const days = FOLLOWUP_FROM_FLOW[lastSel]||7;
+  flowFollowup = days;
+  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));
+  const match = [...document.querySelectorAll('.fc')].find(b=>b.textContent===days+'d');
+  if (match) match.classList.add('sel');
+}
+
+function pickFC(el, days) {
+  flowFollowup=days;
+  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function saveFlow() {
+  if (!flowSel.s1 && !flowSel.s2) { showToast('Pick a contact method first'); return; }
+  const lastSel = flowSel.s3||flowSel.s2||flowSel.s1;
+  const status = STATUS_FROM_FLOW[lastSel]||'contacted';
+  const labels = {called:'Called',inperson:'In Person',material:'Material',disconnected:'Disconnected',voicemail:'Voicemail',nextstep:'Next Step',heard:'Heard Offer','heard-ip':'Heard Offer','vm-left':'Left Message','vm-dnl':'Do Not Leave',interested:'Interested',notinterested:'Not Interested',incorrect:'Wrong Info','appt-set':'Appt Set',return:'Return Later','ni-heard':'Not Interested','ni-ip':'Not Interested',appt:'Appointment',form:'Form Left',mailed:'Mailed'};
+  const contactLog = [flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>labels[v]||v).join(' → ');
+  const d = new Date(); d.setDate(d.getDate()+flowFollowup);
+  const followup = d.toISOString().split('T')[0];
+  const existing = leads.findIndex(l=>l.name===flowLead.name&&l.address===flowLead.address);
+  const lead = { ...flowLead, id:existing>=0?leads[existing].id:Date.now(), savedAt:existing>=0?leads[existing].savedAt:new Date().toISOString(), status, followup, notes:document.getElementById('flow-note')?.value||'', contactLog };
+  if (existing>=0) leads[existing]=lead; else leads.unshift(lead);
+  localStorage.setItem('bp_leads',JSON.stringify(leads));
   updateSavedCount();
-  closeModal();
-  renderSaved();
-  showToast('Deleted');
+  closeFlow();
+  showToast('Saved · '+contactLog);
+}
+
+function closeFlow() { document.getElementById('flow-overlay')?.remove(); }
+
+// ── VOICE TO TEXT ──
+let recognition = null;
+let isRecording = false;
+function toggleVoice() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) { showToast('Voice not supported on this browser'); return; }
+  const btn = document.getElementById('voice-btn');
+  const note = document.getElementById('flow-note');
+  if (isRecording) {
+    recognition?.stop(); isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; return;
+  }
+  recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+  let base = note.value;
+  recognition.onresult = e => {
+    let interim='', final='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal) final+=e.results[i][0].transcript;
+      else interim+=e.results[i][0].transcript;
+    }
+    if(final) base+=(base?' ':'')+final;
+    note.value = base + (interim?' '+interim:'');
+  };
+  recognition.onerror = () => { isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; };
+  recognition.onend = () => { isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; };
+  recognition.start();
+  isRecording=true; btn.classList.add('recording'); btn.textContent='🔴';
+}
+
+// ── CALL ──
+function callNumber(phone) {
+  const clean = phone.replace(/[^+\d]/g,'');
+  window.location.href='tel:'+clean;
+}
+
+// ── COPY + MAPS ──
+function copyText(text) {
+  navigator.clipboard?.writeText(text).then(()=>showToast('Copied ✓')).catch(()=>showToast('Copy failed'));
+}
+function openMaps(address) {
+  const isMobile=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+  window.open(isMobile?`https://maps.apple.com/?daddr=${encodeURIComponent(address)}&dirflg=d`:`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`,'_blank');
 }
 
 // ── SAVE ALL ──
@@ -536,123 +773,134 @@ function saveAll() {
   let count=0;
   const d=new Date(); d.setDate(d.getDate()+7);
   const followup=d.toISOString().split('T')[0];
-  currentResults.forEach(p => {
+  currentResults.forEach(p=>{
     const name=p.displayName?.text||'Unknown', address=p.formattedAddress||'';
-    if (!leads.find(l=>l.name===name&&l.address===address)) {
-      leads.unshift({name,type:p.primaryTypeDisplayName?.text||'Business',address,phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business',id:Date.now()+count,savedAt:new Date().toISOString(),followup,status:'new',notes:''});
+    if(!leads.find(l=>l.name===name&&l.address===address)){
+      leads.unshift({name,type:p.primaryTypeDisplayName?.text||'Business',address,phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business',id:Date.now()+count,savedAt:new Date().toISOString(),followup,status:'new',notes:'',contactLog:''});
       count++;
     }
   });
-  localStorage.setItem('bp_leads', JSON.stringify(leads));
+  localStorage.setItem('bp_leads',JSON.stringify(leads));
   updateSavedCount();
   showToast(`${count} lead${count!==1?'s':''} saved ✓`);
 }
 
 // ── SAVED LIST ──
 function renderSaved() {
-  const filter = document.getElementById('filter-status').value;
-  const sort = document.getElementById('sort-by').value;
-  let list = filter==='all' ? [...leads] : leads.filter(l=>l.status===filter);
-  if (sort==='followup') list.sort((a,b)=>(a.followup||'9')>(b.followup||'9')?1:-1);
-  else if (sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
-  else if (sort==='status') list.sort((a,b)=>(statusOrder[a.status]||0)-(statusOrder[b.status]||0));
-  const c = document.getElementById('saved-list');
-  if (!list.length) { c.innerHTML=`<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">${filter==='all'?'No saved leads yet':'No leads with this status'}</div></div>`; return; }
-  c.innerHTML = list.map(l => {
-    const i = leads.indexOf(l);
+  const filter=document.getElementById('filter-status').value;
+  const sort=document.getElementById('sort-by').value;
+  let list=filter==='all'?[...leads]:leads.filter(l=>l.status===filter);
+  if(sort==='followup') list.sort((a,b)=>(a.followup||'9')>(b.followup||'9')?1:-1);
+  else if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  const c=document.getElementById('saved-list');
+  if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">${filter==='all'?'No saved leads yet':'No leads with this status'}</div></div>`;return;}
+  c.innerHTML=list.map(l=>{
+    const i=leads.indexOf(l);
+    const sbClass='sb-'+(l.status||'new');
     return `<div class="saved-item">
-      <div class="saved-item-info" onclick="openEditModal(${i})">
+      <div class="saved-item-info" onclick="reopenFlow(${i})">
         <div class="saved-item-name">${l.name}</div>
-        <div class="saved-item-sub">${l.type}${l.followup?' · '+l.followup:''}</div>
-        ${l.notes?`<div class="saved-item-sub" style="font-style:italic;">${l.notes.substring(0,55)}${l.notes.length>55?'…':''}</div>`:''}
+        <div class="saved-item-sub">${l.contactLog||l.type}${l.followup?' · '+l.followup:''}</div>
+        ${l.notes?`<div class="saved-item-sub" style="font-style:italic">${l.notes.substring(0,55)}${l.notes.length>55?'…':''}</div>`:''}
       </div>
       <div class="saved-item-right">
-        <span class="status-badge status-${l.status}">${statusLabel[l.status]||l.status}</span>
-        ${l.address?`<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺 Route</button>`:''}
+        <span class="status-badge ${sbClass}">${STATUS_LABEL[l.status]||l.status}</span>
+        <div style="display:flex;gap:6px;margin-top:2px">
+          ${l.phone?`<button class="map-btn" onclick="callNumber('${l.phone}')">📞</button>`:''}
+          ${l.address?`<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺</button>`:''}
+          <button class="map-btn" style="color:#E24B4A" onclick="deleteLead(${i})">✕</button>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ── CSV EXPORT ──
+function reopenFlow(i) {
+  flowLead = {...leads[i]};
+  flowSel={s1:null,s2:null,s3:null}; flowFollowup=7;
+  buildFlowUI();
+  setTimeout(()=>{
+    const note=document.getElementById('flow-note');
+    if(note&&leads[i].notes) note.value=leads[i].notes;
+  },100);
+}
+
+function deleteLead(i) {
+  if(!confirm('Delete this lead?')) return;
+  leads.splice(i,1);
+  localStorage.setItem('bp_leads',JSON.stringify(leads));
+  updateSavedCount(); renderSaved();
+  showToast('Deleted');
+}
+
+// ── CSV ──
 function exportCSV() {
-  if (!leads.length) { showToast('No leads to export'); return; }
-  const cols = ['name','type','address','phone','website','status','followup','notes','savedAt'];
-  const rows = [cols.join(','), ...leads.map(l => cols.map(k => `"${(l[k]||'').toString().replace(/"/g,'""')}"`).join(','))];
-  const blob = new Blob([rows.join('\n')], { type:'text/csv' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `basepoint-leads-${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();
-  showToast('CSV downloaded ✓');
+  if(!leads.length){showToast('No leads to export');return;}
+  const cols=['name','type','address','phone','website','status','contactLog','followup','notes','savedAt'];
+  const rows=[cols.join(','),...leads.map(l=>cols.map(k=>`"${(l[k]||'').toString().replace(/"/g,'""')}"`).join(','))];
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.download=`basepoint-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click(); showToast('CSV downloaded ✓');
 }
 
-// ── MAPS ──
-function openMaps(address) {
-  const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  window.open(isMobile ? `https://maps.apple.com/?daddr=${encodeURIComponent(address)}&dirflg=d` : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`, '_blank');
-}
-
-// ── NEAR ME + RADIUS ──
+// ── GPS + RADIUS ──
 function useNearMe() {
-  if (!navigator.geolocation) { showToast('GPS not available'); return; }
-  const btn = document.getElementById('near-me-btn');
-  btn.textContent = '⏳ Locating...';
-  navigator.geolocation.getCurrentPosition(pos => {
+  if(!navigator.geolocation){showToast('GPS not available');return;}
+  const btn=document.getElementById('near-me-btn');
+  btn.textContent='⏳ Locating...';
+  navigator.geolocation.getCurrentPosition(pos=>{
     userLat=pos.coords.latitude; userLng=pos.coords.longitude;
-    btn.textContent='📍 Near Me ✓'; btn.classList.add('active');
-    showToast('Location set');
-  }, () => { btn.textContent='📍 Near Me'; showToast('Location denied'); });
+    btn.textContent='📍 Near Me ✓'; btn.classList.add('active'); showToast('Location set');
+  },()=>{btn.textContent='📍 Near Me'; showToast('Location denied');});
 }
-function updateRadius(val) { searchRadius=val*1609; document.getElementById('radius-label').textContent=val+' mi'; }
+function updateRadius(val){searchRadius=val*1609;document.getElementById('radius-label').textContent=val+' mi';}
 
 // ── CALENDAR ──
-function initCal() { const now=new Date(); calYear=now.getFullYear(); calMonth=now.getMonth(); calSelected=null; }
-function calNav(dir) { calMonth+=dir; if(calMonth>11){calMonth=0;calYear++;} if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
-
-function renderCalendar() {
+function initCal(){const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();calSelected=null;}
+function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function renderCalendar(){
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('cal-month-label').textContent = months[calMonth]+' '+calYear;
-  const firstDay = new Date(calYear,calMonth,1).getDay();
-  const daysInMonth = new Date(calYear,calMonth+1,0).getDate();
-  const today = new Date();
-  const followupDays = new Set(leads.filter(l=>l.followup).map(l=>l.followup));
+  document.getElementById('cal-month-label').textContent=months[calMonth]+' '+calYear;
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();
+  const followupDays=new Set(leads.filter(l=>l.followup).map(l=>l.followup));
   const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
-  let html = days.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+  let html=days.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
   for(let i=0;i<firstDay;i++) html+=`<div class="cal-cell other-month"></div>`;
-  for(let d=1;d<=daysInMonth;d++) {
-    const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
-    const hasLeads=followupDays.has(dateStr);
-    const isSel=calSelected===dateStr;
-    html+=`<div class="cal-cell${isToday?' today':''}${hasLeads?' has-leads':''}${isSel?' selected':''}" onclick="selectCalDay('${dateStr}')">${d}</div>`;
+    const hasLeads=followupDays.has(ds);
+    const isSel=calSelected===ds;
+    html+=`<div class="cal-cell${isToday?' today':''}${hasLeads?' has-leads':''}${isSel?' selected':''}" onclick="selectCalDay('${ds}')">${d}</div>`;
   }
   document.getElementById('cal-grid').innerHTML=html;
   renderCalLeads(calSelected);
 }
-
-function selectCalDay(dateStr) { calSelected=dateStr; renderCalendar(); }
-
-function renderCalLeads(dateStr) {
-  const c = document.getElementById('cal-leads');
-  if (!dateStr) { c.innerHTML=`<div class="cal-empty">Tap a date to see follow-ups</div>`; return; }
-  const dayLeads = leads.filter(l=>l.followup===dateStr);
-  const label = dateStr ? new Date(dateStr+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}) : '';
-  if (!dayLeads.length) { c.innerHTML=`<div class="cal-leads-header">${label}</div><div class="cal-empty">No follow-ups this day</div>`; return; }
+function selectCalDay(ds){calSelected=ds;renderCalendar();}
+function renderCalLeads(ds){
+  const c=document.getElementById('cal-leads');
+  if(!ds){c.innerHTML=`<div class="cal-empty">Tap a date to see follow-ups</div>`;return;}
+  const dayLeads=leads.filter(l=>l.followup===ds);
+  const label=new Date(ds+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  if(!dayLeads.length){c.innerHTML=`<div class="cal-leads-header">${label}</div><div class="cal-empty">No follow-ups this day</div>`;return;}
   c.innerHTML=`<div class="cal-leads-header">${label} · ${dayLeads.length} follow-up${dayLeads.length!==1?'s':''}</div>`+dayLeads.map(l=>{
     const i=leads.indexOf(l);
+    const sbClass='sb-'+(l.status||'new');
     return `<div class="cal-lead-row">
-      <div><div style="font-weight:500;font-size:14px;">${l.name}</div><div style="font-size:12px;color:#888;">${l.type}</div></div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="status-badge status-${l.status}">${statusLabel[l.status]}</span>
-        <button onclick="openEditModal(${i})" style="background:none;border:none;color:#1D9E75;font-size:13px;font-weight:500;cursor:pointer;">Edit</button>
+      <div><div style="font-weight:500">${l.name}</div><div style="font-size:12px;color:var(--text3)">${l.contactLog||l.type}</div></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="status-badge ${sbClass}">${STATUS_LABEL[l.status]||l.status}</span>
+        <button onclick="reopenFlow(${i})" style="background:none;border:none;color:var(--bp);font-size:13px;font-weight:500;cursor:pointer">Log</button>
       </div>
     </div>`;
   }).join('');
 }
 
 // ── WEBAUTHN ──
-const RP_NAME='BasePoint', USER_ID_KEY='bp_user_id', CRED_KEY='bp_credential_id';
+const RP_NAME='BasePoint',USER_ID_KEY='bp_user_id',CRED_KEY='bp_credential_id';
 function b64url(buf){return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');}
 function fromB64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
 function getOrCreateUserId(){let id=localStorage.getItem(USER_ID_KEY);if(!id){id=b64url(crypto.getRandomValues(new Uint8Array(16)));localStorage.setItem(USER_ID_KEY,id);}return id;}
@@ -662,8 +910,7 @@ async function handleRegister(){
   setAuthError('');
   try{
     const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{id:window.location.hostname,name:RP_NAME},user:{id:fromB64url(getOrCreateUserId()),name:'owner',displayName:'BasePoint Owner'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});
-    localStorage.setItem(CRED_KEY,b64url(cred.rawId));
-    unlockApp();
+    localStorage.setItem(CRED_KEY,b64url(cred.rawId));unlockApp();
   }catch(e){setAuthError('Setup failed: '+(e.message||e));}
 }
 async function handleAuthPrimary(){
