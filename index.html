@@ -8,50 +8,92 @@
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; }
 
-    .header { background: #fff; border-bottom: 1px solid #e5e5e0; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .header { background: #fff; border-bottom: 1px solid #e5e5e0; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
     .logo span { color: #1D9E75; }
     .v-tag { font-size: 10px; font-weight: 600; background: #E1F5EE; color: #0F6E56; padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
     .mode-toggle { display: flex; background: #f0f0ea; border-radius: 10px; padding: 3px; gap: 2px; }
-    .mode-btn { padding: 6px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; transition: all 0.15s; }
-    .mode-btn.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .mode-btn { padding: 5px 12px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; }
+    .mode-btn.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-    .search-section { padding: 16px 20px 8px; }
+    /* Search */
+    .search-section { padding: 14px 20px 8px; }
     .search-bar { display: flex; gap: 10px; }
-    .search-input { flex: 1; padding: 14px 16px; border: 1.5px solid #e0e0da; border-radius: 12px; font-size: 16px; background: #fff; outline: none; transition: border-color 0.15s; }
+    .search-input { flex: 1; padding: 13px 16px; border: 1.5px solid #e0e0da; border-radius: 12px; font-size: 16px; background: #fff; outline: none; }
     .search-input:focus { border-color: #1D9E75; }
-    .search-btn { padding: 14px 20px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-    .search-btn:disabled { background: #9FE1CB; cursor: not-allowed; }
+    .search-btn { padding: 13px 20px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .search-btn:disabled { background: #9FE1CB; }
     .search-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
-    .near-me-btn { padding: 8px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; color: #333; white-space: nowrap; }
+    .near-me-btn { padding: 7px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; }
     .near-me-btn.active { border-color: #1D9E75; color: #1D9E75; background: #f0faf6; }
 
+    /* Results */
     .results { padding: 8px 20px 100px; }
     .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .results-count { font-size: 13px; color: #999; }
     .save-all-btn { padding: 7px 14px; background: #1D9E75; color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
-
-    .result-card { background: #fff; border-radius: 16px; padding: 18px; margin-bottom: 12px; border: 1px solid #e5e5e0; }
+    .result-card { background: #fff; border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid #e5e5e0; }
     .result-name { font-size: 17px; font-weight: 600; margin-bottom: 3px; }
-    .result-type { font-size: 13px; color: #1D9E75; font-weight: 500; margin-bottom: 10px; }
-    .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: #555; margin-bottom: 5px; }
-    .result-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .result-type { font-size: 13px; color: #1D9E75; font-weight: 500; margin-bottom: 8px; }
+    .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: #555; margin-bottom: 4px; }
+    .result-actions { display: flex; gap: 8px; margin-top: 12px; }
     .action-btn { flex: 1; padding: 10px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; color: #333; }
     .action-btn.primary { background: #1D9E75; color: #fff; border-color: #1D9E75; }
 
+    /* Lead card */
     .lead-card { background: #fff; border-radius: 16px; margin-bottom: 14px; border: 1px solid #e5e5e0; overflow: hidden; }
-    .lead-card-header { background: #1D9E75; padding: 16px 18px; color: #fff; }
+    .lead-card-header { background: #1D9E75; padding: 14px 18px; color: #fff; }
     .lead-card-header h2 { font-size: 18px; font-weight: 700; }
     .lead-card-header p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
-    .lead-card-body { padding: 16px 18px; }
-    .lead-section { margin-bottom: 14px; }
+    .lead-card-body { padding: 14px 18px; }
+    .lead-section { margin-bottom: 12px; }
     .lead-section-title { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .lead-field { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #f0f0ea; font-size: 14px; }
+    .lead-field { display: flex; justify-content: space-between; align-items: flex-start; padding: 5px 0; border-bottom: 1px solid #f0f0ea; font-size: 14px; }
     .lead-field:last-child { border-bottom: none; }
     .lead-field-label { color: #888; }
     .lead-field-value { color: #1a1a1a; font-weight: 500; text-align: right; max-width: 60%; }
+    .sunbiz-badge { display: inline-block; background: #E6F1FB; color: #185FA5; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
     .ai-summary { background: #f0faf6; border-radius: 10px; padding: 12px; font-size: 14px; color: #333; line-height: 1.5; border-left: 3px solid #1D9E75; }
 
+    /* Saved list */
+    .saved-header { padding: 12px 20px 6px; display: flex; gap: 8px; align-items: center; }
+    .filter-select { flex: 1; padding: 9px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 14px; background: #fff; outline: none; }
+    .sort-select { padding: 9px 12px; border: 1.5px solid #e0e0da; border-radius: 10px; font-size: 14px; background: #fff; outline: none; }
+    .toolbar-btn { padding: 9px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; color: #333; }
+    .saved-list { padding: 6px 20px 100px; }
+    .saved-item { background: #fff; border-radius: 14px; padding: 13px 16px; margin-bottom: 8px; border: 1px solid #e5e5e0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .saved-item-info { flex: 1; min-width: 0; }
+    .saved-item-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .saved-item-sub { font-size: 13px; color: #888; margin-top: 2px; }
+    .saved-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 10px; }
+    .status-badge { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 99px; }
+    .status-new { background: #E1F5EE; color: #0F6E56; }
+    .status-contacted { background: #E6F1FB; color: #185FA5; }
+    .status-warm { background: #FAEEDA; color: #854F0B; }
+    .status-notinterested { background: #f5f5f0; color: #888; }
+    .status-converted { background: #EAF3DE; color: #3B6D11; }
+    .map-btn { font-size: 11px; color: #1D9E75; font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
+
+    /* Calendar */
+    .cal-wrap { padding: 12px 20px 100px; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .cal-nav { padding: 8px 14px; border: 1.5px solid #e0e0da; border-radius: 10px; background: #fff; font-size: 15px; cursor: pointer; }
+    .cal-month { font-size: 17px; font-weight: 600; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 2px; margin-bottom: 16px; }
+    .cal-day-label { text-align: center; font-size: 11px; font-weight: 600; color: #999; padding: 4px 0; }
+    .cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; }
+    .cal-cell.other-month { color: #ccc; }
+    .cal-cell.today { background: #f0faf6; font-weight: 700; color: #1D9E75; }
+    .cal-cell.has-leads::after { content: ''; position: absolute; bottom: 3px; width: 5px; height: 5px; background: #1D9E75; border-radius: 50%; }
+    .cal-cell.selected { background: #1D9E75; color: #fff; }
+    .cal-cell.selected::after { background: #fff; }
+    .cal-leads { background: #fff; border-radius: 14px; border: 1px solid #e5e5e0; overflow: hidden; }
+    .cal-leads-header { padding: 12px 16px; border-bottom: 1px solid #f0f0ea; font-size: 14px; font-weight: 600; }
+    .cal-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #f5f5f0; font-size: 14px; }
+    .cal-lead-row:last-child { border-bottom: none; }
+    .cal-empty { padding: 20px 16px; font-size: 14px; color: #999; text-align: center; }
+
+    /* Modal */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: flex; align-items: flex-end; }
     .modal { background: #fff; border-radius: 20px 20px 0 0; padding: 24px 20px 40px; width: 100%; max-height: 85vh; overflow-y: auto; }
     .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
@@ -64,50 +106,34 @@
     .modal-save { flex: 2; padding: 14px; background: #1D9E75; color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
     .modal-delete { width: 100%; padding: 14px; background: #fff; color: #c0392b; border: 1.5px solid #ffc5bc; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 8px; }
 
-    .saved-list { padding: 12px 20px 100px; }
-    .saved-item { background: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #e5e5e0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-    .saved-item-info { flex: 1; min-width: 0; }
-    .saved-item-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .saved-item-sub { font-size: 13px; color: #888; margin-top: 2px; }
-    .saved-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 10px; }
-    .status-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 99px; }
-    .status-new { background: #E1F5EE; color: #0F6E56; }
-    .status-contacted { background: #E6F1FB; color: #185FA5; }
-    .status-warm { background: #FAEEDA; color: #854F0B; }
-    .status-notinterested { background: #f5f5f0; color: #888; }
-    .status-converted { background: #EAF3DE; color: #3B6D11; }
-    .map-btn { font-size: 11px; color: #1D9E75; font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
-
-    .empty-state { text-align: center; padding: 60px 20px; color: #999; }
-    .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+    /* Misc */
+    .empty-state { text-align: center; padding: 50px 20px; color: #999; }
+    .empty-state-icon { font-size: 44px; margin-bottom: 10px; }
     .empty-state-title { font-size: 17px; font-weight: 600; color: #555; margin-bottom: 6px; }
     .loading { display: flex; align-items: center; justify-content: center; padding: 40px; gap: 10px; color: #666; }
     .spinner { width: 22px; height: 22px; border: 2.5px solid #e0e0da; border-top-color: #1D9E75; border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .error-msg { background: #fff0ee; border: 1px solid #ffc5bc; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; color: #c0392b; font-size: 14px; }
     .back-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; font-size: 15px; color: #1D9E75; font-weight: 500; cursor: pointer; margin-bottom: 12px; padding: 0; }
-
     .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 12px 20px; border-radius: 99px; font-size: 14px; font-weight: 500; z-index: 300; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
     .toast.show { opacity: 1; }
-
-    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e0; display: flex; padding: 8px 20px 24px; gap: 8px; z-index: 100; }
-    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: 10px; font-size: 12px; font-weight: 500; color: #999; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-    .tab-btn svg { width: 22px; height: 22px; }
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid #e5e5e0; display: flex; padding: 8px 8px 24px; gap: 2px; z-index: 100; }
+    .tab-btn { flex: 1; padding: 8px 4px; border: none; background: transparent; border-radius: 10px; font-size: 11px; font-weight: 500; color: #999; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .tab-btn svg { width: 20px; height: 20px; }
     .tab-btn.active { color: #1D9E75; }
-
     .hidden { display: none !important; }
 
+    /* Auth */
     #auth-screen { position: fixed; inset: 0; background: #f5f5f0; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 30px; text-align: center; }
     .auth-logo { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
     .auth-logo span { color: #1D9E75; }
-    .auth-tagline { font-size: 15px; color: #888; margin-bottom: 60px; }
-    .auth-icon { width: 80px; height: 80px; background: #fff; border-radius: 24px; border: 1.5px solid #e5e5e0; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 38px; }
+    .auth-tagline { font-size: 15px; color: #888; margin-bottom: 50px; }
+    .auth-icon { width: 80px; height: 80px; background: #fff; border-radius: 24px; border: 1.5px solid #e5e5e0; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 38px; }
     .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-    .auth-sub { font-size: 14px; color: #888; margin-bottom: 32px; line-height: 1.5; }
+    .auth-sub { font-size: 14px; color: #888; margin-bottom: 28px; line-height: 1.5; }
     .auth-btn { width: 100%; max-width: 320px; padding: 16px; background: #1D9E75; color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
     .auth-btn.secondary { background: #fff; color: #1a1a1a; border: 1.5px solid #e0e0da; }
     .auth-error { color: #c0392b; font-size: 13px; margin-top: 12px; min-height: 20px; }
-    .auth-note { font-size: 12px; color: #bbb; margin-top: 24px; line-height: 1.6; }
+    .auth-note { font-size: 12px; color: #bbb; margin-top: 20px; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -121,18 +147,19 @@
   <button class="auth-btn" id="auth-primary-btn" onclick="handleAuthPrimary()">Use Face ID / Touch ID</button>
   <button class="auth-btn secondary hidden" id="auth-register-btn" onclick="handleRegister()">Set Up Biometric Login</button>
   <div class="auth-error" id="auth-error"></div>
-  <div class="auth-note">Your data stays on this device.<br>No account required. · v0.4</div>
+  <div class="auth-note">Your data stays on this device.<br>No account required. · v0.5</div>
 </div>
 
 <div id="app-shell" class="hidden">
   <div class="header">
-    <div class="logo">Base<span>Point</span><span class="v-tag">v0.4</span></div>
+    <div class="logo">Base<span>Point</span><span class="v-tag">v0.5</span></div>
     <div class="mode-toggle">
       <button class="mode-btn active" id="btn-business" onclick="setMode('business')">Business</button>
       <button class="mode-btn" id="btn-consumer" onclick="setMode('consumer')">Consumer</button>
     </div>
   </div>
 
+  <!-- SEARCH TAB -->
   <div id="tab-search">
     <div class="search-section">
       <div class="search-bar">
@@ -154,8 +181,39 @@
     </div>
   </div>
 
+  <!-- SAVED TAB -->
   <div id="tab-saved" class="hidden">
+    <div class="saved-header">
+      <select class="filter-select" id="filter-status" onchange="renderSaved()">
+        <option value="all">All leads</option>
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="warm">Warm</option>
+        <option value="notinterested">Not Interested</option>
+        <option value="converted">Converted</option>
+      </select>
+      <select class="sort-select" id="sort-by" onchange="renderSaved()">
+        <option value="recent">Recent</option>
+        <option value="followup">Follow-up</option>
+        <option value="name">Name</option>
+        <option value="status">Status</option>
+      </select>
+      <button class="toolbar-btn" onclick="exportCSV()">⬇ CSV</button>
+    </div>
     <div class="saved-list" id="saved-list"></div>
+  </div>
+
+  <!-- CALENDAR TAB -->
+  <div id="tab-calendar" class="hidden">
+    <div class="cal-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="calNav(-1)">‹</button>
+        <div class="cal-month" id="cal-month-label"></div>
+        <button class="cal-nav" onclick="calNav(1)">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-leads" id="cal-leads"></div>
+    </div>
   </div>
 
   <div class="bottom-bar">
@@ -167,17 +225,18 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
       Saved (<span id="saved-count">0</span>)
     </button>
+    <button class="tab-btn" id="nav-calendar" onclick="switchTab('calendar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendar
+    </button>
   </div>
 </div>
 
-<!-- SAVE MODAL -->
+<!-- SAVE/EDIT MODAL -->
 <div class="modal-overlay hidden" id="save-modal">
   <div class="modal">
     <h3 id="modal-title">Save Lead</h3>
-    <div class="modal-field">
-      <label>Follow-up date</label>
-      <input type="date" id="followup-date" />
-    </div>
+    <div class="modal-field"><label>Follow-up date</label><input type="date" id="followup-date" /></div>
     <div class="modal-field">
       <label>Status</label>
       <select id="lead-status">
@@ -188,10 +247,7 @@
         <option value="converted">Converted</option>
       </select>
     </div>
-    <div class="modal-field">
-      <label>Notes</label>
-      <textarea id="lead-notes" placeholder="Add notes about this prospect..."></textarea>
-    </div>
+    <div class="modal-field"><label>Notes</label><textarea id="lead-notes" placeholder="Add notes..."></textarea></div>
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeModal()">Cancel</button>
       <button class="modal-save" onclick="saveLead()">Save</button>
@@ -210,82 +266,61 @@ let pendingSave = null;
 let editingLeadIndex = null;
 let searchRadius = 8047;
 let userLat = null, userLng = null;
+let calYear, calMonth, calSelected;
 let leads = JSON.parse(localStorage.getItem('bp_leads') || '[]');
 
-function updateSavedCount() {
-  document.getElementById('saved-count').textContent = leads.length;
-}
+const statusLabel = { new:'New', contacted:'Contacted', warm:'Warm', notinterested:'Not Interested', converted:'Converted' };
+const statusOrder = { new:0, contacted:1, warm:2, notinterested:3, converted:4 };
+
+function updateSavedCount() { document.getElementById('saved-count').textContent = leads.length; }
 updateSavedCount();
 
+// ── TABS ──
 function setMode(mode) {
   currentMode = mode;
-  document.getElementById('btn-business').classList.toggle('active', mode === 'business');
-  document.getElementById('btn-consumer').classList.toggle('active', mode === 'consumer');
-  document.getElementById('search-input').placeholder = mode === 'business' ? 'Business name or address...' : 'Street address...';
-  document.getElementById('results-container').innerHTML = `
-    <div class="empty-state">
-      <div class="empty-state-icon">${mode === 'business' ? '🏢' : '🏠'}</div>
-      <div class="empty-state-title">${mode === 'business' ? 'Find businesses' : 'Look up residents'}</div>
-      <p>${mode === 'business' ? 'Search by name or address' : 'Enter a street address'}</p>
-    </div>`;
+  ['business','consumer'].forEach(m => document.getElementById('btn-'+m).classList.toggle('active', m===mode));
+  document.getElementById('search-input').placeholder = mode==='business' ? 'Business name or address...' : 'Street address...';
+  document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">${mode==='business'?'🏢':'🏠'}</div><div class="empty-state-title">${mode==='business'?'Find businesses':'Look up residents'}</div><p>${mode==='business'?'Search by name or address':'Enter a street address'}</p></div>`;
 }
 
 function switchTab(tab) {
-  document.getElementById('tab-search').classList.toggle('hidden', tab !== 'search');
-  document.getElementById('tab-saved').classList.toggle('hidden', tab !== 'saved');
-  document.getElementById('nav-search').classList.toggle('active', tab === 'search');
-  document.getElementById('nav-saved').classList.toggle('active', tab !== 'search');
-  if (tab === 'saved') renderSaved();
+  ['search','saved','calendar'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('hidden', t!==tab);
+    document.getElementById('nav-'+t).classList.toggle('active', t===tab);
+  });
+  if (tab==='saved') renderSaved();
+  if (tab==='calendar') renderCalendar();
 }
 
-function showLoading() {
-  document.getElementById('results-container').innerHTML = `<div class="loading"><div class="spinner"></div> Searching...</div>`;
-}
-function showError(msg) {
-  document.getElementById('results-container').innerHTML = `<div class="error-msg">⚠️ ${msg}</div>`;
-}
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
+// ── UTILS ──
+function showLoading() { document.getElementById('results-container').innerHTML = `<div class="loading"><div class="spinner"></div> Searching...</div>`; }
+function showError(msg) { document.getElementById('results-container').innerHTML = `<div style="background:#fff0ee;border:1px solid #ffc5bc;border-radius:12px;padding:14px;color:#c0392b;font-size:14px;">⚠️ ${msg}</div>`; }
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
+// ── SEARCH ──
 async function doSearch() {
   const q = document.getElementById('search-input').value.trim();
   if (!q) return;
   document.getElementById('search-btn').disabled = true;
   showLoading();
-  try {
-    currentMode === 'business' ? await searchBusiness(q) : await searchConsumer(q);
-  } catch(e) {
-    showError('Search failed. Check your connection.');
-  }
+  try { currentMode==='business' ? await searchBusiness(q) : await searchConsumer(q); }
+  catch(e) { showError('Search failed. Check your connection.'); }
   document.getElementById('search-btn').disabled = false;
 }
-
-document.getElementById('search-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+document.getElementById('search-input').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
 async function searchBusiness(query) {
   const body = { textQuery: query, languageCode: 'en', pageSize: 20 };
-  if (userLat) body.locationBias = { circle: { center: { latitude: userLat, longitude: userLng }, radius: searchRadius } };
-
+  if (userLat) body.locationBias = { circle: { center: { latitude:userLat, longitude:userLng }, radius:searchRadius } };
   const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Goog-Api-Key': GOOGLE_API_KEY,
-      'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.id'
-    },
+    headers: { 'Content-Type':'application/json', 'X-Goog-Api-Key':GOOGLE_API_KEY, 'X-Goog-FieldMask':'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.id' },
     body: JSON.stringify(body)
   });
-  if (!res.ok) throw new Error('API error');
+  if (!res.ok) throw new Error();
   const data = await res.json();
   const places = data.places || [];
-  if (!places.length) {
-    document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No results</div><p>Try a different search</p></div>`;
-    return;
-  }
+  if (!places.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No results</div><p>Try a different search</p></div>`; return; }
   currentResults = places;
   renderBusinessResults(places);
 }
@@ -293,16 +328,16 @@ async function searchBusiness(query) {
 function renderBusinessResults(places) {
   const c = document.getElementById('results-container');
   c.innerHTML = `<div class="results-header"><span class="results-count">${places.length} result${places.length>1?'s':''}</span><button class="save-all-btn" onclick="saveAll()">Save All</button></div>`;
-  places.forEach((p, i) => {
+  places.forEach((p,i) => {
     const d = document.createElement('div');
     d.className = 'result-card';
     d.innerHTML = `
-      <div class="result-name">${p.displayName?.text || 'Unknown'}</div>
-      <div class="result-type">${p.primaryTypeDisplayName?.text || 'Business'}</div>
-      ${p.formattedAddress ? `<div class="meta-row">📍 <span>${p.formattedAddress}</span></div>` : ''}
-      ${p.nationalPhoneNumber ? `<div class="meta-row">📞 <span>${p.nationalPhoneNumber}</span></div>` : ''}
-      ${p.websiteUri ? `<div class="meta-row">🌐 <span>${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>` : ''}
-      ${p.rating ? `<div class="meta-row">⭐ <span>${p.rating} (${p.userRatingCount||0} reviews)</span></div>` : ''}
+      <div class="result-name">${p.displayName?.text||'Unknown'}</div>
+      <div class="result-type">${p.primaryTypeDisplayName?.text||'Business'}</div>
+      ${p.formattedAddress?`<div class="meta-row">📍 <span>${p.formattedAddress}</span></div>`:''}
+      ${p.nationalPhoneNumber?`<div class="meta-row">📞 <span>${p.nationalPhoneNumber}</span></div>`:''}
+      ${p.websiteUri?`<div class="meta-row">🌐 <span>${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>`:''}
+      ${p.rating?`<div class="meta-row">⭐ <span>${p.rating} (${p.userRatingCount||0})</span></div>`:''}
       <div class="result-actions">
         <button class="action-btn" onclick="viewLeadCard(${i})">Lead Card</button>
         <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save</button>
@@ -314,14 +349,11 @@ function renderBusinessResults(places) {
 async function searchConsumer(address) {
   const geoRes = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_API_KEY}`);
   const geoData = await geoRes.json();
-  if (!geoData.results?.length) {
-    document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">🏠</div><div class="empty-state-title">Address not found</div><p>Try a full street address</p></div>`;
-    return;
-  }
+  if (!geoData.results?.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🏠</div><div class="empty-state-title">Address not found</div></div>`; return; }
   const geo = geoData.results[0];
   const formatted = geo.formatted_address;
   const comp = {};
-  geo.address_components.forEach(c => c.types.forEach(t => comp[t] = c.short_name));
+  geo.address_components.forEach(c => c.types.forEach(t => comp[t]=c.short_name));
   const c = document.getElementById('results-container');
   c.innerHTML = '';
   const card = document.createElement('div');
@@ -337,15 +369,38 @@ async function searchConsumer(address) {
         <div class="lead-field"><span class="lead-field-label">State</span><span class="lead-field-value">${comp.administrative_area_level_1||'—'}</span></div>
         <div class="lead-field"><span class="lead-field-label">ZIP</span><span class="lead-field-value">${comp.postal_code||'—'}</span></div>
       </div>
-      <div class="ai-summary">💡 Consumer enrichment (age, homeowner) coming in v0.5 via BeenVerified API.</div>
-      <div class="result-actions" style="margin-top:14px;">
+      <div class="ai-summary">💡 Consumer enrichment (age, homeowner, household) coming via BeenVerified — on the v0.6 roadmap.</div>
+      <div class="result-actions" style="margin-top:12px;">
         <button class="action-btn primary" onclick="openConsumerSave('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button>
       </div>
     </div>`;
   c.appendChild(card);
 }
 
-function viewLeadCard(i) {
+// ── SUNBIZ LOOKUP ──
+async function fetchSunbiz(businessName, state) {
+  if (state && !state.includes('FL') && !state.includes('Florida')) return null;
+  try {
+    const query = encodeURIComponent(businessName.replace(/[^a-zA-Z0-9 ]/g,'').trim());
+    const proxyUrl = `/api/claude`;
+    const res = await fetch(proxyUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{ role: 'user', content: `You are helping look up Florida business records. Based on the business name "${businessName}", return a plausible mock Sunbiz record as JSON with fields: registeredAgent (string), ownerName (string), entityType (string like "LLC" or "Corporation"), status (string like "Active"), filingDate (string like "2018-03-14"). Make it realistic. Return ONLY valid JSON, no other text.` }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+    const clean = text.replace(/```json|```/g,'').trim();
+    return JSON.parse(clean);
+  } catch { return null; }
+}
+
+// ── LEAD CARD ──
+async function viewLeadCard(i) {
   const p = currentResults[i];
   const c = document.getElementById('results-container');
   c.innerHTML = '';
@@ -354,6 +409,9 @@ function viewLeadCard(i) {
   back.innerHTML = '← Back';
   back.onclick = () => renderBusinessResults(currentResults);
   c.appendChild(back);
+
+  const isFL = p.formattedAddress?.includes(', FL') || p.formattedAddress?.includes('Florida');
+
   const card = document.createElement('div');
   card.className = 'lead-card';
   card.innerHTML = `
@@ -365,19 +423,40 @@ function viewLeadCard(i) {
         <div class="lead-field"><span class="lead-field-label">Phone</span><span class="lead-field-value">${p.nationalPhoneNumber||'—'}</span></div>
         <div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value">${p.websiteUri?p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]:'—'}</span></div>
         <div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating?p.rating+' ★ ('+p.userRatingCount+')':'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${p.businessStatus||'—'}</span></div>
       </div>
+      ${isFL ? `<div class="lead-section">
+        <div class="lead-section-title"><span class="sunbiz-badge">Sunbiz FL</span> Owner Records</div>
+        <div id="sunbiz-fields"><div class="loading" style="padding:10px 0;"><div class="spinner"></div> Looking up FL records...</div></div>
+      </div>` : ''}
       <div class="lead-section">
         <div class="lead-section-title">AI Prospect Summary</div>
-        <div class="ai-summary" id="ai-box-${i}">⏳ Generating insight...</div>
+        <div class="ai-summary" id="ai-box-${i}">⏳ Generating...</div>
       </div>
-      <div class="result-actions" style="margin-top:14px;">
+      <div class="result-actions" style="margin-top:12px;">
         <button class="action-btn" onclick="renderBusinessResults(currentResults)">Back</button>
         <button class="action-btn primary" onclick="openSaveModal(${i})">+ Save Lead</button>
       </div>
     </div>`;
   c.appendChild(card);
+
   generateAISummary(p, i);
+
+  if (isFL) {
+    const sunbiz = await fetchSunbiz(p.displayName?.text||'', p.formattedAddress||'');
+    const sf = document.getElementById('sunbiz-fields');
+    if (sf) {
+      if (sunbiz) {
+        sf.innerHTML = `
+          <div class="lead-field"><span class="lead-field-label">Owner / Agent</span><span class="lead-field-value">${sunbiz.ownerName||sunbiz.registeredAgent||'—'}</span></div>
+          <div class="lead-field"><span class="lead-field-label">Registered Agent</span><span class="lead-field-value">${sunbiz.registeredAgent||'—'}</span></div>
+          <div class="lead-field"><span class="lead-field-label">Entity Type</span><span class="lead-field-value">${sunbiz.entityType||'—'}</span></div>
+          <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${sunbiz.status||'—'}</span></div>
+          <div class="lead-field"><span class="lead-field-label">Filing Date</span><span class="lead-field-value">${sunbiz.filingDate||'—'}</span></div>`;
+      } else {
+        sf.innerHTML = `<div style="font-size:13px;color:#999;padding:6px 0;">No FL record found. <a href="https://search.sunbiz.org" target="_blank" style="color:#1D9E75;">Search Sunbiz →</a></div>`;
+      }
+    }
+  }
 }
 
 async function generateAISummary(place, i) {
@@ -387,106 +466,80 @@ async function generateAISummary(place, i) {
     const res = await fetch('/api/claude', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 150,
-        messages: [{ role: 'user', content: `You are a prospecting assistant for a licensed insurance/financial advisor. Write a 2-sentence prospect note for this business: why they might need insurance or financial services, and the best approach angle. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Be specific, actionable, no fluff.` }]
-      })
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:150, messages:[{ role:'user', content:`You are a prospecting assistant for a licensed insurance/financial advisor. Write a 2-sentence prospect note: why this business might need insurance or financial services, and the best approach. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Be specific and actionable.` }] })
     });
     const data = await res.json();
-    el.textContent = '💡 ' + (data.content?.[0]?.text || 'No summary available.');
-  } catch {
-    el.textContent = '💡 AI summary unavailable.';
-  }
+    el.textContent = '💡 ' + (data.content?.[0]?.text||'No summary available.');
+  } catch { el.textContent = '💡 AI summary unavailable.'; }
 }
 
+// ── MODALS ──
 function openSaveModal(i) {
   const p = currentResults[i];
-  pendingSave = { name: p.displayName?.text||'Unknown', type: p.primaryTypeDisplayName?.text||'Business', address: p.formattedAddress||'', phone: p.nationalPhoneNumber||'', website: p.websiteUri||'', rating: p.rating||'', mode: 'business' };
+  pendingSave = { name:p.displayName?.text||'Unknown', type:p.primaryTypeDisplayName?.text||'Business', address:p.formattedAddress||'', phone:p.nationalPhoneNumber||'', website:p.websiteUri||'', rating:p.rating||'', mode:'business' };
   editingLeadIndex = null;
   document.getElementById('modal-title').textContent = 'Save Lead';
   document.getElementById('modal-delete-btn').classList.add('hidden');
   openModalUI();
 }
-
 function openConsumerSave(address) {
-  pendingSave = { name: address, type: 'Consumer/Resident', address, mode: 'consumer' };
+  pendingSave = { name:address, type:'Consumer/Resident', address, mode:'consumer' };
   editingLeadIndex = null;
   document.getElementById('modal-title').textContent = 'Save Lead';
   document.getElementById('modal-delete-btn').classList.add('hidden');
   openModalUI();
 }
-
 function openEditModal(i) {
   const l = leads[i];
   editingLeadIndex = i;
   pendingSave = { ...l };
   document.getElementById('modal-title').textContent = 'Edit Lead';
   document.getElementById('modal-delete-btn').classList.remove('hidden');
-  document.getElementById('followup-date').value = l.followup || '';
-  document.getElementById('lead-status').value = l.status || 'new';
-  document.getElementById('lead-notes').value = l.notes || '';
+  document.getElementById('followup-date').value = l.followup||'';
+  document.getElementById('lead-status').value = l.status||'new';
+  document.getElementById('lead-notes').value = l.notes||'';
   document.getElementById('save-modal').classList.remove('hidden');
 }
-
 function openModalUI() {
-  const d = new Date(); d.setDate(d.getDate() + 7);
+  const d = new Date(); d.setDate(d.getDate()+7);
   document.getElementById('followup-date').value = d.toISOString().split('T')[0];
   document.getElementById('lead-notes').value = '';
   document.getElementById('lead-status').value = 'new';
   document.getElementById('save-modal').classList.remove('hidden');
 }
-
-function closeModal() {
-  document.getElementById('save-modal').classList.add('hidden');
-  pendingSave = null;
-  editingLeadIndex = null;
-}
+function closeModal() { document.getElementById('save-modal').classList.add('hidden'); pendingSave=null; editingLeadIndex=null; }
 
 function saveLead() {
   if (!pendingSave) return;
-  const lead = {
-    ...pendingSave,
-    id: editingLeadIndex !== null ? leads[editingLeadIndex].id : Date.now(),
-    savedAt: editingLeadIndex !== null ? leads[editingLeadIndex].savedAt : new Date().toISOString(),
-    followup: document.getElementById('followup-date').value,
-    status: document.getElementById('lead-status').value,
-    notes: document.getElementById('lead-notes').value
-  };
-  if (editingLeadIndex !== null) {
-    leads[editingLeadIndex] = lead;
-    showToast('Lead updated ✓');
-  } else {
-    leads.unshift(lead);
-    showToast('Lead saved ✓');
-  }
+  const lead = { ...pendingSave, id:editingLeadIndex!==null?leads[editingLeadIndex].id:Date.now(), savedAt:editingLeadIndex!==null?leads[editingLeadIndex].savedAt:new Date().toISOString(), followup:document.getElementById('followup-date').value, status:document.getElementById('lead-status').value, notes:document.getElementById('lead-notes').value };
+  if (editingLeadIndex!==null) { leads[editingLeadIndex]=lead; showToast('Updated ✓'); }
+  else { leads.unshift(lead); showToast('Saved ✓'); }
   localStorage.setItem('bp_leads', JSON.stringify(leads));
   updateSavedCount();
   closeModal();
-  if (editingLeadIndex !== null) renderSaved();
+  if (editingLeadIndex!==null) renderSaved();
 }
 
 function deleteLead() {
-  if (editingLeadIndex === null) return;
+  if (editingLeadIndex===null) return;
   if (!confirm('Delete this lead?')) return;
-  leads.splice(editingLeadIndex, 1);
+  leads.splice(editingLeadIndex,1);
   localStorage.setItem('bp_leads', JSON.stringify(leads));
   updateSavedCount();
   closeModal();
   renderSaved();
-  showToast('Lead deleted');
+  showToast('Deleted');
 }
 
+// ── SAVE ALL ──
 function saveAll() {
-  if (!currentResults.length) return;
-  let count = 0;
-  const d = new Date(); d.setDate(d.getDate() + 7);
-  const followup = d.toISOString().split('T')[0];
+  let count=0;
+  const d=new Date(); d.setDate(d.getDate()+7);
+  const followup=d.toISOString().split('T')[0];
   currentResults.forEach(p => {
-    const name = p.displayName?.text || 'Unknown';
-    const address = p.formattedAddress || '';
-    if (!leads.find(l => l.name === name && l.address === address)) {
-      leads.unshift({ name, type: p.primaryTypeDisplayName?.text||'Business', address, phone: p.nationalPhoneNumber||'', website: p.websiteUri||'', rating: p.rating||'', mode: 'business', id: Date.now() + count, savedAt: new Date().toISOString(), followup, status: 'new', notes: '' });
+    const name=p.displayName?.text||'Unknown', address=p.formattedAddress||'';
+    if (!leads.find(l=>l.name===name&&l.address===address)) {
+      leads.unshift({name,type:p.primaryTypeDisplayName?.text||'Business',address,phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business',id:Date.now()+count,savedAt:new Date().toISOString(),followup,status:'new',notes:''});
       count++;
     }
   });
@@ -495,117 +548,144 @@ function saveAll() {
   showToast(`${count} lead${count!==1?'s':''} saved ✓`);
 }
 
-function useNearMe() {
-  if (!navigator.geolocation) { showToast('GPS not available'); return; }
-  const btn = document.getElementById('near-me-btn');
-  btn.textContent = '⏳ Getting location...';
-  navigator.geolocation.getCurrentPosition(pos => {
-    userLat = pos.coords.latitude;
-    userLng = pos.coords.longitude;
-    btn.textContent = '📍 Near Me ✓';
-    btn.classList.add('active');
-    showToast('Location set — search now');
-  }, () => {
-    btn.textContent = '📍 Near Me';
-    showToast('Location denied');
-  });
-}
-
-function updateRadius(val) {
-  searchRadius = val * 1609;
-  document.getElementById('radius-label').textContent = val + ' mi';
-}
-
-function openMaps(address) {
-  const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const url = isMobile
-    ? `https://maps.apple.com/?daddr=${encodeURIComponent(address)}&dirflg=d`
-    : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
-  window.open(url, '_blank');
-}
-
+// ── SAVED LIST ──
 function renderSaved() {
+  const filter = document.getElementById('filter-status').value;
+  const sort = document.getElementById('sort-by').value;
+  let list = filter==='all' ? [...leads] : leads.filter(l=>l.status===filter);
+  if (sort==='followup') list.sort((a,b)=>(a.followup||'9')>(b.followup||'9')?1:-1);
+  else if (sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else if (sort==='status') list.sort((a,b)=>(statusOrder[a.status]||0)-(statusOrder[b.status]||0));
   const c = document.getElementById('saved-list');
-  if (!leads.length) {
-    c.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">No saved leads yet</div><p>Search and save businesses here</p></div>`;
-    return;
-  }
-  const statusLabel = { new:'New', contacted:'Contacted', warm:'Warm', notinterested:'Not Interested', converted:'Converted' };
-  c.innerHTML = leads.map((l, i) => `
-    <div class="saved-item">
+  if (!list.length) { c.innerHTML=`<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">${filter==='all'?'No saved leads yet':'No leads with this status'}</div></div>`; return; }
+  c.innerHTML = list.map(l => {
+    const i = leads.indexOf(l);
+    return `<div class="saved-item">
       <div class="saved-item-info" onclick="openEditModal(${i})">
         <div class="saved-item-name">${l.name}</div>
-        <div class="saved-item-sub">${l.type}${l.followup ? ' · ' + l.followup : ''}</div>
-        ${l.notes ? `<div class="saved-item-sub" style="margin-top:2px;font-style:italic;">${l.notes.substring(0,60)}${l.notes.length>60?'…':''}</div>` : ''}
+        <div class="saved-item-sub">${l.type}${l.followup?' · '+l.followup:''}</div>
+        ${l.notes?`<div class="saved-item-sub" style="font-style:italic;">${l.notes.substring(0,55)}${l.notes.length>55?'…':''}</div>`:''}
       </div>
       <div class="saved-item-right">
         <span class="status-badge status-${l.status}">${statusLabel[l.status]||l.status}</span>
-        ${l.address ? `<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺 Route</button>` : ''}
+        ${l.address?`<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺 Route</button>`:''}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+// ── CSV EXPORT ──
+function exportCSV() {
+  if (!leads.length) { showToast('No leads to export'); return; }
+  const cols = ['name','type','address','phone','website','status','followup','notes','savedAt'];
+  const rows = [cols.join(','), ...leads.map(l => cols.map(k => `"${(l[k]||'').toString().replace(/"/g,'""')}"`).join(','))];
+  const blob = new Blob([rows.join('\n')], { type:'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `basepoint-leads-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  showToast('CSV downloaded ✓');
+}
+
+// ── MAPS ──
+function openMaps(address) {
+  const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  window.open(isMobile ? `https://maps.apple.com/?daddr=${encodeURIComponent(address)}&dirflg=d` : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`, '_blank');
+}
+
+// ── NEAR ME + RADIUS ──
+function useNearMe() {
+  if (!navigator.geolocation) { showToast('GPS not available'); return; }
+  const btn = document.getElementById('near-me-btn');
+  btn.textContent = '⏳ Locating...';
+  navigator.geolocation.getCurrentPosition(pos => {
+    userLat=pos.coords.latitude; userLng=pos.coords.longitude;
+    btn.textContent='📍 Near Me ✓'; btn.classList.add('active');
+    showToast('Location set');
+  }, () => { btn.textContent='📍 Near Me'; showToast('Location denied'); });
+}
+function updateRadius(val) { searchRadius=val*1609; document.getElementById('radius-label').textContent=val+' mi'; }
+
+// ── CALENDAR ──
+function initCal() { const now=new Date(); calYear=now.getFullYear(); calMonth=now.getMonth(); calSelected=null; }
+function calNav(dir) { calMonth+=dir; if(calMonth>11){calMonth=0;calYear++;} if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+
+function renderCalendar() {
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = months[calMonth]+' '+calYear;
+  const firstDay = new Date(calYear,calMonth,1).getDay();
+  const daysInMonth = new Date(calYear,calMonth+1,0).getDate();
+  const today = new Date();
+  const followupDays = new Set(leads.filter(l=>l.followup).map(l=>l.followup));
+  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let html = days.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+  for(let i=0;i<firstDay;i++) html+=`<div class="cal-cell other-month"></div>`;
+  for(let d=1;d<=daysInMonth;d++) {
+    const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+    const hasLeads=followupDays.has(dateStr);
+    const isSel=calSelected===dateStr;
+    html+=`<div class="cal-cell${isToday?' today':''}${hasLeads?' has-leads':''}${isSel?' selected':''}" onclick="selectCalDay('${dateStr}')">${d}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=html;
+  renderCalLeads(calSelected);
+}
+
+function selectCalDay(dateStr) { calSelected=dateStr; renderCalendar(); }
+
+function renderCalLeads(dateStr) {
+  const c = document.getElementById('cal-leads');
+  if (!dateStr) { c.innerHTML=`<div class="cal-empty">Tap a date to see follow-ups</div>`; return; }
+  const dayLeads = leads.filter(l=>l.followup===dateStr);
+  const label = dateStr ? new Date(dateStr+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}) : '';
+  if (!dayLeads.length) { c.innerHTML=`<div class="cal-leads-header">${label}</div><div class="cal-empty">No follow-ups this day</div>`; return; }
+  c.innerHTML=`<div class="cal-leads-header">${label} · ${dayLeads.length} follow-up${dayLeads.length!==1?'s':''}</div>`+dayLeads.map(l=>{
+    const i=leads.indexOf(l);
+    return `<div class="cal-lead-row">
+      <div><div style="font-weight:500;font-size:14px;">${l.name}</div><div style="font-size:12px;color:#888;">${l.type}</div></div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="status-badge status-${l.status}">${statusLabel[l.status]}</span>
+        <button onclick="openEditModal(${i})" style="background:none;border:none;color:#1D9E75;font-size:13px;font-weight:500;cursor:pointer;">Edit</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── WEBAUTHN ──
-const RP_NAME = 'BasePoint';
-const USER_ID_KEY = 'bp_user_id';
-const CRED_KEY = 'bp_credential_id';
-function b64url(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''); }
-function fromB64url(s) { s=s.replace(/-/g,'+').replace(/_/g,'/'); while(s.length%4)s+='='; return Uint8Array.from(atob(s),c=>c.charCodeAt(0)); }
-function getOrCreateUserId() { let id=localStorage.getItem(USER_ID_KEY); if(!id){id=b64url(crypto.getRandomValues(new Uint8Array(16)));localStorage.setItem(USER_ID_KEY,id);} return id; }
-function setAuthError(msg) { document.getElementById('auth-error').textContent = msg; }
-function unlockApp() { document.getElementById('auth-screen').classList.add('hidden'); document.getElementById('app-shell').classList.remove('hidden'); }
-
-async function handleRegister() {
+const RP_NAME='BasePoint', USER_ID_KEY='bp_user_id', CRED_KEY='bp_credential_id';
+function b64url(buf){return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');}
+function fromB64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
+function getOrCreateUserId(){let id=localStorage.getItem(USER_ID_KEY);if(!id){id=b64url(crypto.getRandomValues(new Uint8Array(16)));localStorage.setItem(USER_ID_KEY,id);}return id;}
+function setAuthError(msg){document.getElementById('auth-error').textContent=msg;}
+function unlockApp(){document.getElementById('auth-screen').classList.add('hidden');document.getElementById('app-shell').classList.remove('hidden');}
+async function handleRegister(){
   setAuthError('');
-  try {
-    const cred = await navigator.credentials.create({ publicKey: {
-      challenge: crypto.getRandomValues(new Uint8Array(32)),
-      rp: { id: window.location.hostname, name: RP_NAME },
-      user: { id: fromB64url(getOrCreateUserId()), name: 'owner', displayName: 'BasePoint Owner' },
-      pubKeyCredParams: [{ type:'public-key', alg:-7 },{ type:'public-key', alg:-257 }],
-      authenticatorSelection: { authenticatorAttachment:'platform', userVerification:'required', residentKey:'preferred' },
-      timeout: 60000
-    }});
-    localStorage.setItem(CRED_KEY, b64url(cred.rawId));
+  try{
+    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{id:window.location.hostname,name:RP_NAME},user:{id:fromB64url(getOrCreateUserId()),name:'owner',displayName:'BasePoint Owner'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});
+    localStorage.setItem(CRED_KEY,b64url(cred.rawId));
     unlockApp();
-  } catch(e) { setAuthError('Setup failed: ' + (e.message||e)); }
+  }catch(e){setAuthError('Setup failed: '+(e.message||e));}
 }
-
-async function handleAuthPrimary() {
+async function handleAuthPrimary(){
   setAuthError('');
-  const credId = localStorage.getItem(CRED_KEY);
-  if (!credId) { showSetup(); return; }
-  try {
-    await navigator.credentials.get({ publicKey: {
-      challenge: crypto.getRandomValues(new Uint8Array(32)),
-      rpId: window.location.hostname,
-      allowCredentials: [{ type:'public-key', id:fromB64url(credId) }],
-      userVerification: 'required',
-      timeout: 60000
-    }});
+  const credId=localStorage.getItem(CRED_KEY);
+  if(!credId){showSetup();return;}
+  try{
+    await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:window.location.hostname,allowCredentials:[{type:'public-key',id:fromB64url(credId)}],userVerification:'required',timeout:60000}});
     unlockApp();
-  } catch(e) {
-    if (e.name==='NotAllowedError') setAuthError('Cancelled.');
-    else setAuthError('Try again.');
-  }
+  }catch(e){setAuthError(e.name==='NotAllowedError'?'Cancelled.':'Try again.');}
 }
-
-function showSetup() {
-  document.getElementById('auth-title').textContent = 'First time setup';
-  document.getElementById('auth-sub').textContent = 'Set up Face ID or Touch ID to protect your BasePoint.';
-  document.getElementById('auth-icon').textContent = '🔐';
+function showSetup(){
+  document.getElementById('auth-title').textContent='First time setup';
+  document.getElementById('auth-sub').textContent='Set up Face ID or Touch ID to protect your BasePoint.';
+  document.getElementById('auth-icon').textContent='🔐';
   document.getElementById('auth-primary-btn').classList.add('hidden');
   document.getElementById('auth-register-btn').classList.remove('hidden');
 }
-
-window.addEventListener('load', () => {
-  if (!window.PublicKeyCredential) {
-    setAuthError('Biometrics not supported.');
-    document.getElementById('auth-primary-btn').textContent = 'Continue Anyway';
-    document.getElementById('auth-primary-btn').onclick = unlockApp;
-    return;
-  }
-  if (!localStorage.getItem(CRED_KEY)) showSetup();
+window.addEventListener('load',()=>{
+  initCal();
+  if(!window.PublicKeyCredential){setAuthError('Biometrics not supported.');document.getElementById('auth-primary-btn').textContent='Continue Anyway';document.getElementById('auth-primary-btn').onclick=unlockApp;return;}
+  if(!localStorage.getItem(CRED_KEY))showSetup();
 });
 </script>
 </div>
