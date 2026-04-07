@@ -504,7 +504,7 @@ function viewSavedLead(i) {
 }
 
 // ── WEBAUTHN PASSKEY AUTH ──────────────────────────────────────
-const RP_ID = 'basepoint-mu.vercel.app';
+const RP_ID = window.location.hostname;
 const RP_NAME = 'BasePoint';
 const USER_ID_KEY = 'bp_user_id';
 const CRED_KEY = 'bp_credential_id';
