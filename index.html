@@ -98,10 +98,38 @@
     .status-converted { background: #EAF3DE; color: #3B6D11; }
 
     .hidden { display: none !important; }
+
+    /* Auth screen */
+    #auth-screen { position: fixed; inset: 0; background: #f5f5f0; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 30px; text-align: center; }
+    .auth-logo { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+    .auth-logo span { color: #1D9E75; }
+    .auth-tagline { font-size: 15px; color: #888; margin-bottom: 60px; }
+    .auth-icon { width: 80px; height: 80px; background: #fff; border-radius: 24px; border: 1.5px solid #e5e5e0; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 38px; }
+    .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .auth-sub { font-size: 14px; color: #888; margin-bottom: 32px; line-height: 1.5; }
+    .auth-btn { width: 100%; max-width: 320px; padding: 16px; background: #1D9E75; color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; transition: background 0.15s; }
+    .auth-btn:active { background: #0F6E56; }
+    .auth-btn.secondary { background: #fff; color: #1a1a1a; border: 1.5px solid #e0e0da; }
+    .auth-error { color: #c0392b; font-size: 13px; margin-top: 12px; min-height: 20px; }
+    .auth-note { font-size: 12px; color: #bbb; margin-top: 24px; line-height: 1.6; }
   </style>
 </head>
 <body>
 
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-logo">Base<span>Point</span></div>
+  <div class="auth-tagline">Professional Prospecting Platform</div>
+  <div class="auth-icon" id="auth-icon">🔒</div>
+  <div class="auth-title" id="auth-title">Welcome back</div>
+  <div class="auth-sub" id="auth-sub">Unlock with Face ID or Touch ID to access your prospects</div>
+  <button class="auth-btn" id="auth-primary-btn" onclick="handleAuthPrimary()">Use Face ID / Touch ID</button>
+  <button class="auth-btn secondary hidden" id="auth-register-btn" onclick="handleRegister()">Set Up Biometric Login</button>
+  <div class="auth-error" id="auth-error"></div>
+  <div class="auth-note">Your data stays on this device.<br>No account required.</div>
+</div>
+
+<div id="app-shell" class="hidden">
 <div class="header">
   <div class="logo">Base<span>Point</span></div>
   <div class="mode-toggle">
@@ -474,6 +502,96 @@ function viewSavedLead(i) {
   const l = leads[i];
   alert(`${l.name}\n${l.address}\n${l.phone}\nStatus: ${l.status}\nFollow-up: ${l.followup}\nNotes: ${l.notes}`);
 }
+
+// ── WEBAUTHN PASSKEY AUTH ──────────────────────────────────────
+const RP_ID = 'basepoint-mu.vercel.app';
+const RP_NAME = 'BasePoint';
+const USER_ID_KEY = 'bp_user_id';
+const CRED_KEY = 'bp_credential_id';
+
+function b64url(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+function fromB64url(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return Uint8Array.from(atob(s), c => c.charCodeAt(0));
+}
+function getOrCreateUserId() {
+  let id = localStorage.getItem(USER_ID_KEY);
+  if (!id) { id = b64url(crypto.getRandomValues(new Uint8Array(16))); localStorage.setItem(USER_ID_KEY, id); }
+  return id;
+}
+function setError(msg) { document.getElementById('auth-error').textContent = msg; }
+function unlockApp() {
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('app-shell').classList.remove('hidden');
+}
+
+async function handleRegister() {
+  setError('');
+  try {
+    const userId = getOrCreateUserId();
+    const cred = await navigator.credentials.create({ publicKey: {
+      challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rp: { id: RP_ID, name: RP_NAME },
+      user: { id: fromB64url(userId), name: 'owner', displayName: 'BasePoint Owner' },
+      pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+      authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
+      timeout: 60000
+    }});
+    localStorage.setItem(CRED_KEY, b64url(cred.rawId));
+    unlockApp();
+  } catch(e) {
+    setError('Setup failed: ' + (e.message || e));
+  }
+}
+
+async function handleAuthPrimary() {
+  setError('');
+  const credId = localStorage.getItem(CRED_KEY);
+  if (!credId) {
+    document.getElementById('auth-title').textContent = 'First time setup';
+    document.getElementById('auth-sub').textContent = 'Register your Face ID or Touch ID to protect your prospects.';
+    document.getElementById('auth-icon').textContent = '🔐';
+    document.getElementById('auth-primary-btn').classList.add('hidden');
+    document.getElementById('auth-register-btn').classList.remove('hidden');
+    return;
+  }
+  try {
+    await navigator.credentials.get({ publicKey: {
+      challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rpId: RP_ID,
+      allowCredentials: [{ type: 'public-key', id: fromB64url(credId) }],
+      userVerification: 'required',
+      timeout: 60000
+    }});
+    unlockApp();
+  } catch(e) {
+    if (e.name === 'NotAllowedError') setError('Authentication cancelled.');
+    else setError('Try again or re-register.');
+  }
+}
+
+// Init auth on load
+window.addEventListener('load', () => {
+  if (!window.PublicKeyCredential) {
+    setError('Biometrics not supported on this browser.');
+    document.getElementById('auth-primary-btn').textContent = 'Continue Anyway';
+    document.getElementById('auth-primary-btn').onclick = unlockApp;
+    return;
+  }
+  const credId = localStorage.getItem(CRED_KEY);
+  if (!credId) {
+    document.getElementById('auth-title').textContent = 'First time setup';
+    document.getElementById('auth-sub').textContent = 'Set up Face ID or Touch ID to protect your BasePoint.';
+    document.getElementById('auth-icon').textContent = '🔐';
+    document.getElementById('auth-primary-btn').classList.add('hidden');
+    document.getElementById('auth-register-btn').classList.remove('hidden');
+  }
+});
 </script>
+</div><!-- end app-shell -->
 </body>
 </html>
