@@ -6,45 +6,25 @@
   <title>BasePoint</title>
   <style>
     :root {
-      --bp: #185FA5;
-      --bp-light: #E6F1FB;
-      --bp-mid: #378ADD;
-      --bp-dark: #0C447C;
-      --bg: #f5f5f0;
-      --surface: #fff;
-      --border: #e5e5e0;
-      --border2: #e0e0da;
-      --text: #1a1a1a;
-      --text2: #555;
-      --text3: #999;
-      --radius: 12px;
-      --radius-lg: 16px;
+      --bp: #185FA5; --bp-light: #E6F1FB; --bp-mid: #378ADD; --bp-dark: #0C447C;
+      --bg: #f5f5f0; --surface: #fff; --border: #e5e5e0; --border2: #e0e0da;
+      --text: #1a1a1a; --text2: #555; --text3: #999;
+      --radius: 12px; --radius-lg: 16px;
     }
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1117;
-        --surface: #1c1f26;
-        --border: #2a2d35;
-        --border2: #32363f;
-        --text: #f0f0f0;
-        --text2: #aaa;
-        --text3: #666;
-        --bp-light: #0c2540;
-      }
+      :root { --bg: #0f1117; --surface: #1c1f26; --border: #2a2d35; --border2: #32363f; --text: #f0f0f0; --text2: #aaa; --text3: #666; --bp-light: #0c2540; }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-    /* Header */
     .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 13px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
     .logo span { color: var(--bp); }
     .v-tag { font-size: 10px; font-weight: 600; background: var(--bp-light); color: var(--bp); padding: 2px 7px; border-radius: 99px; margin-left: 6px; vertical-align: middle; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
     .mode-toggle { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; gap: 2px; }
     .mode-btn { padding: 5px 12px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text3); }
     .mode-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
-
-    /* Search */
+    .settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 2px 4px; color: var(--text3); }
     .search-section { padding: 14px 20px 8px; }
     .search-bar { display: flex; gap: 10px; }
     .search-input { flex: 1; padding: 13px 16px; border: 1.5px solid var(--border2); border-radius: var(--radius); font-size: 16px; background: var(--surface); color: var(--text); outline: none; }
@@ -54,41 +34,43 @@
     .search-controls { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
     .near-me-btn { padding: 7px 12px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; color: var(--text); }
     .near-me-btn.active { border-color: var(--bp); color: var(--bp); background: var(--bp-light); }
-
-    /* Results */
     .results { padding: 8px 20px 110px; }
     .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .results-count { font-size: 13px; color: var(--text3); }
     .save-all-btn { padding: 7px 14px; background: var(--bp); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
     .result-card { background: var(--surface); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
     .result-name { font-size: 17px; font-weight: 600; margin-bottom: 3px; color: var(--text); }
-    .result-type { font-size: 13px; color: var(--bp); font-weight: 500; margin-bottom: 8px; }
+    .result-type { font-size: 13px; color: var(--bp); font-weight: 500; margin-bottom: 6px; }
     .meta-row { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: var(--text2); margin-bottom: 4px; }
     .result-actions { display: flex; gap: 8px; margin-top: 12px; }
     .action-btn { flex: 1; padding: 11px 8px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; color: var(--text); }
     .action-btn.primary { background: var(--bp); color: #fff; border-color: var(--bp); }
     .action-btn.call { background: #E1F5EE; color: #0F6E56; border-color: #9FE1CB; }
-
+    /* Quality badges */
+    .quality-row { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+    .qb { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; }
+    .qb-independent { background: #EAF3DE; color: #173404; }
+    .qb-chain { background: #FCEBEB; color: #501313; }
+    .qb-highticket { background: var(--bp-light); color: var(--bp-dark); }
+    .qb-highvolume { background: #F3EEFE; color: #3D2080; }
     /* Lead card */
     .lead-card { background: var(--surface); border-radius: var(--radius-lg); margin-bottom: 14px; border: 1px solid var(--border); overflow: hidden; }
     .lead-card-header { background: var(--bp); padding: 14px 18px; color: #fff; }
     .lead-card-header h2 { font-size: 18px; font-weight: 700; }
     .lead-card-header p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
     .lead-card-body { padding: 14px 18px; }
-    .lead-section { margin-bottom: 12px; }
-    .lead-section-title { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .lead-field { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .lead-section { margin-bottom: 14px; }
+    .lead-section-title { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .lead-field { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
     .lead-field:last-child { border-bottom: none; }
-    .lead-field-label { color: var(--text3); }
-    .lead-field-value { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; }
-    .lead-field-actions { display: flex; gap: 6px; }
-    .field-btn { padding: 4px 10px; border: 1px solid var(--border2); border-radius: 99px; background: var(--surface); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--bp); white-space: nowrap; }
-    .sunbiz-badge { display: inline-block; background: var(--bp-light); color: var(--bp); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; }
-    .erisa-badge { display: inline-block; background: #EAF3DE; color: #3B6D11; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-bottom: 6px; margin-left: 4px; }
-    .ai-summary { background: var(--bp-light); border-radius: 10px; padding: 12px; font-size: 14px; color: var(--text); line-height: 1.5; border-left: 3px solid var(--bp); }
-
-    /* Status flow (big buttons) */
-    .status-flow { padding: 16px 18px; border-top: 1px solid var(--border); }
+    .lead-field-label { color: var(--text3); flex-shrink: 0; }
+    .lead-field-value { color: var(--text); font-weight: 500; text-align: right; max-width: 65%; font-size: 13px; }
+    .lead-field-actions { display: flex; gap: 6px; align-items: center; }
+    .field-btn { padding: 4px 10px; border: 1px solid var(--border2); border-radius: 99px; background: var(--surface); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--bp); white-space: nowrap; text-decoration: none; display: inline-block; }
+    .sunbiz-badge { display: inline-block; background: var(--bp-light); color: var(--bp); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+    .ai-summary { background: var(--bp-light); border-radius: 10px; padding: 12px 14px; font-size: 14px; color: var(--text); line-height: 1.55; border-left: 3px solid var(--bp); }
+    .ai-loading { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text3); padding: 10px 14px; background: var(--bg); border-radius: 10px; }
+    /* Flow */
     .flow-step { margin-bottom: 14px; }
     .flow-step-label { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--bp); margin-bottom: 8px; }
     .flow-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--bp); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -96,14 +78,12 @@
     .btn-grid { display: grid; gap: 8px; }
     .btn-grid.col2 { grid-template-columns: 1fr 1fr; }
     .btn-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
-    .flow-btn { padding: 13px 8px; border: 2px solid var(--border2); border-radius: var(--radius); background: var(--surface); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; color: var(--text2); line-height: 1.3; transition: all .12s; }
-    .flow-btn:active { transform: scale(0.97); }
+    .flow-btn { padding: 13px 8px; border: 2px solid var(--border2); border-radius: var(--radius); background: var(--surface); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; color: var(--text2); line-height: 1.3; }
     .flow-btn.sel-blue { border-color: var(--bp); background: var(--bp-light); color: var(--bp-dark); }
     .flow-btn.sel-red { border-color: #E24B4A; background: #fff5f5; color: #791F1F; }
     .flow-btn.sel-amber { border-color: #BA7517; background: #fffbf0; color: #412402; }
     .flow-btn.sel-green { border-color: #3B6D11; background: #EAF3DE; color: #173404; }
     .flow-btn.sel-purple { border-color: #534AB7; background: #EEEDFE; color: #26215C; }
-    .flow-btn.inactive { opacity: 0.3; pointer-events: none; }
     .flow-summary { background: var(--bp-light); border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--bp-dark); border-left: 3px solid var(--bp); margin-bottom: 12px; display: none; }
     .followup-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
     .fc { padding: 9px 14px; border: 2px solid var(--border2); border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text2); background: var(--surface); }
@@ -115,15 +95,14 @@
     .flow-note:focus { border-color: var(--bp); }
     .today-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text3); margin-bottom: 8px; }
     .save-flow-btn { width: 100%; padding: 15px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 4px; }
-
     /* Saved */
     .saved-header { padding: 10px 20px 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .filter-select, .sort-select { padding: 8px 10px; border: 1.5px solid var(--border2); border-radius: 10px; font-size: 13px; background: var(--surface); color: var(--text); outline: none; }
     .filter-select { flex: 1; min-width: 120px; }
     .toolbar-btn { padding: 8px 12px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text); white-space: nowrap; }
     .saved-list { padding: 6px 20px 110px; }
-    .saved-item { background: var(--surface); border-radius: 14px; padding: 13px 16px; margin-bottom: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-    .saved-item-info { flex: 1; min-width: 0; }
+    .saved-item { background: var(--surface); border-radius: 14px; padding: 13px 16px; margin-bottom: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .saved-item-info { flex: 1; min-width: 0; cursor: pointer; }
     .saved-item-name { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
     .saved-item-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
     .saved-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; margin-left: 10px; }
@@ -134,15 +113,14 @@
     .sb-notinterested { background: #FCEBEB; color: #501313; }
     .sb-converted { background: #EEEDFE; color: #26215C; }
     .map-btn { font-size: 11px; color: var(--bp); font-weight: 500; background: none; border: none; cursor: pointer; padding: 0; }
-
-    /* Calendar */
+    /* Cal */
     .cal-wrap { padding: 12px 20px 110px; }
     .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .cal-nav { padding: 8px 14px; border: 1.5px solid var(--border2); border-radius: 10px; background: var(--surface); font-size: 16px; cursor: pointer; color: var(--text); }
     .cal-month-label { font-size: 17px; font-weight: 600; color: var(--text); }
     .cal-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 2px; margin-bottom: 14px; }
     .cal-day-label { text-align: center; font-size: 11px; font-weight: 600; color: var(--text3); padding: 4px 0; }
-    .cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; color: var(--text); }
+    .cal-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 14px; cursor: pointer; position: relative; color: var(--text); }
     .cal-cell.other-month { color: var(--border2); }
     .cal-cell.today { background: var(--bp-light); font-weight: 700; color: var(--bp); }
     .cal-cell.has-leads::after { content:''; position: absolute; bottom: 3px; width: 5px; height: 5px; background: var(--bp); border-radius: 50%; }
@@ -153,50 +131,36 @@
     .cal-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text); }
     .cal-lead-row:last-child { border-bottom: none; }
     .cal-empty { padding: 20px 16px; font-size: 14px; color: var(--text3); text-align: center; }
-
-    /* ── MISSION TAB ── */
+    /* Mission */
     .mission-wrap { padding: 14px 20px 110px; }
-    .mission-day-header { margin-bottom: 18px; }
-    .mission-day-label { font-size: 26px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
-    .mission-date-sub { font-size: 14px; color: var(--text3); margin-top: 2px; }
-    .mission-streak { display: inline-flex; align-items: center; gap: 6px; background: #FFF4E0; border: 1.5px solid #F5A623; border-radius: 99px; padding: 5px 12px; font-size: 13px; font-weight: 700; color: #7A4700; margin-top: 10px; }
-
-    /* Activity blocks */
     .activity-block { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 14px; overflow: hidden; }
     .activity-block-header { padding: 14px 16px 10px; display: flex; align-items: center; gap: 10px; }
-    .activity-icon { font-size: 22px; }
-    .activity-title { font-size: 15px; font-weight: 700; color: var(--text); }
-    .activity-sub { font-size: 12px; color: var(--text3); margin-top: 1px; }
-    .activity-count-badge { margin-left: auto; background: var(--bp-light); color: var(--bp-dark); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+    .activity-count-badge { margin-left: auto; background: var(--bp-light); color: var(--bp-dark); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
     .activity-btn { display: block; width: calc(100% - 32px); margin: 0 16px 14px; padding: 13px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; }
-    .activity-btn.outline { background: transparent; color: var(--bp); border: 2px solid var(--bp); }
     .activity-leads-list { padding: 0 16px 14px; }
-    .activity-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .activity-lead-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border); }
     .activity-lead-row:last-child { border-bottom: none; }
-    .activity-lead-name { font-weight: 500; color: var(--text); }
-    .activity-lead-sub { font-size: 12px; color: var(--text3); }
-    .activity-lead-right { display: flex; gap: 6px; }
-
-    /* Vein cards */
-    .vein-section-title { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin: 20px 0 10px; }
     .vein-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .vein-card { background: var(--surface); border-radius: var(--radius-lg); border: 2px solid var(--border); padding: 14px; cursor: pointer; transition: all .15s; }
-    .vein-card:active { transform: scale(0.97); }
+    .vein-card { background: var(--surface); border-radius: var(--radius-lg); border: 2px solid var(--border); padding: 14px; cursor: pointer; }
     .vein-card.active { border-color: var(--bp); background: var(--bp-light); }
-    .vein-emoji { font-size: 24px; margin-bottom: 6px; }
-    .vein-name { font-size: 14px; font-weight: 700; color: var(--text); }
-    .vein-target { font-size: 11px; color: var(--text3); margin-top: 3px; line-height: 1.4; }
     .vein-detail { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 16px; margin-bottom: 14px; display: none; }
     .vein-detail.show { display: block; }
-    .vein-detail-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
     .vein-detail-pitch { font-size: 13px; color: var(--text2); line-height: 1.55; margin-bottom: 12px; padding: 10px 12px; background: var(--bg); border-radius: 10px; border-left: 3px solid var(--bp); }
     .vein-search-btn { width: 100%; padding: 14px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 15px; font-weight: 700; cursor: pointer; }
-
-    /* Day plan pills */
-    .day-plan { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .day-plan { display: flex; gap: 6px; margin-bottom: 16px; }
     .day-pill { padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--border2); color: var(--text2); background: var(--surface); }
     .day-pill.today { background: var(--bp); color: #fff; border-color: var(--bp); }
-
+    /* Settings */
+    .settings-wrap { padding: 14px 20px 110px; }
+    .settings-section { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 16px; overflow: hidden; }
+    .settings-section-title { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; padding: 12px 16px 8px; border-bottom: 1px solid var(--border); }
+    .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-label { font-size: 14px; font-weight: 500; color: var(--text); }
+    .settings-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    .settings-input { padding: 8px 12px; border: 1.5px solid var(--border2); border-radius: 10px; font-size: 14px; background: var(--bg); color: var(--text); outline: none; width: 140px; text-align: right; }
+    .settings-input:focus { border-color: var(--bp); }
+    .settings-save-btn { width: 100%; padding: 15px; background: var(--bp); color: #fff; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; }
     /* Misc */
     .empty-state { text-align: center; padding: 50px 20px; color: var(--text3); }
     .empty-state-icon { font-size: 44px; margin-bottom: 10px; }
@@ -213,8 +177,6 @@
     .tab-btn.active { color: var(--bp); }
     .saved-count-badge { display: inline-block; background: var(--bp); color: #fff; border-radius: 99px; font-size: 10px; font-weight: 700; padding: 1px 5px; margin-left: 2px; }
     .hidden { display: none !important; }
-
-    /* Auth */
     #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 30px; text-align: center; }
     .auth-logo { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: var(--text); }
     .auth-logo span { color: var(--bp); }
@@ -239,24 +201,23 @@
   <button class="auth-btn" id="auth-primary-btn" onclick="handleAuthPrimary()">Use Face ID / Touch ID</button>
   <button class="auth-btn secondary hidden" id="auth-register-btn" onclick="handleRegister()">Set Up Biometric Login</button>
   <div class="auth-error" id="auth-error"></div>
-  <div class="auth-note">Your data stays on this device · v0.7</div>
+  <div class="auth-note">Your data stays on this device · v0.8</div>
 </div>
 
 <div id="app-shell" class="hidden">
   <div class="header">
-    <div class="logo">Base<span>Point</span><span class="v-tag">v0.7</span></div>
-    <div class="mode-toggle" id="mode-toggle-wrap">
-      <button class="mode-btn active" id="btn-business" onclick="setMode('business')">Business</button>
-      <button class="mode-btn" id="btn-consumer" onclick="setMode('consumer')">Consumer</button>
+    <div class="logo">Base<span>Point</span><span class="v-tag">v0.8</span></div>
+    <div class="header-right">
+      <div class="mode-toggle" id="mode-toggle-wrap">
+        <button class="mode-btn active" id="btn-business" onclick="setMode('business')">Business</button>
+        <button class="mode-btn" id="btn-consumer" onclick="setMode('consumer')">Consumer</button>
+      </div>
+      <button class="settings-btn" onclick="switchTab('settings')">⚙️</button>
     </div>
   </div>
 
-  <!-- MISSION TAB -->
-  <div id="tab-mission" class="hidden">
-    <div class="mission-wrap" id="mission-content"></div>
-  </div>
+  <div id="tab-mission" class="hidden"><div class="mission-wrap" id="mission-content"></div></div>
 
-  <!-- SEARCH TAB -->
   <div id="tab-search">
     <div class="search-section">
       <div class="search-bar">
@@ -270,36 +231,23 @@
       </div>
     </div>
     <div class="results" id="results-container">
-      <div class="empty-state">
-        <div class="empty-state-icon">🎯</div>
-        <div class="empty-state-title">Find your next prospect</div>
-        <p>Search a business name or address</p>
-      </div>
+      <div class="empty-state"><div class="empty-state-icon">🎯</div><div class="empty-state-title">Find your next prospect</div><p>Search a business name or address</p></div>
     </div>
   </div>
 
-  <!-- SAVED TAB -->
   <div id="tab-saved" class="hidden">
     <div class="saved-header">
       <select class="filter-select" id="filter-status" onchange="renderSaved()">
-        <option value="all">All leads</option>
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="warm">Warm</option>
-        <option value="notinterested">Not Interested</option>
-        <option value="converted">Converted</option>
+        <option value="all">All leads</option><option value="new">New</option><option value="contacted">Contacted</option><option value="warm">Warm</option><option value="notinterested">Not Interested</option><option value="converted">Converted</option>
       </select>
       <select class="sort-select" id="sort-by" onchange="renderSaved()">
-        <option value="recent">Recent</option>
-        <option value="followup">Follow-up</option>
-        <option value="name">Name</option>
+        <option value="recent">Recent</option><option value="followup">Follow-up</option><option value="name">Name</option>
       </select>
       <button class="toolbar-btn" onclick="exportCSV()">⬇ CSV</button>
     </div>
     <div class="saved-list" id="saved-list"></div>
   </div>
 
-  <!-- CALENDAR TAB -->
   <div id="tab-calendar" class="hidden">
     <div class="cal-wrap">
       <div class="cal-header">
@@ -312,22 +260,47 @@
     </div>
   </div>
 
+  <div id="tab-settings" class="hidden">
+    <div class="settings-wrap">
+      <div class="settings-section">
+        <div class="settings-section-title">Your Profile</div>
+        <div class="settings-row"><div><div class="settings-label">Name</div></div><input class="settings-input" id="s-name" type="text" placeholder="Jeremy"/></div>
+        <div class="settings-row"><div><div class="settings-label">Home ZIP</div><div class="settings-sub">32571</div></div><input class="settings-input" id="s-home-zip" type="text" placeholder="32571" maxlength="5"/></div>
+        <div class="settings-row"><div><div class="settings-label">Office ZIP</div><div class="settings-sub">32503</div></div><input class="settings-input" id="s-office-zip" type="text" placeholder="32503" maxlength="5"/></div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Products You Sell</div>
+        <div class="settings-row"><div class="settings-label">Key Man / Buy-Sell</div><input type="checkbox" id="p-keyman" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">SEP-IRA / Deferred Comp</div><input type="checkbox" id="p-sep" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">Salary Allotment</div><input type="checkbox" id="p-salary" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">Term / Whole Life / IUL</div><input type="checkbox" id="p-life" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">Final Expense</div><input type="checkbox" id="p-fe" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">Medicare</div><input type="checkbox" id="p-medicare" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+        <div class="settings-row"><div class="settings-label">Annuities / 401k Rollover</div><input type="checkbox" id="p-annuity" style="width:20px;height:20px;accent-color:var(--bp)"/></div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">App</div>
+        <div class="settings-row"><div class="settings-label">Version</div><div style="font-size:14px;color:var(--text3)">v0.8</div></div>
+        <div class="settings-row"><div class="settings-label">Leads saved</div><div style="font-size:14px;color:var(--text3)" id="s-lead-count">0</div></div>
+        <div class="settings-row" style="cursor:pointer" onclick="if(confirm('Clear all saved leads?')){leads=[];localStorage.setItem('bp_leads','[]');updateSavedCount();showToast('Cleared');}"><div class="settings-label" style="color:#E24B4A">Clear All Leads</div><div style="font-size:14px;color:var(--text3)">→</div></div>
+      </div>
+      <button class="settings-save-btn" onclick="saveSettings()">Save Profile</button>
+      <div style="text-align:center;font-size:12px;color:var(--text3);margin-top:16px">BasePoint · jeremywadeharris@gmail.com</div>
+    </div>
+  </div>
+
   <div class="bottom-bar">
     <button class="tab-btn" id="nav-mission" onclick="switchTab('mission')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Mission
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Mission
     </button>
     <button class="tab-btn active" id="nav-search" onclick="switchTab('search')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Search
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search
     </button>
     <button class="tab-btn" id="nav-saved" onclick="switchTab('saved')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-      Saved <span class="saved-count-badge" id="saved-count">0</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>Saved <span class="saved-count-badge" id="saved-count">0</span>
     </button>
     <button class="tab-btn" id="nav-calendar" onclick="switchTab('calendar')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Calendar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendar
     </button>
   </div>
 </div>
@@ -335,883 +308,321 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const GOOGLE_API_KEY = 'AIzaSyALEoImvYG41QwL1nTpWG7uog6Vyfk2jB8';
-let currentMode = 'business';
-let currentResults = [];
-let searchRadius = 8047;
-let userLat = null, userLng = null;
-let calYear, calMonth, calSelected;
-let leads = JSON.parse(localStorage.getItem('bp_leads') || '[]');
-let selectedVein = null;
+const GOOGLE_API_KEY='AIzaSyALEoImvYG41QwL1nTpWG7uog6Vyfk2jB8';
+let currentMode='business',currentResults=[],searchRadius=8047,userLat=null,userLng=null;
+let calYear,calMonth,calSelected;
+let leads=JSON.parse(localStorage.getItem('bp_leads')||'[]');
+let selectedVein=null;
+const STATUS_LABEL={new:'New',contacted:'Contacted',warm:'Warm',notinterested:'Not Interested',converted:'Converted'};
 
-const STATUS_LABEL = { new:'New', contacted:'Contacted', warm:'Warm', notinterested:'Not Interested', converted:'Converted' };
+// ── CHAIN / QUALITY DETECTION ──
+const CHAINS=['mcdonald','subway','starbucks','walmart','target','home depot','lowe\'s','cvs','walgreens','chick-fil-a','domino\'s','pizza hut','taco bell','wendy\'s','burger king','dunkin','dollar tree','dollar general','7-eleven','circle k','autozone','o\'reilly','advance auto','jiffy lube','midas','h&r block','liberty tax','jackson hewitt'];
+const HIGH_TICKET=['dentist','dental','physician','doctor','medical','law','attorney','lawyer','accounting','cpa','financial','veterinarian','optometrist','orthodontist','chiropractor','surgeon','architect','engineer','consultant','hvac','plumbing','electrical','roofing','construction','auto dealer'];
+const HIGH_VOL=['restaurant','salon','barber','nail','spa','retail','grocery','gym','fitness','laundry','bakery','coffee','cafe','diner'];
+
+function classify(name,type){
+  const n=(name||'').toLowerCase(),t=(type||'').toLowerCase();
+  const isChain=CHAINS.some(k=>n.includes(k));
+  const isHT=HIGH_TICKET.some(k=>t.includes(k)||n.includes(k));
+  const isHV=HIGH_VOL.some(k=>t.includes(k)||n.includes(k));
+  return{isChain,isHT,isHV};
+}
+function qualityHTML(name,type){
+  const{isChain,isHT,isHV}=classify(name,type);
+  let b='';
+  if(isChain) b+=`<span class="qb qb-chain">⛓ Chain</span>`;
+  else b+=`<span class="qb qb-independent">✓ Independent</span>`;
+  if(isHT) b+=`<span class="qb qb-highticket">💎 High Ticket</span>`;
+  else if(isHV) b+=`<span class="qb qb-highvolume">🔄 High Volume</span>`;
+  return`<div class="quality-row">${b}</div>`;
+}
+
+// ── SETTINGS ──
+function loadSettings(){
+  const s=JSON.parse(localStorage.getItem('bp_settings')||'{}');
+  document.getElementById('s-name').value=s.name||'';
+  document.getElementById('s-home-zip').value=s.homeZip||'';
+  document.getElementById('s-office-zip').value=s.officeZip||'';
+  ['keyman','sep','salary','life','fe','medicare','annuity'].forEach(p=>{
+    const el=document.getElementById('p-'+p);
+    if(el) el.checked=s['p_'+p]||false;
+  });
+  document.getElementById('s-lead-count').textContent=leads.length;
+}
+function saveSettings(){
+  const s={name:document.getElementById('s-name').value.trim(),homeZip:document.getElementById('s-home-zip').value.trim(),officeZip:document.getElementById('s-office-zip').value.trim()};
+  ['keyman','sep','salary','life','fe','medicare','annuity'].forEach(p=>{s['p_'+p]=document.getElementById('p-'+p).checked;});
+  localStorage.setItem('bp_settings',JSON.stringify(s));
+  showToast('Profile saved ✓');
+}
+function getSettings(){return JSON.parse(localStorage.getItem('bp_settings')||'{}');}
 
 // ── VEINS ──
-const VEINS = [
-  {
-    id: 'keyman',
-    emoji: '🔑',
-    name: 'Key Man',
-    target: 'Small biz with 1–3 critical owners',
-    pitch: 'If the owner dies or becomes disabled, who keeps the lights on? Key Man protects the business itself — not just the family. Perfect opener: "What happens to your business if something happens to you?"',
-    searchTerms: ['HVAC contractor', 'plumbing company', 'electrical contractor', 'auto repair shop', 'manufacturing company', 'law firm', 'medical practice', 'dental office', 'accounting firm', 'construction company'],
-    color: '#185FA5'
-  },
-  {
-    id: 'buysell',
-    emoji: '🤝',
-    name: 'Buy-Sell',
-    target: 'Multi-owner partnerships',
-    pitch: 'What happens when one partner wants out, dies, or gets divorced? Without a funded buy-sell, the business often collapses. Look for any business with 2+ owners — LLC or partnership filing is your signal.',
-    searchTerms: ['law firm', 'medical group', 'dental group', 'CPA firm', 'engineering firm', 'property management', 'restaurant group', 'physical therapy'],
-    color: '#0F6E56'
-  },
-  {
-    id: 'sep',
-    emoji: '📊',
-    name: 'SEP-IRA',
-    target: 'Self-employed & solo pros',
-    pitch: 'Solo business owners with no employees can shelter up to $70k/yr pre-tax. They often don\'t know this exists. Opener: "Are you putting away anything for retirement through the business?" Works great with sole proprietors.',
-    searchTerms: ['dentist', 'chiropractor', 'attorney', 'consultant', 'freelance', 'realtor', 'insurance agent', 'therapist', 'veterinarian', 'optometrist'],
-    color: '#7B2FBE'
-  },
-  {
-    id: 'deferredcomp',
-    emoji: '💰',
-    name: 'Deferred Comp',
-    target: 'C-corps & high-income execs',
-    pitch: 'Highly paid executives in C-corps can defer compensation tax-free using a 162 bonus or NQDC plan. Target medical groups, hospital-employed physicians, corporate executives. Ask: "Has anyone talked to you about supplementing your 401k?"',
-    searchTerms: ['medical center', 'hospital group', 'corporate office', 'bank', 'financial firm', 'tech company', 'pharmaceutical', 'insurance company'],
-    color: '#BA7517'
-  },
-  {
-    id: 'salaryallotment',
-    emoji: '📋',
-    name: 'Salary Allotment',
-    target: 'Government & school employees',
-    pitch: 'Government workers, teachers, and military-adjacent employees can payroll-deduct life insurance. Zero underwriting risk for them. Guaranteed issue. Easiest close in the book. Find HR departments, school boards, county offices.',
-    searchTerms: ['school district', 'county office', 'city hall', 'fire station', 'police department', 'post office', 'government building', 'school administration'],
-    color: '#0F6E56'
-  },
-  {
-    id: 'finalexpense',
-    emoji: '🕊️',
-    name: 'Final Expense',
-    target: 'Seniors 50–85, lower income',
-    pitch: 'Simple whole life, small face amount, no exam. Easiest product to explain. Drive neighborhoods with older homes, target funeral homes for referrals, church bulletins. Opener: "Have you taken care of your final arrangements so your family doesn\'t have to?"',
-    searchTerms: ['funeral home', 'senior center', 'nursing home', 'assisted living', 'church', 'veterans organization', 'barber shop', 'beauty salon'],
-    color: '#E24B4A'
-  }
+const VEINS=[
+  {id:'keyman',emoji:'🔑',name:'Key Man',target:'Small biz, 1–3 critical owners',pitch:'If the owner dies or becomes disabled, who keeps the lights on? Opener: "What happens to your business if something happens to you?"',searchTerms:['HVAC contractor','plumbing company','electrical contractor','auto repair shop','manufacturing','law firm','medical practice','dental office','accounting firm','construction company']},
+  {id:'buysell',emoji:'🤝',name:'Buy-Sell',target:'Multi-owner partnerships',pitch:'What happens when one partner wants out or dies? Without a funded buy-sell, the business collapses. Look for LLCs and partnerships with 2+ owners.',searchTerms:['law firm','medical group','dental group','CPA firm','engineering firm','property management','physical therapy','optometry']},
+  {id:'sep',emoji:'📊',name:'SEP-IRA',target:'Self-employed & solo pros',pitch:'Solo owners can shelter up to $70k/yr pre-tax. Most don\'t know. Opener: "Are you putting anything away for retirement through the business?"',searchTerms:['dentist','chiropractor','attorney','consultant','realtor','therapist','veterinarian','optometrist']},
+  {id:'deferredcomp',emoji:'💰',name:'Deferred Comp',target:'C-corps & high-income execs',pitch:'Highly paid C-corp execs can defer compensation tax-free. Ask: "Has anyone talked to you about supplementing your 401k?"',searchTerms:['medical center','corporate office','bank','tech company','hospital group','financial firm']},
+  {id:'salaryallotment',emoji:'📋',name:'Salary Allotment',target:'Government & school employees',pitch:'Government workers and teachers can payroll-deduct life insurance. Zero underwriting risk. Guaranteed issue. Easiest close in the book.',searchTerms:['school district','county office','city hall','fire station','police department','post office','government']},
+  {id:'finalexpense',emoji:'🕊️',name:'Final Expense',target:'Seniors 50–85',pitch:'Simple whole life, no exam. Opener: "Have you taken care of your final arrangements so your family doesn\'t have to worry?"',searchTerms:['funeral home','senior center','nursing home','assisted living','church','veterans organization','barber shop']}
 ];
+const WEEKLY={0:{label:'Sunday',theme:'Plan Your Week',icon:'📅',activity:'plan'},1:{label:'Monday',theme:'Follow-Up Day',icon:'📞',activity:'followup'},2:{label:'Tuesday',theme:'Cold Business Stops',icon:'🏢',activity:'cold',vein:'keyman'},3:{label:'Wednesday',theme:'Follow-Up Day',icon:'📞',activity:'followup'},4:{label:'Thursday',theme:'New Business Hunt',icon:'🆕',activity:'cold',vein:'buysell'},5:{label:'Friday',theme:'Wildcard Market',icon:'🎯',activity:'wildcard'},6:{label:'Saturday',theme:'Warm Outreach',icon:'🔥',activity:'warm'}};
 
-// ── WEEKLY RHYTHM ──
-const WEEKLY_PLAN = {
-  0: { label: 'Sunday', theme: 'Plan Your Week', icon: '📅', activity: 'plan' },
-  1: { label: 'Monday', theme: 'Follow-Up Day', icon: '📞', activity: 'followup' },
-  2: { label: 'Tuesday', theme: 'Cold Business Stops', icon: '🏢', activity: 'cold', vein: 'keyman' },
-  3: { label: 'Wednesday', theme: 'Follow-Up Day', icon: '📞', activity: 'followup' },
-  4: { label: 'Thursday', theme: 'New Business Hunt', icon: '🆕', activity: 'cold', vein: 'buysell' },
-  5: { label: 'Friday', theme: 'Wildcard Market', icon: '🎯', activity: 'wildcard' },
-  6: { label: 'Saturday', theme: 'Warm Outreach', icon: '🔥', activity: 'warm' }
-};
-
-function updateSavedCount() { document.getElementById('saved-count').textContent = leads.length; }
+function updateSavedCount(){document.getElementById('saved-count').textContent=leads.length;const el=document.getElementById('s-lead-count');if(el)el.textContent=leads.length;}
 updateSavedCount();
 
 // ── TABS ──
-function setMode(mode) {
-  currentMode = mode;
-  ['business','consumer'].forEach(m => document.getElementById('btn-'+m).classList.toggle('active', m===mode));
-  document.getElementById('search-input').placeholder = mode==='business' ? 'Business name or address...' : 'Street address...';
-  document.getElementById('results-container').innerHTML = `<div class="empty-state"><div class="empty-state-icon">${mode==='business'?'🏢':'🏠'}</div><div class="empty-state-title">${mode==='business'?'Find businesses':'Look up residents'}</div></div>`;
+function setMode(mode){
+  currentMode=mode;
+  ['business','consumer'].forEach(m=>document.getElementById('btn-'+m).classList.toggle('active',m===mode));
+  document.getElementById('search-input').placeholder=mode==='business'?'Business name or address...':'Street address...';
+  document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">${mode==='business'?'🏢':'🏠'}</div><div class="empty-state-title">${mode==='business'?'Find businesses':'Look up residents'}</div></div>`;
 }
-
-function switchTab(tab) {
-  ['mission','search','saved','calendar'].forEach(t => {
-    document.getElementById('tab-'+t).classList.toggle('hidden', t!==tab);
-    document.getElementById('nav-'+t).classList.toggle('active', t===tab);
+function switchTab(tab){
+  ['mission','search','saved','calendar','settings'].forEach(t=>{
+    document.getElementById('tab-'+t).classList.toggle('hidden',t!==tab);
+    const n=document.getElementById('nav-'+t);if(n)n.classList.toggle('active',t===tab);
   });
-  // Hide mode toggle on mission tab
-  document.getElementById('mode-toggle-wrap').style.display = tab === 'mission' ? 'none' : '';
-  if (tab==='saved') renderSaved();
-  if (tab==='calendar') renderCalendar();
-  if (tab==='mission') renderMission();
+  document.getElementById('mode-toggle-wrap').style.display=tab==='search'?'':'none';
+  if(tab==='saved')renderSaved();
+  if(tab==='calendar')renderCalendar();
+  if(tab==='mission')renderMission();
+  if(tab==='settings')loadSettings();
 }
 
-// ── MISSION TAB ──
-function renderMission() {
-  const now = new Date();
-  const dow = now.getDay();
-  const plan = WEEKLY_PLAN[dow];
-  const dateStr = now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
-
-  // Count follow-ups due today or overdue
-  const todayStr = now.toISOString().split('T')[0];
-  const dueTodayLeads = leads.filter(l => l.followup && l.followup <= todayStr && l.status !== 'converted' && l.status !== 'notinterested');
-  const warmLeads = leads.filter(l => l.status === 'warm');
-  const newLeads = leads.filter(l => l.status === 'new');
-
-  // Streak
-  const streak = parseInt(localStorage.getItem('bp_streak') || '0');
-
-  let html = `
-    <div class="mission-day-header">
-      <div class="mission-day-label">${plan.icon} ${plan.label}</div>
-      <div class="mission-date-sub">${dateStr}</div>
-      ${streak > 0 ? `<div class="mission-streak">🔥 ${streak} day streak</div>` : ''}
-    </div>`;
-
-  // Day plan pills
-  const days = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-  html += `<div class="day-plan">`;
-  days.forEach((d, i) => {
-    html += `<div class="day-pill${i===dow?' today':''}">${d}</div>`;
-  });
-  html += `</div>`;
-
-  // ── TODAY'S FOCUS ──
-  html += `<div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Today's Focus: ${plan.theme}</div>`;
-
-  // Follow-ups due
-  if (dueTodayLeads.length > 0) {
-    html += `<div class="activity-block">
-      <div class="activity-block-header">
-        <div class="activity-icon">📞</div>
-        <div>
-          <div class="activity-title">Follow-Ups Due</div>
-          <div class="activity-sub">These people are expecting to hear from you</div>
-        </div>
-        <div class="activity-count-badge">${dueTodayLeads.length} due</div>
-      </div>
-      <div class="activity-leads-list">`;
-    dueTodayLeads.slice(0, 5).forEach(l => {
-      const i = leads.indexOf(l);
-      const overdue = l.followup < todayStr;
-      html += `<div class="activity-lead-row">
-        <div>
-          <div class="activity-lead-name">${l.name}</div>
-          <div class="activity-lead-sub">${l.contactLog || l.type} · ${overdue ? '⚠️ Overdue' : 'Due today'}</div>
-        </div>
-        <div class="activity-lead-right">
-          ${l.phone ? `<button class="map-btn" style="font-size:18px" onclick="callNumber('${l.phone}')">📞</button>` : ''}
-          <button class="map-btn" style="font-size:13px;color:var(--bp);font-weight:600" onclick="reopenFlow(${i})">Log</button>
-        </div>
-      </div>`;
-    });
-    if (dueTodayLeads.length > 5) {
-      html += `<div style="font-size:13px;color:var(--text3);padding:8px 0;text-align:center">+${dueTodayLeads.length - 5} more in Saved tab</div>`;
-    }
-    html += `</div></div>`;
+// ── MISSION ──
+function renderMission(){
+  const now=new Date(),dow=now.getDay(),plan=WEEKLY[dow];
+  const dateStr=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const todayStr=now.toISOString().split('T')[0];
+  const due=leads.filter(l=>l.followup&&l.followup<=todayStr&&l.status!=='converted'&&l.status!=='notinterested');
+  const warm=leads.filter(l=>l.status==='warm');
+  const streak=parseInt(localStorage.getItem('bp_streak')||'0');
+  const s=getSettings();
+  const fn=s.name?s.name.split(' ')[0]:'';
+  let html=`<div style="margin-bottom:18px"><div style="font-size:26px;font-weight:800;letter-spacing:-.5px">${plan.icon} ${plan.label}${fn?', '+fn:''}</div><div style="font-size:14px;color:var(--text3);margin-top:2px">${dateStr}</div>${streak>0?`<div style="display:inline-flex;align-items:center;gap:6px;background:#FFF4E0;border:1.5px solid #F5A623;border-radius:99px;padding:5px 12px;font-size:13px;font-weight:700;color:#7A4700;margin-top:10px">🔥 ${streak} day streak</div>`:''}</div>`;
+  html+=`<div class="day-plan">${['Su','Mo','Tu','We','Th','Fr','Sa'].map((d,i)=>`<div class="day-pill${i===dow?' today':''}">${d}</div>`).join('')}</div>`;
+  html+=`<div style="font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Today's Focus: ${plan.theme}</div>`;
+  if(due.length){
+    html+=`<div class="activity-block"><div class="activity-block-header"><div style="font-size:22px">📞</div><div><div style="font-size:15px;font-weight:700">Follow-Ups Due</div><div style="font-size:12px;color:var(--text3)">These people are expecting you</div></div><div class="activity-count-badge">${due.length} due</div></div><div class="activity-leads-list">`;
+    due.slice(0,5).forEach(l=>{const i=leads.indexOf(l);const od=l.followup<todayStr;html+=`<div class="activity-lead-row"><div><div style="font-weight:500;font-size:14px">${l.name}</div><div style="font-size:12px;color:var(--text3)">${l.contactLog||l.type} · ${od?'⚠️ Overdue':'Due today'}</div></div><div style="display:flex;gap:8px">${l.phone?`<button class="map-btn" style="font-size:18px" onclick="callNumber('${l.phone}')">📞</button>`:''}<button class="map-btn" style="font-size:13px;color:var(--bp);font-weight:600" onclick="reopenFlow(${i})">Log</button></div></div>`;});
+    if(due.length>5)html+=`<div style="font-size:13px;color:var(--text3);padding:8px 0;text-align:center">+${due.length-5} more in Saved</div>`;
+    html+=`</div></div>`;
   }
-
-  // Warm leads to push
-  if (warmLeads.length > 0 && (plan.activity === 'followup' || plan.activity === 'warm')) {
-    html += `<div class="activity-block">
-      <div class="activity-block-header">
-        <div class="activity-icon">🔥</div>
-        <div>
-          <div class="activity-title">Warm Leads to Push</div>
-          <div class="activity-sub">They showed interest — follow through</div>
-        </div>
-        <div class="activity-count-badge">${warmLeads.length} warm</div>
-      </div>
-      <div class="activity-leads-list">`;
-    warmLeads.slice(0, 3).forEach(l => {
-      const i = leads.indexOf(l);
-      html += `<div class="activity-lead-row">
-        <div>
-          <div class="activity-lead-name">${l.name}</div>
-          <div class="activity-lead-sub">${l.contactLog || l.type}${l.followup ? ' · ' + l.followup : ''}</div>
-        </div>
-        <div class="activity-lead-right">
-          ${l.phone ? `<button class="map-btn" style="font-size:18px" onclick="callNumber('${l.phone}')">📞</button>` : ''}
-          <button class="map-btn" style="font-size:13px;color:var(--bp);font-weight:600" onclick="reopenFlow(${i})">Log</button>
-        </div>
-      </div>`;
-    });
-    html += `</div></div>`;
+  if(warm.length&&(plan.activity==='followup'||plan.activity==='warm')){
+    html+=`<div class="activity-block"><div class="activity-block-header"><div style="font-size:22px">🔥</div><div><div style="font-size:15px;font-weight:700">Warm Leads to Push</div><div style="font-size:12px;color:var(--text3)">They showed interest — follow through</div></div><div class="activity-count-badge">${warm.length} warm</div></div><div class="activity-leads-list">`;
+    warm.slice(0,3).forEach(l=>{const i=leads.indexOf(l);html+=`<div class="activity-lead-row"><div><div style="font-weight:500;font-size:14px">${l.name}</div><div style="font-size:12px;color:var(--text3)">${l.contactLog||l.type}${l.followup?' · '+l.followup:''}</div></div><div style="display:flex;gap:8px">${l.phone?`<button class="map-btn" style="font-size:18px" onclick="callNumber('${l.phone}')">📞</button>`:''}<button class="map-btn" style="font-size:13px;color:var(--bp);font-weight:600" onclick="reopenFlow(${i})">Log</button></div></div>`;});
+    html+=`</div></div>`;
   }
-
-  // Cold prospecting + vein for cold days
-  if (plan.activity === 'cold' || plan.activity === 'wildcard' || plan.activity === 'plan') {
-    const todayVein = plan.vein ? VEINS.find(v => v.id === plan.vein) : null;
-
-    if (todayVein) {
-      html += `<div class="activity-block">
-        <div class="activity-block-header">
-          <div class="activity-icon">${todayVein.emoji}</div>
-          <div>
-            <div class="activity-title">Today's Market: ${todayVein.name}</div>
-            <div class="activity-sub">${todayVein.target}</div>
-          </div>
-        </div>
-        <div style="padding:0 16px 14px">
-          <div class="vein-detail-pitch">${todayVein.pitch}</div>
-          <button class="activity-btn" onclick="launchVeinSearch('${todayVein.id}')">Search ${todayVein.name} Prospects Near Me →</button>
-        </div>
-      </div>`;
-    }
+  if(plan.activity==='cold'||plan.activity==='wildcard'||plan.activity==='plan'){
+    const tv=plan.vein?VEINS.find(v=>v.id===plan.vein):null;
+    if(tv)html+=`<div class="activity-block"><div class="activity-block-header"><div style="font-size:22px">${tv.emoji}</div><div><div style="font-size:15px;font-weight:700">Today's Market: ${tv.name}</div><div style="font-size:12px;color:var(--text3)">${tv.target}</div></div></div><div style="padding:0 16px 14px"><div class="vein-detail-pitch">${tv.pitch}</div><button class="activity-btn" onclick="launchVeinSearch('${tv.id}')">Search ${tv.name} Prospects Near Me →</button></div></div>`;
   }
-
-  // ── VEIN SELECTOR ──
-  html += `<div class="vein-section-title">Pick a Market to Prospect</div>`;
-  html += `<div class="vein-grid">`;
-  VEINS.forEach(v => {
-    html += `<div class="vein-card${selectedVein===v.id?' active':''}" onclick="selectVein('${v.id}')">
-      <div class="vein-emoji">${v.emoji}</div>
-      <div class="vein-name">${v.name}</div>
-      <div class="vein-target">${v.target}</div>
-    </div>`;
-  });
-  html += `</div>`;
-
-  // Vein detail panel
-  html += `<div class="vein-detail${selectedVein?' show':''}" id="vein-detail-panel">`;
-  if (selectedVein) {
-    const v = VEINS.find(v => v.id === selectedVein);
-    if (v) {
-      html += `<div class="vein-detail-title">${v.emoji} ${v.name}</div>
-        <div class="vein-detail-pitch">${v.pitch}</div>
-        <button class="vein-search-btn" onclick="launchVeinSearch('${v.id}')">Search ${v.name} Prospects →</button>`;
-    }
-  }
-  html += `</div>`;
-
-  // Stats summary
-  html += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-top:6px">
-    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your Pipeline</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
-      <div><div style="font-size:24px;font-weight:800;color:var(--bp)">${leads.length}</div><div style="font-size:11px;color:var(--text3)">Total</div></div>
-      <div><div style="font-size:24px;font-weight:800;color:#3B6D11">${warmLeads.length}</div><div style="font-size:11px;color:var(--text3)">Warm</div></div>
-      <div><div style="font-size:24px;font-weight:800;color:#E24B4A">${dueTodayLeads.length}</div><div style="font-size:11px;color:var(--text3)">Due</div></div>
-    </div>
-  </div>`;
-
-  document.getElementById('mission-content').innerHTML = html;
+  html+=`<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 10px">Pick a Market to Prospect</div>`;
+  html+=`<div class="vein-grid">${VEINS.map(v=>`<div class="vein-card${selectedVein===v.id?' active':''}" onclick="selectVein('${v.id}')"><div style="font-size:24px;margin-bottom:6px">${v.emoji}</div><div style="font-size:14px;font-weight:700;color:var(--text)">${v.name}</div><div style="font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4">${v.target}</div></div>`).join('')}</div>`;
+  html+=`<div class="vein-detail${selectedVein?' show':''}" id="vein-detail-panel">`;
+  if(selectedVein){const v=VEINS.find(v=>v.id===selectedVein);if(v)html+=`<div style="font-size:16px;font-weight:700;margin-bottom:8px">${v.emoji} ${v.name}</div><div class="vein-detail-pitch">${v.pitch}</div><button class="vein-search-btn" onclick="launchVeinSearch('${v.id}')">Search ${v.name} Prospects →</button>`;}
+  html+=`</div>`;
+  html+=`<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-top:6px"><div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your Pipeline</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center"><div><div style="font-size:24px;font-weight:800;color:var(--bp)">${leads.length}</div><div style="font-size:11px;color:var(--text3)">Total</div></div><div><div style="font-size:24px;font-weight:800;color:#3B6D11">${warm.length}</div><div style="font-size:11px;color:var(--text3)">Warm</div></div><div><div style="font-size:24px;font-weight:800;color:#E24B4A">${due.length}</div><div style="font-size:11px;color:var(--text3)">Due</div></div></div></div>`;
+  document.getElementById('mission-content').innerHTML=html;
 }
 
-function selectVein(id) {
-  selectedVein = selectedVein === id ? null : id;
-  renderMission();
-  if (selectedVein) {
-    setTimeout(() => {
-      document.getElementById('vein-detail-panel')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  }
-}
-
-function launchVeinSearch(veinId) {
-  const vein = VEINS.find(v => v.id === veinId);
-  if (!vein) return;
-  // Pick a random search term from the vein
-  const term = vein.searchTerms[Math.floor(Math.random() * vein.searchTerms.length)];
-  switchTab('search');
-  setMode('business');
-  document.getElementById('search-input').value = term;
-  // Auto-activate Near Me if we have location
-  if (userLat) {
-    document.getElementById('near-me-btn').classList.add('active');
-  }
-  showToast(`Searching ${vein.name} prospects...`);
-  doSearch();
-}
+function selectVein(id){selectedVein=selectedVein===id?null:id;renderMission();if(selectedVein)setTimeout(()=>document.getElementById('vein-detail-panel')?.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
+function launchVeinSearch(veinId){const v=VEINS.find(v=>v.id===veinId);if(!v)return;const t=v.searchTerms[Math.floor(Math.random()*v.searchTerms.length)];switchTab('search');setMode('business');document.getElementById('search-input').value=t;showToast(`Searching ${v.name} prospects...`);doSearch();}
 
 // ── UTILS ──
-function showLoading() { document.getElementById('results-container').innerHTML = `<div class="loading"><div class="spinner"></div> Searching...</div>`; }
-function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+function showLoading(){document.getElementById('results-container').innerHTML=`<div class="loading"><div class="spinner"></div> Searching...</div>`;}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
 // ── SEARCH ──
-async function doSearch() {
-  const q = document.getElementById('search-input').value.trim();
-  if (!q) return;
-  document.getElementById('search-btn').disabled = true;
-  showLoading();
-  try { currentMode==='business' ? await searchBusiness(q) : await searchConsumer(q); }
-  catch(e) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-title">Search failed</div><p>Check connection and try again</p></div>`; }
-  document.getElementById('search-btn').disabled = false;
+async function doSearch(){
+  const q=document.getElementById('search-input').value.trim();if(!q)return;
+  document.getElementById('search-btn').disabled=true;showLoading();
+  try{currentMode==='business'?await searchBusiness(q):await searchConsumer(q);}
+  catch(e){document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-title">Search failed</div><p>Check connection and try again</p></div>`;}
+  document.getElementById('search-btn').disabled=false;
 }
-document.getElementById('search-input').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+document.getElementById('search-input').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
 
-async function searchBusiness(query) {
-  const savedNames = new Set(leads.map(l => l.name + '|' + l.address));
-  const body = { textQuery: query, languageCode: 'en', pageSize: 20 };
-  if (userLat) body.locationBias = { circle: { center: { latitude:userLat, longitude:userLng }, radius:searchRadius } };
-  const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
-    method: 'POST',
-    headers: { 'Content-Type':'application/json', 'X-Goog-Api-Key':GOOGLE_API_KEY, 'X-Goog-FieldMask':'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.regularOpeningHours,places.id' },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) throw new Error();
-  const data = await res.json();
-  let places = data.places || [];
-  const cutoff = Date.now() - 60*24*60*60*1000;
-  places = places.filter(p => {
-    const key = (p.displayName?.text||'') + '|' + (p.formattedAddress||'');
-    const saved = leads.find(l => (l.name+'|'+l.address)===key);
-    return !saved || new Date(saved.savedAt).getTime() < cutoff;
-  });
-  if (!places.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No new results</div><p>All matches are in your saved list</p></div>`; return; }
-  currentResults = places;
-  renderBusinessResults(places);
+async function searchBusiness(query){
+  const body={textQuery:query,languageCode:'en',pageSize:20};
+  if(userLat)body.locationBias={circle:{center:{latitude:userLat,longitude:userLng},radius:searchRadius}};
+  const res=await fetch('https://places.googleapis.com/v1/places:searchText',{method:'POST',headers:{'Content-Type':'application/json','X-Goog-Api-Key':GOOGLE_API_KEY,'X-Goog-FieldMask':'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.businessStatus,places.regularOpeningHours,places.id'},body:JSON.stringify(body)});
+  if(!res.ok)throw new Error();
+  const data=await res.json();
+  let places=data.places||[];
+  const cutoff=Date.now()-60*24*60*60*1000;
+  places=places.filter(p=>{const key=(p.displayName?.text||'')+'|'+(p.formattedAddress||'');const saved=leads.find(l=>(l.name+'|'+l.address)===key);return!saved||new Date(saved.savedAt).getTime()<cutoff;});
+  if(!places.length){document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">No new results</div><p>All matches are in your saved list</p></div>`;return;}
+  currentResults=places;renderBusinessResults(places);
 }
 
-function renderBusinessResults(places) {
-  const c = document.getElementById('results-container');
-  c.innerHTML = `<div class="results-header"><span class="results-count">${places.length} result${places.length!==1?'s':''}</span><button class="save-all-btn" onclick="saveAll()">Save All</button></div>`;
-  places.forEach((p,i) => {
-    const d = document.createElement('div');
-    d.className = 'result-card';
-    const hours = p.regularOpeningHours?.weekdayDescriptions?.[new Date().getDay()-1] || null;
-    d.innerHTML = `
-      <div class="result-name">${p.displayName?.text||'Unknown'}</div>
-      <div class="result-type">${p.primaryTypeDisplayName?.text||'Business'}</div>
-      ${p.formattedAddress?`<div class="meta-row">📍 ${p.formattedAddress}</div>`:''}
-      ${p.nationalPhoneNumber?`<div class="meta-row">📞 ${p.nationalPhoneNumber}</div>`:''}
-      ${hours?`<div class="meta-row">🕐 ${hours}</div>`:''}
-      ${p.rating?`<div class="meta-row">⭐ ${p.rating} (${p.userRatingCount||0})</div>`:''}
-      <div class="result-actions">
-        <button class="action-btn" onclick="viewLeadCard(${i})">Lead Card</button>
-        ${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''}
-        <button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button>
-      </div>`;
+function renderBusinessResults(places){
+  const c=document.getElementById('results-container');
+  c.innerHTML=`<div class="results-header"><span class="results-count">${places.length} result${places.length!==1?'s':''}</span><button class="save-all-btn" onclick="saveAll()">Save All</button></div>`;
+  places.forEach((p,i)=>{
+    const name=p.displayName?.text||'Unknown',type=p.primaryTypeDisplayName?.text||'Business';
+    const{isChain}=classify(name,type);
+    const d=document.createElement('div');d.className='result-card';
+    if(isChain)d.style.opacity='0.55';
+    const hours=p.regularOpeningHours?.weekdayDescriptions?.[new Date().getDay()-1]||null;
+    d.innerHTML=`<div class="result-name">${name}</div><div class="result-type">${type}</div>${qualityHTML(name,type)}${p.formattedAddress?`<div class="meta-row">📍 ${p.formattedAddress}</div>`:''}${p.nationalPhoneNumber?`<div class="meta-row">📞 ${p.nationalPhoneNumber}</div>`:''}${hours?`<div class="meta-row">🕐 ${hours}</div>`:''}${p.rating?`<div class="meta-row">⭐ ${p.rating} (${p.userRatingCount||0})</div>`:''}<div class="result-actions">${!isChain?`<button class="action-btn" onclick="viewLeadCard(${i})">Lead Card</button>`:''} ${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''} ${!isChain?`<button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button>`:`<button class="action-btn" disabled style="opacity:.4">Chain — Skip</button>`}</div>`;
     c.appendChild(d);
   });
 }
 
-async function searchConsumer(address) {
-  const geoRes = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_API_KEY}`);
-  const geoData = await geoRes.json();
-  if (!geoData.results?.length) { document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🏠</div><div class="empty-state-title">Address not found</div></div>`; return; }
-  const geo = geoData.results[0];
-  const formatted = geo.formatted_address;
-  const comp = {};
-  geo.address_components.forEach(c => c.types.forEach(t => comp[t]=c.short_name));
-  const c = document.getElementById('results-container');
-  c.innerHTML='';
-  const card = document.createElement('div');
-  card.className='lead-card';
-  card.innerHTML=`
-    <div class="lead-card-header"><h2>🏠 Consumer Lookup</h2><p>${formatted}</p></div>
-    <div class="lead-card-body">
-      <div class="lead-section">
-        <div class="lead-section-title">Address Details</div>
-        <div class="lead-field"><span class="lead-field-label">Street</span><div class="lead-field-actions"><span class="lead-field-value">${comp.street_number||''} ${comp.route||''}</span><button class="field-btn" onclick="copyText('${(comp.street_number||'')+' '+(comp.route||'')}')">Copy</button></div></div>
-        <div class="lead-field"><span class="lead-field-label">City</span><span class="lead-field-value">${comp.locality||'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">County</span><span class="lead-field-value">${comp.administrative_area_level_2||'—'}</span></div>
-        <div class="lead-field"><span class="lead-field-label">ZIP</span><span class="lead-field-value">${comp.postal_code||'—'}</span></div>
-      </div>
-      <div class="result-actions" style="margin-top:12px">
-        <button class="action-btn" onclick="openMaps('${formatted.replace(/'/g,"\\'")}')">🗺 Maps</button>
-        <button class="action-btn primary" onclick="openStatusFlowConsumer('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button>
-      </div>
-    </div>`;
+async function searchConsumer(address){
+  const geoRes=await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_API_KEY}`);
+  const geoData=await geoRes.json();
+  if(!geoData.results?.length){document.getElementById('results-container').innerHTML=`<div class="empty-state"><div class="empty-state-icon">🏠</div><div class="empty-state-title">Address not found</div></div>`;return;}
+  const geo=geoData.results[0],formatted=geo.formatted_address,comp={};
+  geo.address_components.forEach(c=>c.types.forEach(t=>comp[t]=c.short_name));
+  const c=document.getElementById('results-container');c.innerHTML='';
+  const card=document.createElement('div');card.className='lead-card';
+  card.innerHTML=`<div class="lead-card-header"><h2>🏠 Consumer Lookup</h2><p>${formatted}</p></div><div class="lead-card-body"><div class="lead-section"><div class="lead-section-title">Address Details</div><div class="lead-field"><span class="lead-field-label">Street</span><div class="lead-field-actions"><span class="lead-field-value">${comp.street_number||''} ${comp.route||''}</span><button class="field-btn" onclick="copyText('${(comp.street_number||'')+' '+(comp.route||'')}')">Copy</button></div></div><div class="lead-field"><span class="lead-field-label">City</span><span class="lead-field-value">${comp.locality||'—'}</span></div><div class="lead-field"><span class="lead-field-label">County</span><span class="lead-field-value">${comp.administrative_area_level_2||'—'}</span></div><div class="lead-field"><span class="lead-field-label">ZIP</span><span class="lead-field-value">${comp.postal_code||'—'}</span></div></div><div class="result-actions" style="margin-top:12px"><button class="action-btn" onclick="openMaps('${formatted.replace(/'/g,"\\'")}')">🗺 Maps</button><button class="action-btn primary" onclick="openStatusFlowConsumer('${formatted.replace(/'/g,"\\'")}')">+ Save Lead</button></div></div>`;
   c.appendChild(card);
 }
 
 // ── LEAD CARD ──
-async function viewLeadCard(i) {
-  const p = currentResults[i];
-  const c = document.getElementById('results-container');
+async function viewLeadCard(i){
+  const p=currentResults[i],c=document.getElementById('results-container');
   c.innerHTML='';
-  const back = document.createElement('button');
-  back.className='back-btn'; back.innerHTML='← Back'; back.onclick=()=>renderBusinessResults(currentResults);
-  c.appendChild(back);
-  const isFL = p.formattedAddress?.includes(', FL') || p.formattedAddress?.includes('Florida');
-  const hours = p.regularOpeningHours?.weekdayDescriptions || [];
-  const card = document.createElement('div');
-  card.className='lead-card';
-  card.innerHTML=`
-    <div class="lead-card-header"><h2>${p.displayName?.text||'Business'}</h2><p>${p.primaryTypeDisplayName?.text||'Business'}</p></div>
-    <div class="lead-card-body">
-      <div class="lead-section">
-        <div class="lead-section-title">Contact Info</div>
-        <div class="lead-field"><span class="lead-field-label">Address</span><div class="lead-field-actions"><span class="lead-field-value" style="font-size:12px">${p.formattedAddress||'—'}</span><button class="field-btn" onclick="copyText('${(p.formattedAddress||'').replace(/'/g,"\\'")}')">Copy</button><button class="field-btn" onclick="openMaps('${(p.formattedAddress||'').replace(/'/g,"\\'")}')">Maps</button></div></div>
-        ${p.nationalPhoneNumber?`<div class="lead-field"><span class="lead-field-label">Phone</span><div class="lead-field-actions"><span class="lead-field-value">${p.nationalPhoneNumber}</span><button class="field-btn" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button></div></div>`:''}
-        ${p.websiteUri?`<div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value" style="font-size:12px">${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>`:''}
-        ${p.rating?`<div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating} ★ (${p.userRatingCount})</span></div>`:''}
-        ${hours.length?`<div class="lead-field"><span class="lead-field-label">Hours</span><span class="lead-field-value" style="font-size:12px">${hours[new Date().getDay()-1]||'—'}</span></div>`:''}
-      </div>
-      ${isFL?`<div class="lead-section">
-        <div class="lead-section-title"><span class="sunbiz-badge">Sunbiz FL</span><span class="erisa-badge">FreeERISA</span></div>
-        <div id="sunbiz-fields"><div class="loading" style="padding:8px 0"><div class="spinner"></div> Looking up FL records...</div></div>
-      </div>`:''}
-      <div class="lead-section">
-        <div class="lead-section-title">AI Prospect Summary</div>
-        <div class="ai-summary" id="ai-box-${i}">⏳ Generating...</div>
-      </div>
-      <div class="result-actions" style="margin-top:12px">
-        <button class="action-btn" onclick="renderBusinessResults(currentResults)">Back</button>
-        ${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''}
-        <button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button>
-      </div>
-    </div>`;
+  const back=document.createElement('button');back.className='back-btn';back.innerHTML='← Back';back.onclick=()=>renderBusinessResults(currentResults);c.appendChild(back);
+  const isFL=p.formattedAddress?.includes(', FL')||p.formattedAddress?.includes('Florida');
+  const name=p.displayName?.text||'Business',type=p.primaryTypeDisplayName?.text||'Business',addr=p.formattedAddress||'';
+  const hours=p.regularOpeningHours?.weekdayDescriptions||[];
+  const card=document.createElement('div');card.className='lead-card';
+  card.innerHTML=`<div class="lead-card-header"><h2>${name}</h2><p>${type}</p></div><div class="lead-card-body"><div class="lead-section">${qualityHTML(name,type)}<div class="lead-section-title">Contact Info</div><div class="lead-field"><span class="lead-field-label">Address</span><div class="lead-field-actions"><span class="lead-field-value">${addr||'—'}</span><button class="field-btn" onclick="copyText('${addr.replace(/'/g,"\\'")}')">Copy</button><button class="field-btn" onclick="openMaps('${addr.replace(/'/g,"\\'")}')">Maps</button></div></div>${p.nationalPhoneNumber?`<div class="lead-field"><span class="lead-field-label">Phone</span><div class="lead-field-actions"><span class="lead-field-value">${p.nationalPhoneNumber}</span><button class="field-btn" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button></div></div>`:''}${p.websiteUri?`<div class="lead-field"><span class="lead-field-label">Website</span><span class="lead-field-value">${p.websiteUri.replace(/^https?:\/\//,'').split('/')[0]}</span></div>`:''}${p.rating?`<div class="lead-field"><span class="lead-field-label">Rating</span><span class="lead-field-value">${p.rating} ★ (${p.userRatingCount})</span></div>`:''}${hours.length?`<div class="lead-field"><span class="lead-field-label">Hours Today</span><span class="lead-field-value">${hours[new Date().getDay()-1]||'—'}</span></div>`:''}</div>${isFL?`<div class="lead-section"><div class="lead-section-title"><span class="sunbiz-badge">🔍 Sunbiz FL</span></div><div id="sunbiz-fields"><div class="ai-loading"><div class="spinner"></div> Building lookup links...</div></div></div>`:''}<div class="lead-section"><div class="lead-section-title">AI Prospect Summary</div><div class="ai-loading" id="ai-box-${i}"><div class="spinner"></div> Generating...</div></div><div class="result-actions" style="margin-top:4px"><button class="action-btn" onclick="renderBusinessResults(currentResults)">Back</button>${p.nationalPhoneNumber?`<button class="action-btn call" onclick="callNumber('${p.nationalPhoneNumber}')">📞 Call</button>`:''}<button class="action-btn primary" onclick="openStatusFlow(${i})">+ Save</button></div></div>`;
   c.appendChild(card);
-  generateAISummary(p, i);
-  if (isFL) loadSunbiz(p, i);
+  generateAISummary(p,i);
+  if(isFL)loadSunbiz(p);
 }
 
-async function loadSunbiz(p) {
-  const el = document.getElementById('sunbiz-fields');
-  if (!el) return;
-  try {
-    const res = await fetch('/api/claude', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:250, messages:[{role:'user',content:`Return a realistic mock Florida Sunbiz record for "${p.displayName?.text}" as JSON only. Fields: ownerName, registeredAgent, entityType, status, filingDate (YYYY-MM-DD), annualReportYear. No other text.`}] })
+// ── SUNBIZ (name + address prefill) ──
+function loadSunbiz(p){
+  const el=document.getElementById('sunbiz-fields');if(!el)return;
+  const name=p.displayName?.text||'';
+  const addr=p.formattedAddress||'';
+  const street=addr.split(',')[0].trim();
+  const nameEnc=encodeURIComponent(name);
+  const streetEnc=encodeURIComponent(street);
+  el.innerHTML=`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px"><a href="https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&inquiryDirectionType=ForwardList&masterDataKind=All&searchTerm=${nameEnc}" target="_blank" class="field-btn" style="text-decoration:none">🏢 Search by Name</a><a href="https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=RegisteredAgent&inquiryDirectionType=ForwardList&searchTerm=${streetEnc}" target="_blank" class="field-btn" style="text-decoration:none">📍 Search by Address</a></div><div style="font-size:11px;color:var(--text3)">Sunbiz opens pre-filled · tap to verify owner/agent</div>`;
+}
+
+// ── AI SUMMARY (fixed proxy call) ──
+async function generateAISummary(place,i){
+  const el=document.getElementById(`ai-box-${i}`);if(!el)return;
+  const vc=selectedVein?VEINS.find(v=>v.id===selectedVein):null;
+  const vp=vc?` Specializing in ${vc.name}: ${vc.pitch.substring(0,80)}.`:'';
+  try{
+    const res=await fetch('/api/claude',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:200,
+        messages:[{role:'user',content:`You are a prospecting coach for a licensed insurance/financial advisor who sells Key Man, Buy-Sell, SEP-IRA, and Deferred Comp to small business owners.${vp} Write exactly 2 sentences: (1) why this specific business needs financial products, (2) the best door-opener line. Business: ${place.displayName?.text}. Type: ${place.primaryTypeDisplayName?.text}. Location: ${place.formattedAddress}. Be specific and punchy. No fluff.`}]
+      })
     });
-    const data = await res.json();
-    const text = (data.content?.[0]?.text||'').replace(/```json|```/g,'').trim();
-    const sb = JSON.parse(text);
-    const bizName = encodeURIComponent(p.displayName?.text||'');
-    const erisa = `https://www.freeerisa.com/search/search.aspx?q=${bizName}`;
-    const sunbizUrl = `https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&inquiryDirectionType=ForwardList&searchNameOrder=&masterDataKind=All&searchTerm=${bizName}`;
-    el.innerHTML=`
-      <div class="lead-field"><span class="lead-field-label">Owner</span><span class="lead-field-value">${sb.ownerName||'—'}</span></div>
-      <div class="lead-field"><span class="lead-field-label">Reg. Agent</span><span class="lead-field-value">${sb.registeredAgent||'—'}</span></div>
-      <div class="lead-field"><span class="lead-field-label">Type</span><span class="lead-field-value">${sb.entityType||'—'}</span></div>
-      <div class="lead-field"><span class="lead-field-label">Status</span><span class="lead-field-value">${sb.status||'—'}</span></div>
-      <div class="lead-field"><span class="lead-field-label">Filed</span><span class="lead-field-value">${sb.filingDate||'—'}</span></div>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <a href="${sunbizUrl}" target="_blank" class="field-btn" style="text-decoration:none;text-align:center">🔍 Verify on Sunbiz</a>
-        <a href="${erisa}" target="_blank" class="field-btn" style="text-decoration:none;text-align:center">📋 FreeERISA 401k</a>
-      </div>`;
-  } catch {
-    const bizName = encodeURIComponent(p.displayName?.text||'');
-    el.innerHTML=`<div style="display:flex;gap:8px">
-      <a href="https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResults?inquiryType=EntityName&searchTerm=${bizName}" target="_blank" class="field-btn" style="text-decoration:none">🔍 Search Sunbiz</a>
-      <a href="https://www.freeerisa.com/search/search.aspx?q=${bizName}" target="_blank" class="field-btn" style="text-decoration:none">📋 FreeERISA</a>
-    </div>`;
+    if(!res.ok)throw new Error(`${res.status}`);
+    const data=await res.json();
+    const text=data?.content?.[0]?.text||'';
+    if(!text)throw new Error('empty response');
+    el.className='ai-summary';
+    el.textContent='💡 '+text;
+  }catch(e){
+    el.className='ai-summary';
+    el.style.borderLeftColor='#E24B4A';
+    el.innerHTML='⚠️ AI unavailable. Check <strong>ANTHROPIC_API_KEY</strong> in Vercel env vars.';
   }
-}
-
-async function generateAISummary(place, i) {
-  const el = document.getElementById(`ai-box-${i}`);
-  if (!el) return;
-  // Build vein context if a vein is selected
-  const veinCtx = selectedVein ? VEINS.find(v=>v.id===selectedVein) : null;
-  const veinPrompt = veinCtx ? ` The agent is specifically prospecting for ${veinCtx.name} opportunities. Focus your summary on ${veinCtx.pitch.substring(0,100)}.` : '';
-  try {
-    const res = await fetch('/api/claude', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:150, messages:[{role:'user',content:`You are a prospecting assistant for a licensed insurance/financial advisor specializing in small business owner products (Key Man, Buy-Sell, SEP-IRA, Deferred Comp, Salary Allotment).${veinPrompt} Write 2 sentences: why this business needs insurance or financial services, and the best approach. Business: ${place.displayName?.text}, Type: ${place.primaryTypeDisplayName?.text}, Location: ${place.formattedAddress}. Specific and actionable only.`}] })
-    });
-    const data = await res.json();
-    el.textContent = '💡 ' + (data.content?.[0]?.text||'No summary available.');
-  } catch(e) { el.textContent = '💡 ' + (e.message||'AI summary unavailable.'); }
 }
 
 // ── STATUS FLOW ──
-let flowLead = null;
-let flowSel = { s1:null, s2:null, s3:null };
-let flowFollowup = 7;
-
-const FLOW = {
-  s1: [
-    { val:'called', label:'📞 Called', next:'called' },
-    { val:'inperson', label:'🤝 In Person', next:'inperson' },
-    { val:'material', label:'📄 Material', next:'material' },
-  ],
-  s2: {
-    called: [
-      { val:'disconnected', label:'📵 Disconnected', color:'red', next:null },
-      { val:'voicemail', label:'📬 Voicemail', next:'voicemail' },
-      { val:'nextstep', label:'📋 Next Step', color:'blue', next:null },
-      { val:'heard', label:'🎯 Heard Offer', next:'heard' },
-    ],
-    inperson: [
-      { val:'heard-ip', label:'🎯 Heard Offer', next:'heard-result' },
-      { val:'appt', label:'📅 Appointment', color:'green', next:null },
-      { val:'ni-ip', label:'👎 Not Interested', color:'red', next:null },
-    ],
-    material: [
-      { val:'form', label:'📝 Form Left', color:'amber', next:null },
-      { val:'mailed', label:'📬 Mailed', next:null },
-    ],
-  },
-  s3: {
-    voicemail: [
-      { val:'vm-left', label:'✅ Left Message', color:'blue' },
-      { val:'vm-dnl', label:'🚫 Do Not Leave', color:'red' },
-    ],
-    heard: [
-      { val:'interested', label:'👍 Interested', color:'green' },
-      { val:'notinterested', label:'👎 Not Interested', color:'red' },
-      { val:'incorrect', label:'⚠️ Wrong Info', color:'amber' },
-    ],
-    'heard-result': [
-      { val:'appt-set', label:'📅 Appt Set', color:'green' },
-      { val:'return', label:'🔄 Return Later', color:'blue' },
-      { val:'ni-heard', label:'👎 Not Interested', color:'red' },
-    ],
-  }
-};
-
-const STATUS_FROM_FLOW = {
-  disconnected:'contacted', voicemail:'contacted', nextstep:'contacted',
-  'vm-left':'contacted', 'vm-dnl':'contacted',
-  'form':'contacted', mailed:'contacted',
-  interested:'warm', 'appt-set':'warm', 'return':'warm',
-  notinterested:'notinterested', 'ni-ip':'notinterested', 'ni-heard':'notinterested',
-  incorrect:'notinterested', 'heard-ip':'warm', appt:'warm',
-};
-
-const FOLLOWUP_FROM_FLOW = {
-  disconnected:3, 'vm-left':3, 'vm-dnl':14, nextstep:7,
-  interested:3, 'appt-set':1, return:14,
-  notinterested:60, 'ni-ip':60, 'ni-heard':60,
-  form:7, mailed:14, appt:1,
-};
-
-function openStatusFlow(i) {
-  const p = currentResults[i];
-  flowLead = { name:p.displayName?.text||'Unknown', type:p.primaryTypeDisplayName?.text||'Business', address:p.formattedAddress||'', phone:p.nationalPhoneNumber||'', website:p.websiteUri||'', rating:p.rating||'', mode:'business' };
-  buildFlowUI();
+let flowLead=null,flowSel={s1:null,s2:null,s3:null},flowFollowup=7;
+const FLOW={s1:[{val:'called',label:'📞 Called',next:'called'},{val:'inperson',label:'🤝 In Person',next:'inperson'},{val:'material',label:'📄 Material',next:'material'}],s2:{called:[{val:'disconnected',label:'📵 Disconnected',next:null},{val:'voicemail',label:'📬 Voicemail',next:'voicemail'},{val:'nextstep',label:'📋 Next Step',next:null},{val:'heard',label:'🎯 Heard Offer',next:'heard'}],inperson:[{val:'heard-ip',label:'🎯 Heard Offer',next:'heard-result'},{val:'appt',label:'📅 Appointment',next:null},{val:'ni-ip',label:'👎 Not Interested',next:null}],material:[{val:'form',label:'📝 Form Left',next:null},{val:'mailed',label:'📬 Mailed',next:null}]},s3:{voicemail:[{val:'vm-left',label:'✅ Left Message'},{val:'vm-dnl',label:'🚫 Do Not Leave'}],heard:[{val:'interested',label:'👍 Interested'},{val:'notinterested',label:'👎 Not Interested'},{val:'incorrect',label:'⚠️ Wrong Info'}],'heard-result':[{val:'appt-set',label:'📅 Appt Set'},{val:'return',label:'🔄 Return Later'},{val:'ni-heard',label:'👎 Not Interested'}]}};
+const SFF={disconnected:'contacted',voicemail:'contacted',nextstep:'contacted','vm-left':'contacted','vm-dnl':'contacted',form:'contacted',mailed:'contacted',interested:'warm','appt-set':'warm',return:'warm',notinterested:'notinterested','ni-ip':'notinterested','ni-heard':'notinterested',incorrect:'notinterested','heard-ip':'warm',appt:'warm'};
+const FFU={disconnected:3,'vm-left':3,'vm-dnl':14,nextstep:7,interested:3,'appt-set':1,return:14,notinterested:60,'ni-ip':60,'ni-heard':60,form:7,mailed:14,appt:1};
+function openStatusFlow(i){const p=currentResults[i];flowLead={name:p.displayName?.text||'Unknown',type:p.primaryTypeDisplayName?.text||'Business',address:p.formattedAddress||'',phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business'};buildFlowUI();}
+function openStatusFlowConsumer(a){flowLead={name:a,type:'Consumer/Resident',address:a,mode:'consumer'};buildFlowUI();}
+function buildFlowUI(){
+  flowSel={s1:null,s2:null,s3:null};flowFollowup=7;
+  document.getElementById('flow-overlay')?.remove();
+  const today=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  const ol=document.createElement('div');ol.id='flow-overlay';ol.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;display:flex;align-items:flex-end;';
+  ol.innerHTML=`<div style="background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 40px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;"><div><div style="font-size:17px;font-weight:700">${flowLead.name}</div><div style="font-size:12px;color:var(--text3)">${flowLead.type}</div></div><button onclick="closeFlow()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text3)">✕</button></div><div class="flow-summary" id="flow-summary"></div><div class="flow-step"><div class="flow-step-label"><div class="flow-dot">1</div>How did you reach them?</div><div class="btn-grid col3" id="flow-s1">${FLOW.s1.map(o=>`<button class="flow-btn" onclick="flowPick1('${o.val}')">${o.label}</button>`).join('')}</div></div><div class="flow-step" id="flow-step2" style="opacity:.3;pointer-events:none"><div class="flow-step-label"><div class="flow-dot inactive" id="dot2">2</div>What happened?</div><div class="btn-grid col2" id="flow-s2"></div></div><div class="flow-step" id="flow-step3" style="opacity:.3;pointer-events:none"><div class="flow-step-label"><div class="flow-dot inactive" id="dot3">3</div>Outcome</div><div class="btn-grid col2" id="flow-s3"></div></div><div id="flow-bottom" style="opacity:.3;pointer-events:none"><div style="height:1px;background:var(--border);margin:12px 0"></div><div class="today-row"><span>Today</span><span style="font-weight:600">${today}</span></div><div class="lead-section-title" style="margin-bottom:8px">Follow-up in</div><div class="followup-chips"><button class="fc" onclick="pickFC(this,1)">1d</button><button class="fc" onclick="pickFC(this,3)">3d</button><button class="fc sel" onclick="pickFC(this,7)">7d</button><button class="fc" onclick="pickFC(this,14)">14d</button><button class="fc" onclick="pickFC(this,30)">30d</button><button class="fc" onclick="pickFC(this,60)">60d</button></div><div class="voice-wrap"><textarea class="flow-note" id="flow-note" placeholder="Person contacted, hours, best callback time, gatekeeper..."></textarea><button class="voice-btn" id="voice-btn" onclick="toggleVoice()">🎤</button></div><button class="save-flow-btn" onclick="saveFlow()">Save &amp; Close</button></div></div>`;
+  document.body.appendChild(ol);
 }
-
-function openStatusFlowConsumer(address) {
-  flowLead = { name:address, type:'Consumer/Resident', address, mode:'consumer' };
-  buildFlowUI();
-}
-
-function buildFlowUI() {
-  flowSel = {s1:null, s2:null, s3:null};
-  flowFollowup = 7;
-  const existing = document.getElementById('flow-overlay');
-  if (existing) existing.remove();
-
-  const today = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-
-  const overlay = document.createElement('div');
-  overlay.id = 'flow-overlay';
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;display:flex;align-items:flex-end;';
-  overlay.innerHTML = `
-    <div style="background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 40px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div>
-          <div style="font-size:17px;font-weight:700;color:var(--text)">${flowLead.name}</div>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px">${flowLead.type}</div>
-        </div>
-        <button onclick="closeFlow()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text3);padding:4px;">✕</button>
-      </div>
-
-      <div class="flow-summary" id="flow-summary"></div>
-
-      <div class="flow-step">
-        <div class="flow-step-label"><div class="flow-dot">1</div>How did you reach them?</div>
-        <div class="btn-grid col3" id="flow-s1">
-          ${FLOW.s1.map(o=>`<button class="flow-btn" onclick="flowPick1('${o.val}')">${o.label}</button>`).join('')}
-        </div>
-      </div>
-
-      <div class="flow-step" id="flow-step2" style="opacity:.3;pointer-events:none">
-        <div class="flow-step-label"><div class="flow-dot inactive" id="dot2">2</div><span id="s2-label">What happened?</span></div>
-        <div class="btn-grid col2" id="flow-s2"></div>
-      </div>
-
-      <div class="flow-step" id="flow-step3" style="opacity:.3;pointer-events:none">
-        <div class="flow-step-label"><div class="flow-dot inactive" id="dot3">3</div>Outcome</div>
-        <div class="btn-grid col2" id="flow-s3"></div>
-      </div>
-
-      <div id="flow-bottom" style="opacity:.3;pointer-events:none">
-        <div style="height:1px;background:var(--border);margin:12px 0"></div>
-        <div class="today-row"><span>Today</span><span style="font-weight:600;color:var(--text)">${today}</span></div>
-        <div class="lead-section-title" style="margin-bottom:8px">Follow-up in</div>
-        <div class="followup-chips" id="flow-chips">
-          <button class="fc" onclick="pickFC(this,1)">1d</button>
-          <button class="fc" onclick="pickFC(this,3)">3d</button>
-          <button class="fc sel" onclick="pickFC(this,7)">7d</button>
-          <button class="fc" onclick="pickFC(this,14)">14d</button>
-          <button class="fc" onclick="pickFC(this,30)">30d</button>
-          <button class="fc" onclick="pickFC(this,60)">60d</button>
-        </div>
-        <div class="voice-wrap">
-          <textarea class="flow-note" id="flow-note" placeholder="Person contacted, hours of operation, best callback time, gatekeeper name, form #..."></textarea>
-          <button class="voice-btn" id="voice-btn" onclick="toggleVoice()" title="Voice to text">🎤</button>
-        </div>
-        <button class="save-flow-btn" onclick="saveFlow()">Save &amp; Close</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-}
-
-function flowPick1(val) {
-  flowSel.s1=val; flowSel.s2=null; flowSel.s3=null;
-  document.querySelectorAll('#flow-s1 .flow-btn').forEach(b=>b.classList.remove('sel-blue'));
-  event.target.classList.add('sel-blue');
-  const opts = FLOW.s2[val]||[];
-  const grid = document.getElementById('flow-s2');
-  grid.className = 'btn-grid '+(opts.length===3?'col3':'col2');
-  grid.innerHTML = opts.map(o=>`<button class="flow-btn" onclick="flowPick2('${o.val}','${o.next||''}')">${o.label}</button>`).join('');
-  document.getElementById('flow-step2').style.cssText='opacity:1;pointer-events:auto';
-  document.getElementById('dot2').className='flow-dot';
-  document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';
-  document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';
-  updateFlowSummary();
-  autoSetFollowup();
-}
-
-function flowPick2(val, next) {
-  flowSel.s2=val; flowSel.s3=null;
-  document.querySelectorAll('#flow-s2 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));
-  const col = getFlowColor(val);
-  event.target.classList.add('sel-'+col);
-  if (next && FLOW.s3[next]) {
-    const opts = FLOW.s3[next];
-    const grid = document.getElementById('flow-s3');
-    grid.className='btn-grid '+(opts.length===3?'col3':'col2');
-    grid.innerHTML = opts.map(o=>`<button class="flow-btn" onclick="flowPick3('${o.val}')">${o.label}</button>`).join('');
-    document.getElementById('flow-step3').style.cssText='opacity:1;pointer-events:auto';
-    document.getElementById('dot3').className='flow-dot';
-    document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';
-  } else {
-    document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';
-    document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';
-    autoSetFollowup();
-  }
-  updateFlowSummary();
-}
-
-function flowPick3(val) {
-  flowSel.s3=val;
-  document.querySelectorAll('#flow-s3 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));
-  const col = getFlowColor(val);
-  event.target.classList.add('sel-'+col);
-  document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';
-  updateFlowSummary();
-  autoSetFollowup();
-}
-
-function getFlowColor(val) {
-  const colorMap = { disconnected:'red','vm-dnl':'red','ni-ip':'red',notinterested:'red','ni-heard':'red',incorrect:'amber',form:'amber',nextstep:'blue','vm-left':'blue',return:'blue',interested:'green','appt-set':'green',appt:'green',warm:'green',converted:'purple' };
-  return colorMap[val]||'blue';
-}
-
-function updateFlowSummary() {
-  const labels = {called:'Called',inperson:'In Person',material:'Material',disconnected:'Disconnected',voicemail:'Voicemail',nextstep:'Next Step',heard:'Heard Offer','heard-ip':'Heard Offer','vm-left':'Left Message','vm-dnl':'Do Not Leave',interested:'Interested',notinterested:'Not Interested',incorrect:'Wrong Info','appt-set':'Appt Set',return:'Return Later','ni-heard':'Not Interested','ni-ip':'Not Interested',appt:'Appointment',form:'Form Left',mailed:'Mailed'};
-  const parts = [flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>labels[v]||v);
-  const el = document.getElementById('flow-summary');
-  if (parts.length) { el.textContent='📋 '+parts.join(' → '); el.style.display='block'; }
-}
-
-function autoSetFollowup() {
-  const lastSel = flowSel.s3||flowSel.s2;
-  const days = FOLLOWUP_FROM_FLOW[lastSel]||7;
-  flowFollowup = days;
-  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));
-  const match = [...document.querySelectorAll('.fc')].find(b=>b.textContent===days+'d');
-  if (match) match.classList.add('sel');
-}
-
-function pickFC(el, days) {
-  flowFollowup=days;
-  document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
-function saveFlow() {
-  if (!flowSel.s1 && !flowSel.s2) { showToast('Pick a contact method first'); return; }
-  const lastSel = flowSel.s3||flowSel.s2||flowSel.s1;
-  const status = STATUS_FROM_FLOW[lastSel]||'contacted';
-  const labels = {called:'Called',inperson:'In Person',material:'Material',disconnected:'Disconnected',voicemail:'Voicemail',nextstep:'Next Step',heard:'Heard Offer','heard-ip':'Heard Offer','vm-left':'Left Message','vm-dnl':'Do Not Leave',interested:'Interested',notinterested:'Not Interested',incorrect:'Wrong Info','appt-set':'Appt Set',return:'Return Later','ni-heard':'Not Interested','ni-ip':'Not Interested',appt:'Appointment',form:'Form Left',mailed:'Mailed'};
-  const contactLog = [flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>labels[v]||v).join(' → ');
-  const d = new Date(); d.setDate(d.getDate()+flowFollowup);
-  const followup = d.toISOString().split('T')[0];
-  const existing = leads.findIndex(l=>l.name===flowLead.name&&l.address===flowLead.address);
-  const lead = { ...flowLead, id:existing>=0?leads[existing].id:Date.now(), savedAt:existing>=0?leads[existing].savedAt:new Date().toISOString(), status, followup, notes:document.getElementById('flow-note')?.value||'', contactLog };
-  if (existing>=0) leads[existing]=lead; else leads.unshift(lead);
-  localStorage.setItem('bp_leads',JSON.stringify(leads));
-  // Update streak
-  const today = new Date().toISOString().split('T')[0];
-  const lastActivity = localStorage.getItem('bp_last_activity');
-  if (lastActivity !== today) {
-    const streak = parseInt(localStorage.getItem('bp_streak') || '0');
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
-    const yStr = yesterday.toISOString().split('T')[0];
-    localStorage.setItem('bp_streak', lastActivity === yStr ? streak+1 : 1);
-    localStorage.setItem('bp_last_activity', today);
-  }
-  updateSavedCount();
-  closeFlow();
-  showToast('Saved · '+contactLog);
-}
-
-function closeFlow() { document.getElementById('flow-overlay')?.remove(); }
-
-// ── VOICE TO TEXT ──
-let recognition = null;
-let isRecording = false;
-function toggleVoice() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) { showToast('Voice not supported on this browser'); return; }
-  const btn = document.getElementById('voice-btn');
-  const note = document.getElementById('flow-note');
-  if (isRecording) {
-    recognition?.stop(); isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; return;
-  }
-  recognition = new SpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = 'en-US';
-  let base = note.value;
-  recognition.onresult = e => {
-    let interim='', final='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal) final+=e.results[i][0].transcript;
-      else interim+=e.results[i][0].transcript;
-    }
-    if(final) base+=(base?' ':'')+final;
-    note.value = base + (interim?' '+interim:'');
-  };
-  recognition.onerror = () => { isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; };
-  recognition.onend = () => { isRecording=false; btn.classList.remove('recording'); btn.textContent='🎤'; };
-  recognition.start();
-  isRecording=true; btn.classList.add('recording'); btn.textContent='🔴';
-}
-
-// ── CALL ──
-function callNumber(phone) {
-  const clean = phone.replace(/[^+\d]/g,'');
-  window.location.href='tel:'+clean;
-}
-
-// ── COPY + MAPS ──
-function copyText(text) {
-  navigator.clipboard?.writeText(text).then(()=>showToast('Copied ✓')).catch(()=>showToast('Copy failed'));
-}
-function openMaps(address) {
-  const isMobile=/iPhone|iPad|iPod/i.test(navigator.userAgent);
-  window.open(isMobile?`https://maps.apple.com/?daddr=${encodeURIComponent(address)}&dirflg=d`:`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`,'_blank');
-}
-
-// ── SAVE ALL ──
-function saveAll() {
-  let count=0;
-  const d=new Date(); d.setDate(d.getDate()+7);
+const FLABELS={called:'Called',inperson:'In Person',material:'Material',disconnected:'Disconnected',voicemail:'Voicemail',nextstep:'Next Step',heard:'Heard Offer','heard-ip':'Heard Offer','vm-left':'Left Message','vm-dnl':'Do Not Leave',interested:'Interested',notinterested:'Not Interested',incorrect:'Wrong Info','appt-set':'Appt Set',return:'Return Later','ni-heard':'Not Interested','ni-ip':'Not Interested',appt:'Appointment',form:'Form Left',mailed:'Mailed'};
+const FCOLORS={disconnected:'red','vm-dnl':'red','ni-ip':'red',notinterested:'red','ni-heard':'red',incorrect:'amber',form:'amber',nextstep:'blue','vm-left':'blue',return:'blue',interested:'green','appt-set':'green',appt:'green'};
+function gfc(v){return FCOLORS[v]||'blue';}
+function updateFlowSummary(){const parts=[flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>FLABELS[v]||v);const el=document.getElementById('flow-summary');if(parts.length){el.textContent='📋 '+parts.join(' → ');el.style.display='block';}}
+function autoSetFollowup(){const ls=flowSel.s3||flowSel.s2;const d=FFU[ls]||7;flowFollowup=d;document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));const m=[...document.querySelectorAll('.fc')].find(b=>b.textContent===d+'d');if(m)m.classList.add('sel');}
+function flowPick1(val){flowSel.s1=val;flowSel.s2=null;flowSel.s3=null;document.querySelectorAll('#flow-s1 .flow-btn').forEach(b=>b.classList.remove('sel-blue'));event.target.classList.add('sel-blue');const opts=FLOW.s2[val]||[];const g=document.getElementById('flow-s2');g.className='btn-grid '+(opts.length===3?'col3':'col2');g.innerHTML=opts.map(o=>`<button class="flow-btn" onclick="flowPick2('${o.val}','${o.next||''}')">${o.label}</button>`).join('');document.getElementById('flow-step2').style.cssText='opacity:1;pointer-events:auto';document.getElementById('dot2').className='flow-dot';document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';updateFlowSummary();autoSetFollowup();}
+function flowPick2(val,next){flowSel.s2=val;flowSel.s3=null;document.querySelectorAll('#flow-s2 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));event.target.classList.add('sel-'+gfc(val));if(next&&FLOW.s3[next]){const opts=FLOW.s3[next];const g=document.getElementById('flow-s3');g.className='btn-grid '+(opts.length===3?'col3':'col2');g.innerHTML=opts.map(o=>`<button class="flow-btn" onclick="flowPick3('${o.val}')">${o.label}</button>`).join('');document.getElementById('flow-step3').style.cssText='opacity:1;pointer-events:auto';document.getElementById('dot3').className='flow-dot';document.getElementById('flow-bottom').style.cssText='opacity:.3;pointer-events:none';}else{document.getElementById('flow-step3').style.cssText='opacity:.3;pointer-events:none';document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';autoSetFollowup();}updateFlowSummary();}
+function flowPick3(val){flowSel.s3=val;document.querySelectorAll('#flow-s3 .flow-btn').forEach(b=>b.classList.remove('sel-blue','sel-red','sel-amber','sel-green','sel-purple'));event.target.classList.add('sel-'+gfc(val));document.getElementById('flow-bottom').style.cssText='opacity:1;pointer-events:auto';updateFlowSummary();autoSetFollowup();}
+function pickFC(el,days){flowFollowup=days;document.querySelectorAll('.fc').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');}
+function saveFlow(){
+  if(!flowSel.s1&&!flowSel.s2){showToast('Pick a contact method first');return;}
+  const ls=flowSel.s3||flowSel.s2||flowSel.s1,status=SFF[ls]||'contacted';
+  const contactLog=[flowSel.s1,flowSel.s2,flowSel.s3].filter(Boolean).map(v=>FLABELS[v]||v).join(' → ');
+  const d=new Date();d.setDate(d.getDate()+flowFollowup);
   const followup=d.toISOString().split('T')[0];
-  currentResults.forEach(p=>{
-    const name=p.displayName?.text||'Unknown', address=p.formattedAddress||'';
-    if(!leads.find(l=>l.name===name&&l.address===address)){
-      leads.unshift({name,type:p.primaryTypeDisplayName?.text||'Business',address,phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business',id:Date.now()+count,savedAt:new Date().toISOString(),followup,status:'new',notes:'',contactLog:''});
-      count++;
-    }
-  });
+  const ex=leads.findIndex(l=>l.name===flowLead.name&&l.address===flowLead.address);
+  const lead={...flowLead,id:ex>=0?leads[ex].id:Date.now(),savedAt:ex>=0?leads[ex].savedAt:new Date().toISOString(),status,followup,notes:document.getElementById('flow-note')?.value||'',contactLog};
+  if(ex>=0)leads[ex]=lead;else leads.unshift(lead);
   localStorage.setItem('bp_leads',JSON.stringify(leads));
-  updateSavedCount();
-  showToast(`${count} lead${count!==1?'s':''} saved ✓`);
+  const td=new Date().toISOString().split('T')[0],la=localStorage.getItem('bp_last_activity');
+  if(la!==td){const s=parseInt(localStorage.getItem('bp_streak')||'0'),y=new Date();y.setDate(y.getDate()-1);localStorage.setItem('bp_streak',la===y.toISOString().split('T')[0]?s+1:1);localStorage.setItem('bp_last_activity',td);}
+  updateSavedCount();closeFlow();showToast('Saved · '+contactLog);
+}
+function closeFlow(){document.getElementById('flow-overlay')?.remove();}
+
+let recognition=null,isRecording=false;
+function toggleVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){showToast('Voice not supported');return;}const btn=document.getElementById('voice-btn'),note=document.getElementById('flow-note');if(isRecording){recognition?.stop();isRecording=false;btn.classList.remove('recording');btn.textContent='🎤';return;}recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';let base=note.value;recognition.onresult=e=>{let int='',fin='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)fin+=e.results[i][0].transcript;else int+=e.results[i][0].transcript;}if(fin)base+=(base?' ':'')+fin;note.value=base+(int?' '+int:'');};recognition.onerror=recognition.onend=()=>{isRecording=false;btn.classList.remove('recording');btn.textContent='🎤';};recognition.start();isRecording=true;btn.classList.add('recording');btn.textContent='🔴';}
+
+function callNumber(phone){window.location.href='tel:'+phone.replace(/[^+\d]/g,'');}
+function copyText(t){navigator.clipboard?.writeText(t).then(()=>showToast('Copied ✓')).catch(()=>showToast('Copy failed'));}
+function openMaps(a){const mob=/iPhone|iPad|iPod/i.test(navigator.userAgent);window.open(mob?`https://maps.apple.com/?daddr=${encodeURIComponent(a)}&dirflg=d`:`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(a)}`,'_blank');}
+
+function saveAll(){
+  let n=0;const d=new Date();d.setDate(d.getDate()+7);const fu=d.toISOString().split('T')[0];
+  currentResults.forEach(p=>{const name=p.displayName?.text||'Unknown',addr=p.formattedAddress||'';const{isChain}=classify(name,p.primaryTypeDisplayName?.text||'');if(isChain)return;if(!leads.find(l=>l.name===name&&l.address===addr)){leads.unshift({name,type:p.primaryTypeDisplayName?.text||'Business',address:addr,phone:p.nationalPhoneNumber||'',website:p.websiteUri||'',rating:p.rating||'',mode:'business',id:Date.now()+n,savedAt:new Date().toISOString(),followup:fu,status:'new',notes:'',contactLog:''});n++;}});
+  localStorage.setItem('bp_leads',JSON.stringify(leads));updateSavedCount();showToast(`${n} independent lead${n!==1?'s':''} saved ✓`);
 }
 
-// ── SAVED LIST ──
-function renderSaved() {
-  const filter=document.getElementById('filter-status').value;
-  const sort=document.getElementById('sort-by').value;
+function renderSaved(){
+  const filter=document.getElementById('filter-status').value,sort=document.getElementById('sort-by').value;
   let list=filter==='all'?[...leads]:leads.filter(l=>l.status===filter);
-  if(sort==='followup') list.sort((a,b)=>(a.followup||'9')>(b.followup||'9')?1:-1);
-  else if(sort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  if(sort==='followup')list.sort((a,b)=>(a.followup||'9')>(b.followup||'9')?1:-1);
+  else if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name));
   const c=document.getElementById('saved-list');
   if(!list.length){c.innerHTML=`<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">${filter==='all'?'No saved leads yet':'No leads with this status'}</div></div>`;return;}
-  c.innerHTML=list.map(l=>{
-    const i=leads.indexOf(l);
-    const sbClass='sb-'+(l.status||'new');
-    return `<div class="saved-item">
-      <div class="saved-item-info" onclick="reopenFlow(${i})">
-        <div class="saved-item-name">${l.name}</div>
-        <div class="saved-item-sub">${l.contactLog||l.type}${l.followup?' · '+l.followup:''}</div>
-        ${l.notes?`<div class="saved-item-sub" style="font-style:italic">${l.notes.substring(0,55)}${l.notes.length>55?'…':''}</div>`:''}
-      </div>
-      <div class="saved-item-right">
-        <span class="status-badge ${sbClass}">${STATUS_LABEL[l.status]||l.status}</span>
-        <div style="display:flex;gap:6px;margin-top:2px">
-          ${l.phone?`<button class="map-btn" onclick="callNumber('${l.phone}')">📞</button>`:''}
-          ${l.address?`<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺</button>`:''}
-          <button class="map-btn" style="color:#E24B4A" onclick="deleteLead(${i})">✕</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+  c.innerHTML=list.map(l=>{const i=leads.indexOf(l),sb='sb-'+(l.status||'new');return`<div class="saved-item"><div class="saved-item-info" onclick="reopenFlow(${i})"><div class="saved-item-name">${l.name}</div><div class="saved-item-sub">${l.contactLog||l.type}${l.followup?' · '+l.followup:''}</div>${l.notes?`<div class="saved-item-sub" style="font-style:italic">${l.notes.substring(0,55)}${l.notes.length>55?'…':''}</div>`:''}</div><div class="saved-item-right"><span class="status-badge ${sb}">${STATUS_LABEL[l.status]||l.status}</span><div style="display:flex;gap:6px;margin-top:2px">${l.phone?`<button class="map-btn" onclick="callNumber('${l.phone}')">📞</button>`:''}${l.address?`<button class="map-btn" onclick="openMaps('${l.address.replace(/'/g,"\\'")}')">🗺</button>`:''}<button class="map-btn" style="color:#E24B4A" onclick="deleteLead(${i})">✕</button></div></div></div>`;}).join('');
 }
-
-function reopenFlow(i) {
-  flowLead = {...leads[i]};
-  flowSel={s1:null,s2:null,s3:null}; flowFollowup=7;
-  buildFlowUI();
-  setTimeout(()=>{
-    const note=document.getElementById('flow-note');
-    if(note&&leads[i].notes) note.value=leads[i].notes;
-  },100);
-}
-
-function deleteLead(i) {
-  if(!confirm('Delete this lead?')) return;
-  leads.splice(i,1);
-  localStorage.setItem('bp_leads',JSON.stringify(leads));
-  updateSavedCount(); renderSaved();
-  showToast('Deleted');
-}
-
-// ── CSV ──
-function exportCSV() {
-  if(!leads.length){showToast('No leads to export');return;}
-  const cols=['name','type','address','phone','website','status','contactLog','followup','notes','savedAt'];
-  const rows=[cols.join(','),...leads.map(l=>cols.map(k=>`"${(l[k]||'').toString().replace(/"/g,'""')}"`).join(','))];
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
-  a.download=`basepoint-${new Date().toISOString().split('T')[0]}.csv`;
-  a.click(); showToast('CSV downloaded ✓');
-}
-
-// ── GPS + RADIUS ──
-function useNearMe() {
-  if(!navigator.geolocation){showToast('GPS not available');return;}
-  const btn=document.getElementById('near-me-btn');
-  btn.textContent='⏳ Locating...';
-  navigator.geolocation.getCurrentPosition(pos=>{
-    userLat=pos.coords.latitude; userLng=pos.coords.longitude;
-    btn.textContent='📍 Near Me ✓'; btn.classList.add('active'); showToast('Location set');
-  },()=>{btn.textContent='📍 Near Me'; showToast('Location denied');});
-}
+function reopenFlow(i){flowLead={...leads[i]};flowSel={s1:null,s2:null,s3:null};flowFollowup=7;buildFlowUI();setTimeout(()=>{const n=document.getElementById('flow-note');if(n&&leads[i].notes)n.value=leads[i].notes;},100);}
+function deleteLead(i){if(!confirm('Delete this lead?'))return;leads.splice(i,1);localStorage.setItem('bp_leads',JSON.stringify(leads));updateSavedCount();renderSaved();showToast('Deleted');}
+function exportCSV(){if(!leads.length){showToast('No leads to export');return;}const cols=['name','type','address','phone','website','status','contactLog','followup','notes','savedAt'];const rows=[cols.join(','),...leads.map(l=>cols.map(k=>`"${(l[k]||'').toString().replace(/"/g,'""')}"`).join(','))];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download=`basepoint-${new Date().toISOString().split('T')[0]}.csv`;a.click();showToast('CSV downloaded ✓');}
+function useNearMe(){if(!navigator.geolocation){showToast('GPS not available');return;}const btn=document.getElementById('near-me-btn');btn.textContent='⏳ Locating...';navigator.geolocation.getCurrentPosition(pos=>{userLat=pos.coords.latitude;userLng=pos.coords.longitude;btn.textContent='📍 Near Me ✓';btn.classList.add('active');showToast('Location set');},()=>{btn.textContent='📍 Near Me';showToast('Location denied');});}
 function updateRadius(val){searchRadius=val*1609;document.getElementById('radius-label').textContent=val+' mi';}
-
-// ── CALENDAR ──
 function initCal(){const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();calSelected=null;}
 function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
 function renderCalendar(){
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('cal-month-label').textContent=months[calMonth]+' '+calYear;
-  const firstDay=new Date(calYear,calMonth,1).getDay();
-  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
-  const today=new Date();
-  const followupDays=new Set(leads.filter(l=>l.followup).map(l=>l.followup));
-  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
-  let html=days.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
-  for(let i=0;i<firstDay;i++) html+=`<div class="cal-cell other-month"></div>`;
-  for(let d=1;d<=daysInMonth;d++){
-    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
-    const hasLeads=followupDays.has(ds);
-    const isSel=calSelected===ds;
-    html+=`<div class="cal-cell${isToday?' today':''}${hasLeads?' has-leads':''}${isSel?' selected':''}" onclick="selectCalDay('${ds}')">${d}</div>`;
-  }
-  document.getElementById('cal-grid').innerHTML=html;
-  renderCalLeads(calSelected);
+  const fd=new Date(calYear,calMonth,1).getDay(),dim=new Date(calYear,calMonth+1,0).getDate(),today=new Date();
+  const fud=new Set(leads.filter(l=>l.followup).map(l=>l.followup));
+  let html=['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+  for(let i=0;i<fd;i++)html+=`<div class="cal-cell other-month"></div>`;
+  for(let d=1;d<=dim;d++){const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const iT=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;html+=`<div class="cal-cell${iT?' today':''}${fud.has(ds)?' has-leads':''}${calSelected===ds?' selected':''}" onclick="selectCalDay('${ds}')">${d}</div>`;}
+  document.getElementById('cal-grid').innerHTML=html;renderCalLeads(calSelected);
 }
 function selectCalDay(ds){calSelected=ds;renderCalendar();}
 function renderCalLeads(ds){
   const c=document.getElementById('cal-leads');
   if(!ds){c.innerHTML=`<div class="cal-empty">Tap a date to see follow-ups</div>`;return;}
-  const dayLeads=leads.filter(l=>l.followup===ds);
-  const label=new Date(ds+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  if(!dayLeads.length){c.innerHTML=`<div class="cal-leads-header">${label}</div><div class="cal-empty">No follow-ups this day</div>`;return;}
-  c.innerHTML=`<div class="cal-leads-header">${label} · ${dayLeads.length} follow-up${dayLeads.length!==1?'s':''}</div>`+dayLeads.map(l=>{
-    const i=leads.indexOf(l);
-    const sbClass='sb-'+(l.status||'new');
-    return `<div class="cal-lead-row">
-      <div><div style="font-weight:500">${l.name}</div><div style="font-size:12px;color:var(--text3)">${l.contactLog||l.type}</div></div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span class="status-badge ${sbClass}">${STATUS_LABEL[l.status]||l.status}</span>
-        <button onclick="reopenFlow(${i})" style="background:none;border:none;color:var(--bp);font-size:13px;font-weight:500;cursor:pointer">Log</button>
-      </div>
-    </div>`;
-  }).join('');
+  const dl=leads.filter(l=>l.followup===ds),label=new Date(ds+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  if(!dl.length){c.innerHTML=`<div class="cal-leads-header">${label}</div><div class="cal-empty">No follow-ups this day</div>`;return;}
+  c.innerHTML=`<div class="cal-leads-header">${label} · ${dl.length} follow-up${dl.length!==1?'s':''}</div>`+dl.map(l=>{const i=leads.indexOf(l),sb='sb-'+(l.status||'new');return`<div class="cal-lead-row"><div><div style="font-weight:500">${l.name}</div><div style="font-size:12px;color:var(--text3)">${l.contactLog||l.type}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="status-badge ${sb}">${STATUS_LABEL[l.status]||l.status}</span><button onclick="reopenFlow(${i})" style="background:none;border:none;color:var(--bp);font-size:13px;font-weight:500;cursor:pointer">Log</button></div></div>`;}).join('');
 }
 
 // ── WEBAUTHN ──
@@ -1221,34 +632,10 @@ function fromB64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)
 function getOrCreateUserId(){let id=localStorage.getItem(USER_ID_KEY);if(!id){id=b64url(crypto.getRandomValues(new Uint8Array(16)));localStorage.setItem(USER_ID_KEY,id);}return id;}
 function setAuthError(msg){document.getElementById('auth-error').textContent=msg;}
 function unlockApp(){document.getElementById('auth-screen').classList.add('hidden');document.getElementById('app-shell').classList.remove('hidden');switchTab('mission');}
-async function handleRegister(){
-  setAuthError('');
-  try{
-    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{id:window.location.hostname,name:RP_NAME},user:{id:fromB64url(getOrCreateUserId()),name:'owner',displayName:'BasePoint Owner'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});
-    localStorage.setItem(CRED_KEY,b64url(cred.rawId));unlockApp();
-  }catch(e){setAuthError('Setup failed: '+(e.message||e));}
-}
-async function handleAuthPrimary(){
-  setAuthError('');
-  const credId=localStorage.getItem(CRED_KEY);
-  if(!credId){showSetup();return;}
-  try{
-    await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:window.location.hostname,allowCredentials:[{type:'public-key',id:fromB64url(credId)}],userVerification:'required',timeout:60000}});
-    unlockApp();
-  }catch(e){setAuthError(e.name==='NotAllowedError'?'Cancelled.':'Try again.');}
-}
-function showSetup(){
-  document.getElementById('auth-title').textContent='First time setup';
-  document.getElementById('auth-sub').textContent='Set up Face ID or Touch ID to protect your BasePoint.';
-  document.getElementById('auth-icon').textContent='🔐';
-  document.getElementById('auth-primary-btn').classList.add('hidden');
-  document.getElementById('auth-register-btn').classList.remove('hidden');
-}
-window.addEventListener('load',()=>{
-  initCal();
-  if(!window.PublicKeyCredential){setAuthError('Biometrics not supported.');document.getElementById('auth-primary-btn').textContent='Continue Anyway';document.getElementById('auth-primary-btn').onclick=unlockApp;return;}
-  if(!localStorage.getItem(CRED_KEY))showSetup();
-});
+async function handleRegister(){setAuthError('');try{const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{id:window.location.hostname,name:RP_NAME},user:{id:fromB64url(getOrCreateUserId()),name:'owner',displayName:'BasePoint Owner'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},timeout:60000}});localStorage.setItem(CRED_KEY,b64url(cred.rawId));unlockApp();}catch(e){setAuthError('Setup failed: '+(e.message||e));}}
+async function handleAuthPrimary(){setAuthError('');const credId=localStorage.getItem(CRED_KEY);if(!credId){showSetup();return;}try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:window.location.hostname,allowCredentials:[{type:'public-key',id:fromB64url(credId)}],userVerification:'required',timeout:60000}});unlockApp();}catch(e){setAuthError(e.name==='NotAllowedError'?'Cancelled.':'Try again.');}}
+function showSetup(){document.getElementById('auth-title').textContent='First time setup';document.getElementById('auth-sub').textContent='Set up Face ID or Touch ID to protect your BasePoint.';document.getElementById('auth-icon').textContent='🔐';document.getElementById('auth-primary-btn').classList.add('hidden');document.getElementById('auth-register-btn').classList.remove('hidden');}
+window.addEventListener('load',()=>{initCal();if(!window.PublicKeyCredential){setAuthError('Biometrics not supported.');document.getElementById('auth-primary-btn').textContent='Continue Anyway';document.getElementById('auth-primary-btn').onclick=unlockApp;return;}if(!localStorage.getItem(CRED_KEY))showSetup();});
 </script>
 </body>
 </html>
