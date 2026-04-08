@@ -519,7 +519,7 @@ async function generateAISummary(place,i){
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-haiku-4-5',
+        model:'claude-haiku-4-5-20251001',
         max_tokens:200,
         messages:[{role:'user',content:`You are a prospecting coach for a licensed insurance/financial advisor who sells Key Man, Buy-Sell, SEP-IRA, and Deferred Comp to small business owners.${vp} Write exactly 2 sentences: (1) why this specific business needs financial products, (2) the best door-opener line. Business: ${place.displayName?.text}. Type: ${place.primaryTypeDisplayName?.text}. Location: ${place.formattedAddress}. Be specific and punchy. No fluff.`}]
       })
